@@ -62,7 +62,10 @@ export default {
       bigScreenRatioWidth: state => state.bigScreenRatio.width,
       bigScreenRatioHeight: state => state.bigScreenRatio.height,
       magnification: 'magnification'
-    })
+    }),
+    mouseXYMagnification() {
+      return this.magnification / 100
+    }
   },
   methods: {
     elementDown(e) {
@@ -84,10 +87,10 @@ export default {
       pauseEvent(e)
       this.left =
         startLeftPos -
-        ((e.touches ? e.touches[0].pageX : e.pageX) - startMousePosX)
+        ((e.touches ? e.touches[0].pageX : e.pageX) - startMousePosX) / this.mouseXYMagnification
       this.top =
         startTopPos -
-        ((e.touches ? e.touches[0].pageY : e.pageY) - startMousePosY)
+        ((e.touches ? e.touches[0].pageY : e.pageY) - startMousePosY) / this.mouseXYMagnification
     },
 
     handleUp(e) {
