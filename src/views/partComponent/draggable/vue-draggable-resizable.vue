@@ -8,8 +8,8 @@
       [classNameDraggable]: draggable,
       [classNameResizable]: resizable
     }, className]"
-    @mousedown="elementDown"
-    @touchstart="elementTouchDown"
+    @mousedown.stop="elementDown"
+    @touchstart.stop="elementTouchDown"
   >
     <div
       v-for="handle in actualHandles"

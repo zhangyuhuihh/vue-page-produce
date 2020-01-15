@@ -1,7 +1,6 @@
 <template>
   <div class="edit_area" @mousedown="elementDown">
     <div
-      @mousedown.stop
       class="edit_area_container"
       :style="{
         transform: `scale(${magnification / 100}, ${magnification / 100}) translate(${-left}px, ${-top}px)`,
@@ -128,7 +127,6 @@ export default {
 
 <style lang="scss" scoped>
 .edit_area {
-  cursor: pointer;
   position: absolute;
   top: 0;
   left: 0;

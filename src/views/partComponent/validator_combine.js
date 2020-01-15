@@ -1,6 +1,6 @@
 // 返回'pass'为通过，返回msg为不通过
 
-const validateFieldDataSource = msg => {
+const validateFieldDataSource = () => {
   return formModel => {
     if (formModel.dataType === 'real') {
       return formModel.url ? 'pass' : '请输入请求链接'
@@ -8,7 +8,7 @@ const validateFieldDataSource = msg => {
     if (formModel.dataType === 'fake') {
       return formModel.fakeData ? 'pass' : '请输入正确的模拟数据'
     }
-    return 'pass'
+    return 'noPass'
   }
 }
 

@@ -95,6 +95,7 @@ export default {
 
 <style lang="scss" scoped>
 .right_container {
+  cursor: pointer;
   background-color: #0a304d;
   position: relative;
 }
