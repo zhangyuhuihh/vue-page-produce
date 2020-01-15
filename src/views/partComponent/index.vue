@@ -32,11 +32,11 @@ export default {
   width: 100%;
   height: 100%;
   .left_container {
-    flex: 1;
-    background-color: red;
+    width: 200px;
+    // background-color: red;
   }
   .middle_container {
-    flex: 7;
+    flex: 1;
     position: relative;
     // background-color: blue;
     background-image: linear-gradient(
@@ -57,8 +57,9 @@ export default {
     background-size: 26px 26px;
   }
   .right_container {
-    flex: 2;
-    background-color: yellow;
+    // flex: 2;
+    width: 300px;
+    // background-color: yellow;
   }
 }
 </style>

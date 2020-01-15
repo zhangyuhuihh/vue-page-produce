@@ -35,13 +35,15 @@ import _ from 'lodash'
 import TestComponentOne from './testComponents/testComponentOne'
 import TestComponentTwo from './testComponents/testComponentTwo'
 import TestComponentThree from './testComponents/testComponentThree'
+import TitleChildOne from './components/title/TitleChildOne/index'
 export default {
   name: 'myDraggable',
   components: {
     VueDraggableResizable,
     TestComponentOne,
     TestComponentTwo,
-    TestComponentThree
+    TestComponentThree,
+    TitleChildOne
   },
   props: {},
   data() {

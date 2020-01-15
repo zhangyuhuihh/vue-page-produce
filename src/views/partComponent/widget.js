@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import widgetFields from './widget_fields' // 单一的form
-import widgetFieldsCombine from './widget_fields_combine' // 定制化的form
+// import widgetFieldsCombine from './widget_fields_combine' // 定制化的form
 import validators from './validators'
-import validatorCombine from './validator_combine'
-import jsonTemplate from './json_template'
+// import validatorCombine from './validator_combine'
+// import jsonTemplate from './json_template'
 
 /**
  * uuid: 前端唯一标识
@@ -78,120 +78,160 @@ class Widget {
   }
 }
 
-class TestComponentOne extends Widget {
-  static initSize = {
-    width: 300,
-    height: 300
+class Title extends Widget {
+  static componentDescription = {
+    name: '标题',
+    parent: 'widget'
+  }
+
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 1920,
+      height: 50
+    })
+  }
+}
+
+class TitleChildOne extends Title {
+  static componentDescription = {
+    name: '子标题1',
+    parent: 'Title'
   }
   constructor(constructorData) {
     super(constructorData)
-
-    this.componentKey = 'TestComponentOne'
-
-    this.setDragSize(constructorData, {
-      width: TestComponentOne.initSize.width,
-      height: TestComponentOne.initSize.height
-    })
+    this.componentKey = 'TitleChildOne'
 
     this.setFields(constructorData, {
       url: widgetFields.FieldInput({
         label: '链接',
         validator: [validators.requireInput('请输入链接')]
-      }),
-      ip: widgetFields.FieldInput({
-        label: '地址',
-        validator: [validators.requireInput('请输入地址')]
-      }),
-      people: widgetFields.FieldRadio({
-        validator: [validators.requireInput('请选择人')],
-        radios: [
-          {
-            label: '张三',
-            value: 'zhangsan'
-          },
-          {
-            label: '李四',
-            value: 'lisi'
-          }
-        ]
       })
     })
   }
 }
 
-class TestComponentTwo extends Widget {
-  static initSize = {
-    width: 200,
-    height: 500
-  }
-  constructor(constructorData) {
-    super(constructorData)
+// class TestComponentOne extends Widget {
+//   static initSize = {
+//     width: 300,
+//     height: 300
+//   }
 
-    this.componentKey = 'TestComponentTwo'
+//   static componentDescription = {
+//     name: '测试组件1',
+//     parent
+//   }
 
-    this.setDragSize(constructorData, {
-      width: TestComponentTwo.initSize.width,
-      height: TestComponentTwo.initSize.height
-    })
+//   constructor(constructorData) {
+//     super(constructorData)
 
-    this.setStyleFields(constructorData, {
-      color: widgetFields.FieldColorPicker(),
-      fontSize: widgetFields.FieldSelect({
-        label: '请选择字体大小',
-        options: ['12px', '20px', '30px']
-      })
-    })
-  }
-}
+//     this.componentKey = 'TestComponentOne'
 
-class TestComponentThree extends Widget {
-  static initSize = {
-    width: 200,
-    height: 500
-  }
-  constructor(constructorData) {
-    super(constructorData)
+//     this.setDragSize(constructorData, {
+//       width: TestComponentOne.initSize.width,
+//       height: TestComponentOne.initSize.height
+//     })
 
-    this.componentKey = 'TestComponentThree'
+//     this.setFields(constructorData, {
+//       url: widgetFields.FieldInput({
+//         label: '链接',
+//         validator: [validators.requireInput('请输入链接')]
+//       }),
+//       ip: widgetFields.FieldInput({
+//         label: '地址',
+//         validator: [validators.requireInput('请输入地址')]
+//       }),
+//       people: widgetFields.FieldRadio({
+//         validator: [validators.requireInput('请选择人')],
+//         radios: [
+//           {
+//             label: '张三',
+//             value: 'zhangsan'
+//           },
+//           {
+//             label: '李四',
+//             value: 'lisi'
+//           }
+//         ]
+//       })
+//     })
+//   }
+// }
 
-    this.setDragSize(constructorData, {
-      width: TestComponentThree.initSize.width,
-      height: TestComponentThree.initSize.height
-    })
+// class TestComponentTwo extends Widget {
+//   static initSize = {
+//     width: 200,
+//     height: 500
+//   }
+//   constructor(constructorData) {
+//     super(constructorData)
 
-    this.setFields(constructorData, {
-      url: widgetFields.FieldInput({
-        label: '链接',
-        validator: [validators.requireInput('请输入链接')]
-      }),
-      ip: widgetFields.FieldInput({
-        label: '地址',
-        validator: [validators.requireInput('请输入地址')]
-      }),
-      isFakeData: widgetFieldsCombine.FieldsDataSource({
-        validator: [validatorCombine.validateFieldDataSource()],
-        fakeData: JSON.stringify(jsonTemplate.ForTestComponentThree),
-        radios: [
-          {
-            label: '使用接口数据',
-            value: 'real'
-          },
-          {
-            label: '使用模拟数据',
-            value: 'fake'
-          }
-        ]
-      })
-    })
+//     this.componentKey = 'TestComponentTwo'
 
-    this.setStyleFields(constructorData, {
-      color: widgetFields.FieldColorPicker(),
-      fontSize: widgetFields.FieldSelect({
-        label: '请选择字体大小',
-        options: ['12px', '20px', '30px']
-      })
-    })
-  }
-}
+//     this.setDragSize(constructorData, {
+//       width: TestComponentTwo.initSize.width,
+//       height: TestComponentTwo.initSize.height
+//     })
 
-export { TestComponentOne, TestComponentTwo, TestComponentThree }
+//     this.setStyleFields(constructorData, {
+//       color: widgetFields.FieldColorPicker(),
+//       fontSize: widgetFields.FieldSelect({
+//         label: '请选择字体大小',
+//         options: ['12px', '20px', '30px']
+//       })
+//     })
+//   }
+// }
+
+// class TestComponentThree extends Widget {
+//   static initSize = {
+//     width: 200,
+//     height: 500
+//   }
+//   constructor(constructorData) {
+//     super(constructorData)
+
+//     this.componentKey = 'TestComponentThree'
+
+//     this.setDragSize(constructorData, {
+//       width: TestComponentThree.initSize.width,
+//       height: TestComponentThree.initSize.height
+//     })
+
+//     this.setFields(constructorData, {
+//       url: widgetFields.FieldInput({
+//         label: '链接',
+//         validator: [validators.requireInput('请输入链接')]
+//       }),
+//       ip: widgetFields.FieldInput({
+//         label: '地址',
+//         validator: [validators.requireInput('请输入地址')]
+//       }),
+//       isFakeData: widgetFieldsCombine.FieldsDataSource({
+//         validator: [validatorCombine.validateFieldDataSource()],
+//         fakeData: JSON.stringify(jsonTemplate.ForTestComponentThree),
+//         radios: [
+//           {
+//             label: '使用接口数据',
+//             value: 'real'
+//           },
+//           {
+//             label: '使用模拟数据',
+//             value: 'fake'
+//           }
+//         ]
+//       })
+//     })
+
+//     this.setStyleFields(constructorData, {
+//       color: widgetFields.FieldColorPicker(),
+//       fontSize: widgetFields.FieldSelect({
+//         label: '请选择字体大小',
+//         options: ['12px', '20px', '30px']
+//       })
+//     })
+//   }
+// }
+// TestComponentOne, TestComponentTwo, TestComponentThree,
+
+export { Title, TitleChildOne }
