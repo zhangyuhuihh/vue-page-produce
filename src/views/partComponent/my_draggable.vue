@@ -100,5 +100,6 @@ export default {
   cursor: pointer;
   background-color: #0a304d;
   position: relative;
+  box-shadow: 0 2px 12px 0 #777777;
 }
 </style>

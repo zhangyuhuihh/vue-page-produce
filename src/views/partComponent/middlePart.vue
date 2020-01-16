@@ -1,22 +1,7 @@
 <template>
   <div class="main-edit-part">
-    <div style="margin-bottom:20px">
-      <span>大屏幕分辨率：</span>
-      <el-input
-        :value="bigScreenRatioWidth"
-        @input="updateBigScreenRatioWidth"
-        size="small"
-        placeholder="长"
-        style="width:90px"
-      ></el-input>
-      <span>X</span>
-      <el-input
-        :value="bigScreenRatioHeight"
-        @input="updateBigScreenRatioHeight"
-        size="small"
-        placeholder="宽"
-        style="width:90px"
-      ></el-input>
+    <div class="page-set--container">
+      <page-set></page-set>
     </div>
     <edit-area></edit-area>
     <div class="slider_container">
@@ -36,33 +21,23 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import EditArea from './edit_area'
+import PageSet from './page_set'
 
 export default {
   components: {
+    PageSet,
     EditArea
   },
   computed: {
     ...mapState('partComponent', {
-      bigScreenRatioWidth: state => state.bigScreenRatio.width,
-      bigScreenRatioHeight: state => state.bigScreenRatio.height,
       magnification: 'magnification'
     })
   },
 
   methods: {
     ...mapMutations('partComponent', [
-      'setBigScreenRatioWidth',
-      'setBigScreenRatioHeight',
       'setMagnification'
     ]),
-
-    updateBigScreenRatioWidth(v) {
-      this.setBigScreenRatioWidth(v)
-    },
-
-    updateBigScreenRatioHeight(v) {
-      this.setBigScreenRatioHeight(v)
-    },
 
     handleSliderChange(v) {
       this.setMagnification(v)
@@ -94,6 +69,12 @@ export default {
     );
   background-position: 0 0, 13px 13px;
   background-size: 26px 26px;
+  .page-set--container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10
+  }
   .slider_container {
     position: absolute;
     bottom: 50px;

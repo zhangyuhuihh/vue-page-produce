@@ -80,7 +80,7 @@ class Widget {
 
 class Title extends Widget {
   static componentDescription = {
-    name: '标题',
+    name: '标题类',
     parent: 'widget'
   }
 

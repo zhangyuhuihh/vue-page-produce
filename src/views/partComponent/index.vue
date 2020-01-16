@@ -38,7 +38,7 @@ export default {
   .top_container {
     width: 100%;
     height: 50px;
-    background-color: #bbbbbb;
+    background-color: #1f1e1c;
   }
   .main_container {
     display: flex;
