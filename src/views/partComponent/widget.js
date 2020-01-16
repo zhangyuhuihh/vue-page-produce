@@ -96,7 +96,8 @@ class Title extends Widget {
 class TitleChildOne extends Title {
   static componentDescription = {
     name: '子标题1',
-    parent: 'Title'
+    parent: 'Title',
+    img: 'TitleChildOne_icon.jpg'
   }
   constructor(constructorData) {
     super(constructorData)
@@ -106,6 +107,14 @@ class TitleChildOne extends Title {
       url: widgetFields.FieldInput({
         label: '链接',
         validator: [validators.requireInput('请输入链接')]
+      })
+    })
+
+    this.setStyleFields(constructorData, {
+      color: widgetFields.FieldColorPicker(),
+      fontSize: widgetFields.FieldSelect({
+        label: '请选择字体大小',
+        options: ['12px', '20px', '30px']
       })
     })
   }

@@ -1,14 +1,31 @@
 <template>
   <div class="left_part_container">
     <div>
-      <template v-for="(item, key) in allCollapseParent">
-        <div :key="item.componentDescription.name">
-          <div>{{item.componentDescription.name}}</div>
-          <div v-for="item2 in allCollapseChild[key]" :key="item2.componentDescription.name">
-            <div @click="handleAdd(item2)">{{item2.componentDescription.name}}</div>
-          </div>
-        </div>
-      </template>
+      <el-collapse>
+        <template v-for="(item, key) in allCollapseParent">
+          <el-collapse-item
+            :title="item.componentDescription.name"
+            :name="item.componentDescription.name"
+            :key="item.componentDescription.name"
+          >
+            <div
+              class="block_container"
+              v-for="item2 in allCollapseChild[key]"
+              :key="item2.componentDescription.name"
+            >
+              <div class="cell_container" @click="handleAdd(item2)">
+                <div class="img_container">
+                  <img
+                    :src="require(`./images/${item2.componentDescription.img}`)"
+                    style="width:100%;height:100%"
+                  />
+                </div>
+                <div>{{item2.componentDescription.name}}</div>
+              </div>
+            </div>
+          </el-collapse-item>
+        </template>
+      </el-collapse>
     </div>
   </div>
 </template>
@@ -26,7 +43,7 @@ export default {
       allCollapseChild: null
     }
   },
-  created() {
+  mounted() {
     this.allCollapseParent = _.pickBy(widget, (value, key) => {
       return value.componentDescription.parent === 'widget'
     })
@@ -36,6 +53,7 @@ export default {
   },
   methods: {
     ...mapActions('partComponent', ['addWidget']),
+
     handleAdd(Item) {
       const obj = new Item({
         uuid: ulid(),
@@ -49,7 +67,28 @@ export default {
 
 <style lang="scss" scoped>
 .left_part_container {
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  .block_container {
+    display: flex;
+    flex-wrap: wrap;
+    .cell_container {
+      width: 70px;
+      cursor: pointer;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      .img_container {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+
+  // display: flex;
+  // flex-wrap: wrap;
 }
 </style>

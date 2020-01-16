@@ -60,5 +60,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.right_container {
+}
 </style>
