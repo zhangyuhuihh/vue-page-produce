@@ -26,6 +26,8 @@ export default {
       width: 1920,
       height: 1080
     },
+    pageBgColor: '#0a304d',
+    pageBgImgUrl: '',
     magnification: 50
   },
   getters: {
@@ -95,6 +97,14 @@ export default {
         const o = arr.find(v => v.key === key)
         widget.fields[key].errorMsg = o.errMsg
       }
+    },
+
+    setPageBgColor: (state, newPageBgColor) => {
+      state.pageBgColor = newPageBgColor
+    },
+
+    setPageBgImgUrl: (state, newPageBgImgUrl) => {
+      state.pageBgImgUrl = newPageBgImgUrl
     },
 
     setBigScreenRatioWidth: (state, width) => {

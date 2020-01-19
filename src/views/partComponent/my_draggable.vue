@@ -1,11 +1,13 @@
 <template>
   <div
-    ref="rightBox"
-    id="rightBox"
-    class="right_container"
+    ref="editMainBox"
+    id="editMainBox"
+    class="editMainBox_container"
     :style="{
             width: editorAreaSize.width + 'px',
-            height: editorAreaSize.height + 'px'
+            height: editorAreaSize.height + 'px',
+            backgroundImage: `url(${pageBgImgUrl})`,
+            backgroundColor: pageBgColor
         }"
   >
     <template v-for="item in widgetList">
@@ -52,7 +54,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['widgetList']),
+    ...mapState('partComponent', ['widgetList', 'pageBgColor', 'pageBgImgUrl']),
     ...mapGetters('partComponent', ['editorAreaSize', 'requestDataList'])
   },
 
@@ -96,10 +98,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.right_container {
+.editMainBox_container {
   cursor: pointer;
-  background-color: #0a304d;
   position: relative;
+  background-size: 100% 100%;
+  background-repeat:no-repeat;
   box-shadow: 0 2px 12px 0 #777777;
 }
 </style>

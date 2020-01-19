@@ -27,7 +27,7 @@
       <div class="line_cell" v-if="dialogVisible">
         <span>背景颜色</span>
         <div style="margin-left: 10px">
-          <el-color-picker v-model="bgColor"></el-color-picker>
+          <el-color-picker :value="pageBgColor" @input="handleBgColorChange"></el-color-picker>
         </div>
       </div>
       <div class="line_cell" v-if="dialogVisible">
@@ -36,9 +36,11 @@
           <el-upload
             class="upload-demo"
             ref="upload"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            action="suibianxie"
+            :limit="1"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
+            :on-change="handleUpLoadChange"
             :file-list="fileList"
             :auto-upload="false"
           >
@@ -53,7 +55,6 @@
           </el-upload>
         </div>
       </div>
-
       <div slot="reference">
         <el-tooltip class="item" effect="dark" content="页面设置" placement="right">
           <div @click="handleSetting" style="cursor: pointer">
@@ -71,21 +72,24 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      bgColor: '',
-      fileList: []
+      fileList: [],
+      imageUrl: ''
     }
   },
   computed: {
     ...mapState('partComponent', {
       bigScreenRatioWidth: state => state.bigScreenRatio.width,
-      bigScreenRatioHeight: state => state.bigScreenRatio.height
+      bigScreenRatioHeight: state => state.bigScreenRatio.height,
+      pageBgColor: 'pageBgColor'
     })
   },
 
   methods: {
     ...mapMutations('partComponent', [
       'setBigScreenRatioWidth',
-      'setBigScreenRatioHeight'
+      'setBigScreenRatioHeight',
+      'setPageBgColor',
+      'setPageBgImgUrl'
     ]),
 
     updateBigScreenRatioWidth(v) {
@@ -96,9 +100,44 @@ export default {
       this.setBigScreenRatioHeight(v)
     },
 
+    handleBgColorChange(v) {
+      this.setPageBgColor(v)
+    },
+
+    // handleAvatarSuccess(res, file) {
+    //   this.imageUrl = URL.createObjectURL(file.raw)
+    // },
+    // beforeAvatarUpload(file) {
+    //   const isJPG = file.type === 'image/jpeg'
+    //   const isLt2M = file.size / 1024 / 1024 < 2
+
+    //   if (!isJPG) {
+    //     this.$message.error('上传头像图片只能是 JPG 格式!')
+    //   }
+    //   if (!isLt2M) {
+    //     this.$message.error('上传头像图片大小不能超过 2MB!')
+    //   }
+    //   return isJPG && isLt2M
+    // },
+    // 当上传图片后，调用onchange方法，获取图片本地路径
+    handleUpLoadChange(file, fileList) {
+      var event = window.event
+      var file2 = event.target.files[0]
+      var reader = new FileReader()
+      // 转base64
+      reader.onload = (e) => {
+        const imgUrl = e.target.result
+        this.setPageBgImgUrl(imgUrl)
+        // _this.imageUrl = e.target.result // 将图片路径赋值给src
+      }
+      reader.readAsDataURL(file2)
+    },
+
     handlePreview(file) {},
 
-    handleRemove(file, fileList) {},
+    handleRemove(file, fileList) {
+      this.setPageBgImgUrl('')
+    },
 
     handleSetting() {
       this.dialogVisible = true
