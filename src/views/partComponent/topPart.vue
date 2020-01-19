@@ -9,9 +9,15 @@
     <div class="right_place">
       <el-button-group>
         <el-button type="primary" icon="el-icon-monitor" size="small"></el-button>
-        <el-button type="primary" icon="el-icon-edit" size="small"></el-button>
-        <el-button type="primary" icon="el-icon-share" size="small"></el-button>
-        <el-button type="primary" icon="el-icon-delete" size="small"></el-button>
+        <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
+          <el-button type="primary" icon="el-icon-edit" size="small"></el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="保存" placement="bottom">
+          <el-button type="primary" icon="el-icon-document-add" size="small"></el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
+          <el-button type="primary" icon="el-icon-delete" size="small"></el-button>
+        </el-tooltip>
       </el-button-group>
     </div>
   </div>
