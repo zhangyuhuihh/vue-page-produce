@@ -30,7 +30,7 @@
           <el-color-picker :value="pageBgColor" @input="handleBgColorChange"></el-color-picker>
         </div>
       </div>
-      <div class="line_cell" v-if="dialogVisible">
+      <div class="line_cell">
         <span style="align-self: flex-start;margin-top:8px">背景图片</span>
         <div style="margin-left: 10px">
           <el-upload
