@@ -16,6 +16,7 @@ export default {
 <style lang="scss" scoped>
 .field_input_container {
   height: 60px;
+  margin-bottom: 20px;
   position: relative;
   .input_width {
     width: 200px;
