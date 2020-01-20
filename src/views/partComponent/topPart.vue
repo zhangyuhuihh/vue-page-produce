@@ -13,7 +13,7 @@
           <el-button type="primary" icon="el-icon-edit" size="small"></el-button>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="保存" placement="bottom">
-          <el-button type="primary" icon="el-icon-document-add" size="small"></el-button>
+          <el-button @click="handleSave" type="primary" icon="el-icon-document-add" size="small"></el-button>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
           <el-button type="primary" icon="el-icon-delete" size="small"></el-button>
@@ -24,7 +24,20 @@
 </template>
 
 <script>
-export default {}
+import { mapState, mapActions } from 'vuex'
+export default {
+  computed: {
+    ...mapState('partComponent', ['activedWidget'])
+  },
+  methods: {
+    ...mapActions('partComponent', ['validateAllFields']),
+    handleSave() {
+      this.validateAllFields(this.activedWidget.uuid).then(res => {
+        console.log('hahaha')
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 <template>
   <div class="right_container">
-    <el-tabs type="card" @tab-click="handleTabClick">
+    <el-tabs v-model="actTab" type="card" @tab-click="handleTabClick">
       <el-tab-pane label="数据" name="first">
         <div>
           <!-- <div>数据区域</div> -->
@@ -30,9 +30,9 @@
       </el-tab-pane>
     </el-tabs>
 
-    <div style="margin-top: 50px">
+    <!-- <div style="margin-top: 50px">
       <el-button @click="handleClick" type="primary">保存</el-button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -51,6 +51,11 @@ export default {
     FieldSelect,
     FieldRadio,
     FieldsDataSource
+  },
+  data() {
+    return {
+      actTab: 'first'
+    }
   },
   computed: {
     ...mapState('partComponent', ['activedWidget'])

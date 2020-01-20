@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import widgetFields from './widget_fields' // 单一的form
-// import widgetFieldsCombine from './widget_fields_combine' // 定制化的form
+import widgetFieldsCombine from './widget_fields_combine' // 定制化的form
 import validators from './validators'
-// import validatorCombine from './validator_combine'
-// import jsonTemplate from './json_template'
+import validatorCombine from './validator_combine'
+import jsonTemplate from './json_template'
 
 /**
  * uuid: 前端唯一标识
@@ -113,7 +113,53 @@ class TitleChildOne extends Title {
     this.setStyleFields(constructorData, {
       color: widgetFields.FieldColorPicker(),
       fontSize: widgetFields.FieldSelect({
-        label: '请选择字体大小',
+        label: '字体大小',
+        options: ['12px', '20px', '30px']
+      })
+    })
+  }
+}
+
+class TitleChildTwo extends Title {
+  static componentDescription = {
+    name: '子标题2',
+    parent: 'Title',
+    img: 'TitleChildOne_icon.jpg'
+  }
+  constructor(constructorData) {
+    super(constructorData)
+
+    this.componentKey = 'TitleChildTwo'
+
+    this.setFields(constructorData, {
+      url: widgetFields.FieldInput({
+        label: '链接',
+        validator: [validators.requireInput('请输入链接')]
+      }),
+      ip: widgetFields.FieldInput({
+        label: '地址',
+        validator: [validators.requireInput('请输入地址')]
+      }),
+      isFakeData: widgetFieldsCombine.FieldsDataSource({
+        validator: [validatorCombine.validateFieldDataSource()],
+        fakeData: JSON.stringify(jsonTemplate.ForTestComponentThree),
+        radios: [
+          {
+            label: '使用接口数据',
+            value: 'real'
+          },
+          {
+            label: '使用模拟数据',
+            value: 'fake'
+          }
+        ]
+      })
+    })
+
+    this.setStyleFields(constructorData, {
+      color: widgetFields.FieldColorPicker(),
+      fontSize: widgetFields.FieldSelect({
+        label: '字体大小',
         options: ['12px', '20px', '30px']
       })
     })
@@ -243,4 +289,4 @@ class TitleChildOne extends Title {
 // }
 // TestComponentOne, TestComponentTwo, TestComponentThree,
 
-export { Title, TitleChildOne }
+export { Title, TitleChildOne, TitleChildTwo }

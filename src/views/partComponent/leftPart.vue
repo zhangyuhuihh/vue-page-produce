@@ -8,20 +8,22 @@
             :name="item.componentDescription.name"
             :key="item.componentDescription.name"
           >
-            <div
-              class="block_container"
-              v-for="item2 in allCollapseChild[key]"
-              :key="item2.componentDescription.name"
-            >
-              <div class="cell_container" @click="handleAdd(item2)">
-                <div class="img_container">
-                  <img
-                    :src="require(`./images/${item2.componentDescription.img}`)"
-                    style="width:100%;height:100%"
-                  />
+            <div class="block_container">
+              <template v-for="item2 in allCollapseChild[key]">
+                <div
+                  class="cell_container"
+                  :key="item2.componentDescription.name"
+                  @click="handleAdd(item2)"
+                >
+                  <div class="img_container">
+                    <img
+                      :src="require(`./images/${item2.componentDescription.img}`)"
+                      style="width:100%;height:100%"
+                    />
+                  </div>
+                  <div>{{item2.componentDescription.name}}</div>
                 </div>
-                <div>{{item2.componentDescription.name}}</div>
-              </div>
+              </template>
             </div>
           </el-collapse-item>
         </template>
