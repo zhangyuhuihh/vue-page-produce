@@ -73,6 +73,9 @@ export default {
   height: 100%;
   padding-left: 10px;
   padding-right: 10px;
+  box-shadow: 0px 5px 12px #777777;
+  position: relative;
+  z-index: 99;
   .block_container {
     display: flex;
     flex-wrap: wrap;

@@ -32,7 +32,7 @@
 
     <!-- <div style="margin-top: 50px">
       <el-button @click="handleClick" type="primary">保存</el-button>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -75,8 +75,13 @@ export default {
 <style lang="scss" scoped>
 .right_container {
   padding: 10px;
-  /deep/ .el-tabs__item  {
-    width: 139px
+  height: 100%;
+  width: 100%;
+  box-shadow: 0px 5px 12px #777777;
+  position: relative;
+  z-index: 99;
+  /deep/ .el-tabs__item {
+    width: 139px;
   }
 }
 </style>
