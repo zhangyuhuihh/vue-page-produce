@@ -166,6 +166,33 @@ class TitleChildTwo extends Title {
   }
 }
 
+class ScrollBoard extends Widget {
+  static componentDescription = {
+    name: '轮播表类',
+    parent: 'widget'
+  }
+
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 960,
+      height: 780
+    })
+  }
+}
+
+class ScrollBoardChild extends ScrollBoard {
+  static componentDescription = {
+    name: '轮播表一',
+    parent: 'ScrollBoard',
+    img: 'scrollboard.png'
+  }
+  constructor(constructorData) {
+    super(constructorData)
+    this.componentKey = 'ScrollBoardChild'
+  }
+}
+
 // class TestComponentOne extends Widget {
 //   static initSize = {
 //     width: 300,
@@ -289,4 +316,4 @@ class TitleChildTwo extends Title {
 // }
 // TestComponentOne, TestComponentTwo, TestComponentThree,
 
-export { Title, TitleChildOne, TitleChildTwo }
+export { Title, TitleChildOne, TitleChildTwo, ScrollBoard, ScrollBoardChild }
