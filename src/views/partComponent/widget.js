@@ -190,6 +190,16 @@ class ScrollBoardChild extends ScrollBoard {
   constructor(constructorData) {
     super(constructorData)
     this.componentKey = 'ScrollBoardChild'
+
+    this.setFields(constructorData, {
+      data: widgetFields.FieldInput({
+        label: '数据'
+      })
+    })
+
+    this.setStyleFields(constructorData, {
+      color: widgetFields.FieldColorPicker()
+    })
   }
 }
 
