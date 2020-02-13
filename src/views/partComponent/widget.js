@@ -205,12 +205,12 @@ class ScrollBoardChild extends ScrollBoard {
         fakeData: JSON.stringify(jsonTemplate.ForScrollBoard),
         radios: [
           {
-            label: '使用接口数据',
-            value: 'real'
-          },
-          {
             label: '使用模拟数据',
             value: 'fake'
+          },
+          {
+            label: '使用接口数据',
+            value: 'real'
           }
         ]
       })

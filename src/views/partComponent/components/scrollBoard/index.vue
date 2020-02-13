@@ -6,7 +6,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import ScrollBoard from './scrollBoard'
+// import ScrollBoard from './scrollBoard'
+import ScrollBoard from './main'
 export default {
   components: {
     ScrollBoard
