@@ -198,7 +198,20 @@ class ScrollBoardChild extends ScrollBoard {
     })
 
     this.setStyleFields(constructorData, {
-      color: widgetFields.FieldColorPicker()
+      isFakeData: widgetFieldsCombine.FieldsDataSource({
+        validator: [validatorCombine.validateFieldDataSource()],
+        fakeData: JSON.stringify(jsonTemplate.ForTestComponentThree),
+        radios: [
+          {
+            label: '使用接口数据',
+            value: 'real'
+          },
+          {
+            label: '使用模拟数据',
+            value: 'fake'
+          }
+        ]
+      })
     })
   }
 }
