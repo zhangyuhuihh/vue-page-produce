@@ -191,16 +191,18 @@ class ScrollBoardChild extends ScrollBoard {
     super(constructorData)
     this.componentKey = 'ScrollBoardChild'
 
-    this.setFields(constructorData, {
-      data: widgetFields.FieldInput({
-        label: '数据'
+    this.setStyleFields(constructorData, {
+      color: widgetFields.FieldColorPicker(),
+      fontSize: widgetFields.FieldSelect({
+        label: '字体大小',
+        options: ['12px', '20px', '30px']
       })
     })
 
-    this.setStyleFields(constructorData, {
+    this.setFields(constructorData, {
       isFakeData: widgetFieldsCombine.FieldsDataSource({
         validator: [validatorCombine.validateFieldDataSource()],
-        fakeData: JSON.stringify(jsonTemplate.ForTestComponentThree),
+        fakeData: JSON.stringify(jsonTemplate.ForScrollBoard),
         radios: [
           {
             label: '使用接口数据',

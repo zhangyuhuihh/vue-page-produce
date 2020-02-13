@@ -1,5 +1,5 @@
 <template>
-  <div class="scroll-borad" :ref="ref">
+  <div class="dv-scroll-board" :ref="ref">
     <div
       class="header"
       v-if="header.length && mergedConfig"
@@ -8,7 +8,7 @@
       <div
         class="header-item"
         v-for="(headerItem, i) in header"
-        :key="i"
+        :key="headerItem + i"
         :style="`
           height: ${mergedConfig.headerHeight}px;
           line-height: ${mergedConfig.headerHeight}px;
@@ -27,7 +27,7 @@
       <div
         class="row-item"
         v-for="(row, ri) in rows"
-        :key="ri"
+        :key="row.toString() + row.scroll"
         :style="`
           height: ${heights[ri]}px;
           line-height: ${heights[ri]}px;
@@ -37,7 +37,7 @@
         <div
           class="cell"
           v-for="(cell, ci) in row.cells"
-          :key="ci"
+          :key="ceil + ri + ci"
           :style="`width: ${widths[ci]}px;`"
           :align="aligns[ci]"
           v-html="ceil"
@@ -50,7 +50,12 @@
 
 <script>
 export default {
-  props: {},
+  props: {
+    config: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       ref: "scroll-borad",
@@ -80,7 +85,7 @@ export default {
       animationIndex: 0,
       animationHeader: "",
       updater: 0
-    };
+    }
   },
   watch: {
     config() {
@@ -107,11 +112,82 @@ export default {
 
       animation()
     },
+    mergeConfig() {
+      const { config, defaultConfig } = this
+      console.log(config, defaultConfig)
+    },
+    calcHeaderData() {
+      const { header, index, indexHeader } = this.mergedConfig
+    },
+    calcRowsData() {
 
+    },
+    calcWidths() {
+
+    },
+    calcHeights() {
+
+    },
+    calcAligns() {
+
+    },
+    animation() {
+
+    },
     emitEvent(ri, ci, row, ceil) {},
     stopAnimation() {}
   },
 
   destroyed() {}
-};
+}
 </script>
+
+<style lang="scss" scoped>
+.dv-scroll-board {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  .text {
+    padding: 0 10px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .header {
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+    .header-item {
+      // .text;
+      padding: 0 10px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: all 0.3s;
+    }
+  }
+  .rows {
+    overflow: hidden;
+    .row-item {
+      display: flex;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .ceil {
+      // .text;
+      padding: 0 10px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .index {
+      border-radius: 3px;
+      padding: 0px 3px;
+    }
+  }
+}
+</style>

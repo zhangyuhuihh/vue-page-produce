@@ -1,13 +1,16 @@
 <template>
   <div class="scroll-borad-container">
-    哈哈哈哈
-    {{currentWidgetStyleFields}}
+    <ScrollBoard :config="fakeData" />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
+import ScrollBoard from './scrollBoard'
 export default {
+  components: {
+    ScrollBoard
+  },
   props: {
     uuid: {
       type: String,
