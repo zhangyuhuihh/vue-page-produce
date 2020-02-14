@@ -1,12 +1,12 @@
 <template>
   <div class="scroll-borad-container">
-    <ScrollBoard :config="fakeData" />
+    <ScrollBoard :config="mergedConfig" />
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapState } from 'vuex'
-// import ScrollBoard from './scrollBoard'
 import ScrollBoard from './main'
 export default {
   components: {
@@ -19,10 +19,10 @@ export default {
     }
   },
   data() {
-    return {};
+    return {}
   },
   computed: {
-    ...mapState("partComponent", ["widgetList"]),
+    ...mapState('partComponent', ['widgetList']),
     currentWidget() {
       return this.widgetList.find(v => v.uuid === this.uuid)
     },
@@ -34,13 +34,26 @@ export default {
     },
     fakeData() {
       return JSON.parse(this.currentWidgetFields.isFakeData.formModel.fakeData)
+    },
+    headerBGC() {
+      return { headerBGC: this.currentWidgetStyleFields.headerBGC.formModel }
+    },
+    oddRowBGC() {
+      return { oddRowBGC: this.currentWidgetStyleFields.oddRowBGC.formModel }
+    },
+    evenRowBGC() {
+      return { evenRowBGC: this.currentWidgetStyleFields.evenRowBGC.formModel }
+    },
+    mergedConfig() {
+      const { fakeData, headerBGC, oddRowBGC, evenRowBGC } = this
+      return _.merge({}, fakeData, headerBGC, oddRowBGC, evenRowBGC)
     }
   }
-};
+}
 </script>
 
 <style scoped>
 .scroll-borad-container {
   font-size: 40px;
 }
-</style>>
+</style>

@@ -58,7 +58,6 @@
 
 <script>
 import autoResize from '../../../../mixin/autoSize'
-
 import _ from 'lodash'
 
 export default {
@@ -429,7 +428,6 @@ export default {
       transition: all 0.3s;
     }
     .ceil {
-      // .text;
       padding: 0 10px;
       box-sizing: border-box;
       white-space: nowrap;

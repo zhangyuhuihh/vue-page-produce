@@ -19,7 +19,7 @@ const mixins = {
       return this.widgetList.find(item => item.uuid === this.uuid)[this.fieldType][this.fieldKey]
     },
     modelData() {
-      return this.currentBindWidget.formModel
+      return this.currentBindWidget.formModel || ''
     },
     labelData() {
       return this.currentBindWidget.label || ''

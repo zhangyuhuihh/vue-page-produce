@@ -1,6 +1,6 @@
 <template>
   <div class="color_picker_container">
-    <span>选择颜色</span>
+    <span>{{labelData}}</span>
     <div class="color_cell">
       <el-color-picker :value="modelData" @active-change="handleFieldModelChange"></el-color-picker>
     </div>

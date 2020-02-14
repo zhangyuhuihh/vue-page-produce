@@ -158,7 +158,6 @@ export default {
     flex-direction: row;
     font-size: 15px;
     .header-item {
-      // .text;
       padding: 0 10px;
       box-sizing: border-box;
       white-space: nowrap;
@@ -175,7 +174,6 @@ export default {
       transition: all 0.3s;
     }
     .ceil {
-      // .text;
       padding: 0 10px;
       box-sizing: border-box;
       white-space: nowrap;

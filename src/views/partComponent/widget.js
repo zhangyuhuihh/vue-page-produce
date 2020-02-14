@@ -111,7 +111,10 @@ class TitleChildOne extends Title {
     })
 
     this.setStyleFields(constructorData, {
-      color: widgetFields.FieldColorPicker(),
+      color: widgetFields.FieldColorPicker({
+        label: '颜色',
+        formModel: '#000'
+      }),
       fontSize: widgetFields.FieldSelect({
         label: '字体大小',
         options: ['12px', '20px', '30px']
@@ -157,7 +160,10 @@ class TitleChildTwo extends Title {
     })
 
     this.setStyleFields(constructorData, {
-      color: widgetFields.FieldColorPicker(),
+      color: widgetFields.FieldColorPicker({
+        label: '颜色',
+        formModel: '#000'
+      }),
       fontSize: widgetFields.FieldSelect({
         label: '字体大小',
         options: ['12px', '20px', '30px']
@@ -192,7 +198,18 @@ class ScrollBoardChild extends ScrollBoard {
     this.componentKey = 'ScrollBoardChild'
 
     this.setStyleFields(constructorData, {
-      color: widgetFields.FieldColorPicker()
+      headerBGC: widgetFields.FieldColorPicker({
+        label: '表头背景色',
+        formModel: '#00BAFF'
+      }),
+      oddRowBGC: widgetFields.FieldColorPicker({
+        label: '奇数行背景色',
+        formModel: '#003B51'
+      }),
+      evenRowBGC: widgetFields.FieldColorPicker({
+        label: '偶数行背景色',
+        formModel: '#0A2732'
+      })
     })
 
     this.setFields(constructorData, {

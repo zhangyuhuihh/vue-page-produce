@@ -18,10 +18,11 @@ const widgetFields = {
     }
   },
 
-  FieldColorPicker() {
+  FieldColorPicker({ label, formModel }) {
     return {
       type: 'FieldColorPicker',
-      formModel: 'rgb(0, 0, 0)'
+      label,
+      formModel
     }
   },
 
