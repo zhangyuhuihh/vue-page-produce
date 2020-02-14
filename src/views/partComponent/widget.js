@@ -192,11 +192,7 @@ class ScrollBoardChild extends ScrollBoard {
     this.componentKey = 'ScrollBoardChild'
 
     this.setStyleFields(constructorData, {
-      color: widgetFields.FieldColorPicker(),
-      fontSize: widgetFields.FieldSelect({
-        label: '字体大小',
-        options: ['12px', '20px', '30px']
-      })
+      color: widgetFields.FieldColorPicker()
     })
 
     this.setFields(constructorData, {

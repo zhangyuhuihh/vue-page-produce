@@ -9,11 +9,13 @@
         class="header-item"
         v-for="(headerItem, i) in header"
         :key="headerItem + i"
-        :style="`
+        :style="
+          `
           height: ${mergedConfig.headerHeight}px;
           line-height: ${mergedConfig.headerHeight}px;
           width: ${widths[i]}px;
-        `"
+        `
+        "
         :align="aligns[i]"
         v-html="headerItem"
       ></div>
@@ -22,17 +24,23 @@
     <div
       v-if="mergedConfig"
       class="rows"
-      :style="`height: ${height - (header.length ? mergedConfig.headerHeight : 0)}px;`"
+      :style="
+        `height: ${height - (header.length ? mergedConfig.headerHeight : 0)}px;`
+      "
     >
       <div
         class="row-item"
         v-for="(row, ri) in rows"
         :key="row.toString() + row.scroll"
-        :style="`
+        :style="
+          `
           height: ${heights[ri]}px;
           line-height: ${heights[ri]}px;
-          background-color: ${mergedConfig[row.rowIndex % 2 === 0 ? 'evenRowBGC' : 'oddRowBGC']};
-        `"
+          background-color: ${
+            mergedConfig[row.rowIndex % 2 === 0 ? 'evenRowBGC' : 'oddRowBGC']
+          };
+        `
+        "
       >
         <div
           class="cell"
@@ -58,21 +66,21 @@ export default {
   },
   data() {
     return {
-      ref: "scroll-borad",
+      ref: 'scroll-borad',
       defaultConfig: {
         header: [],
         data: [],
         rowNum: 5,
-        headerBGC: "#00BAFF",
-        oddRowBGC: "#003B51",
-        evenRowBGC: "#0A2732",
+        headerBGC: '#00BAFF',
+        oddRowBGC: '#003B51',
+        evenRowBGC: '#0A2732',
         waitTime: 2000,
         headerHeight: 35,
         columnWidth: [],
         align: [],
         index: false,
-        indexHeader: "#",
-        carousel: "single"
+        indexHeader: '#',
+        carousel: 'single'
       },
       mergedConfig: null,
       header: [],
@@ -83,7 +91,7 @@ export default {
       avgHeight: [],
       aligns: [],
       animationIndex: 0,
-      animationHeader: "",
+      animationHeader: '',
       updater: 0
     }
   },
@@ -117,23 +125,13 @@ export default {
       console.log(config, defaultConfig)
     },
     calcHeaderData() {
-      const { header, index, indexHeader } = this.mergedConfig
+      // const { header, index, indexHeader } = this.mergedConfig
     },
-    calcRowsData() {
-
-    },
-    calcWidths() {
-
-    },
-    calcHeights() {
-
-    },
-    calcAligns() {
-
-    },
-    animation() {
-
-    },
+    calcRowsData() {},
+    calcWidths() {},
+    calcHeights() {},
+    calcAligns() {},
+    animation() {},
     emitEvent(ri, ci, row, ceil) {},
     stopAnimation() {}
   },
