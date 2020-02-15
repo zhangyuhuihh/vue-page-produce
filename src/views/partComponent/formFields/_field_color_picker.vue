@@ -1,8 +1,12 @@
 <template>
   <div class="color_picker_container">
-    <span>{{labelData}}</span>
+    <span>{{ labelData }}</span>
     <div class="color_cell">
-      <el-color-picker :value="modelData" @active-change="handleFieldModelChange"></el-color-picker>
+      <el-color-picker
+        :value="modelData"
+        @active-change="handleFieldModelChange"
+        show-alpha
+      ></el-color-picker>
     </div>
   </div>
 </template>

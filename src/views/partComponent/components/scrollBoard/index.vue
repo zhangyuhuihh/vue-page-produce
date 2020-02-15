@@ -61,6 +61,9 @@ export default {
     index() {
       return { index: this.currentWidgetStyleFields.index.formModel }
     },
+    rowNum() {
+      return { rowNum: this.currentWidgetStyleFields.rowNum.formModel }
+    },
     mergedConfig() {
       const {
         fakeData,
@@ -71,7 +74,8 @@ export default {
         bodyColor,
         headerFontSize,
         bodyFontSize,
-        index
+        index,
+        rowNum
       } = this
       return _.merge(
         {},
@@ -83,7 +87,8 @@ export default {
         bodyColor,
         headerFontSize,
         bodyFontSize,
-        index
+        index,
+        rowNum
       )
     }
   }

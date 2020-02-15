@@ -233,6 +233,12 @@ class ScrollBoardChild extends ScrollBoard {
       index: widgetFields.FiledSwitch({
         label: '显示行号',
         formModel: false
+      }),
+      rowNum: widgetFields.FiledSlider({
+        label: '显示表行数',
+        formModel: 5,
+        max: 20,
+        min: 1
       })
     })
 
