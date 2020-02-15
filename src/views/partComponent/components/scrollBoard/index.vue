@@ -52,6 +52,12 @@ export default {
     bodyColor() {
       return { bodyColor: this.currentWidgetStyleFields.bodyColor.formModel }
     },
+    headerFontSize() {
+      return { headerFontSize: this.currentWidgetStyleFields.headerFontSize.formModel }
+    },
+    bodyFontSize() {
+      return { bodyFontSize: this.currentWidgetStyleFields.bodyFontSize.formModel }
+    },
     index() {
       return { index: this.currentWidgetStyleFields.index.formModel }
     },
@@ -63,6 +69,8 @@ export default {
         evenRowBGC,
         headerColor,
         bodyColor,
+        headerFontSize,
+        bodyFontSize,
         index
       } = this
       return _.merge(
@@ -73,6 +81,8 @@ export default {
         evenRowBGC,
         headerColor,
         bodyColor,
+        headerFontSize,
+        bodyFontSize,
         index
       )
     }

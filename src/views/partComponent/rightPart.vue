@@ -43,6 +43,7 @@ import FieldColorPicker from './formFields/_field_color_picker'
 import FieldSelect from './formFields/_field_select'
 import FieldRadio from './formFields/_field_radio'
 import FiledSwitch from './formFields/_field_switch'
+import FiledSlider from './formFields/_field_slider'
 import FieldsDataSource from './formFieldsCombine/_fields_data_source'
 
 export default {
@@ -52,6 +53,7 @@ export default {
     FieldSelect,
     FieldRadio,
     FiledSwitch,
+    FiledSlider,
     FieldsDataSource
   },
   data() {

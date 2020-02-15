@@ -15,6 +15,7 @@
           line-height: ${mergedConfig.headerHeight}px;
           width: ${widths[i]}px;
           color: ${mergedConfig.headerColor};
+          font-size: ${mergedConfig.headerFontSize}px;
         `
         "
         :align="aligns[i]"
@@ -47,7 +48,9 @@
           class="ceil"
           v-for="(ceil, ci) in row.ceils"
           :key="ceil + ri + ci"
-          :style="`width: ${widths[ci]}px; color: ${mergedConfig.bodyColor};`"
+          :style="
+            `width: ${widths[ci]}px; color: ${mergedConfig.bodyColor}; font-size: ${mergedConfig.bodyFontSize}px;`
+          "
           :align="aligns[ci]"
           v-html="ceil"
           @click="emitEvent(ri, ci, row, ceil)"
@@ -149,6 +152,18 @@ export default {
          * @example align = ['left', 'center', 'right']
          */
         align: [],
+        /**
+         * @description Header font-size
+         * @type {Number}
+         * @default headerFontSize = 16
+         */
+        headerFontSize: 16,
+        /**
+         * @description Body font-size
+         * @type {Number}
+         * @default bodyFontSize = 14
+         */
+        bodyFontSize: 14,
         /**
          * @description Show index
          * @type {Boolean}
@@ -422,7 +437,7 @@ export default {
   .header {
     display: flex;
     flex-direction: row;
-    font-size: 15px;
+    font-size: 16px;
     .header-item {
       padding: 0 10px;
       box-sizing: border-box;

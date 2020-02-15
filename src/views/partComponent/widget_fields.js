@@ -42,6 +42,16 @@ const widgetFields = {
       label,
       formModel
     }
+  },
+
+  FiledSlider({ label, formModel, min, max }) {
+    return {
+      type: 'FiledSlider',
+      label,
+      formModel,
+      min,
+      max
+    }
   }
 }
 
