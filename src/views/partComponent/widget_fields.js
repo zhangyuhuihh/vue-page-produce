@@ -34,6 +34,14 @@ const widgetFields = {
       validator,
       errorMsg: ''
     }
+  },
+
+  FiledSwitch({ label, formModel }) {
+    return {
+      type: 'FiledSwitch',
+      label,
+      formModel
+    }
   }
 }
 

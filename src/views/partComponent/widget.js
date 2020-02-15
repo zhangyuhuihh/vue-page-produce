@@ -217,6 +217,10 @@ class ScrollBoardChild extends ScrollBoard {
       bodyColor: widgetFields.FieldColorPicker({
         label: '主体文字颜色',
         formModel: '#FFF'
+      }),
+      index: widgetFields.FiledSwitch({
+        label: '显示行号',
+        formModel: false
       })
     })
 

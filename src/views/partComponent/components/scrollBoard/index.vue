@@ -52,6 +52,9 @@ export default {
     bodyColor() {
       return { bodyColor: this.currentWidgetStyleFields.bodyColor.formModel }
     },
+    index() {
+      return { index: this.currentWidgetStyleFields.index.formModel }
+    },
     mergedConfig() {
       const {
         fakeData,
@@ -59,7 +62,8 @@ export default {
         oddRowBGC,
         evenRowBGC,
         headerColor,
-        bodyColor
+        bodyColor,
+        index
       } = this
       return _.merge(
         {},
@@ -68,7 +72,8 @@ export default {
         oddRowBGC,
         evenRowBGC,
         headerColor,
-        bodyColor
+        bodyColor,
+        index
       )
     }
   }
