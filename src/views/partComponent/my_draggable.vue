@@ -39,6 +39,7 @@ import TestComponentTwo from './testComponents/testComponentTwo'
 import TestComponentThree from './testComponents/testComponentThree'
 import TitleChildOne from './components/title/TitleChildOne/index'
 import TitleChildTwo from './components/title/TitleChildTwo/index'
+import LineChartOne from './components/LineChart/LineChartOne/index'
 export default {
   name: 'myDraggable',
   components: {
@@ -47,7 +48,8 @@ export default {
     TestComponentTwo,
     TestComponentThree,
     TitleChildOne,
-    TitleChildTwo
+    TitleChildTwo,
+    LineChartOne
   },
   props: {},
   data() {

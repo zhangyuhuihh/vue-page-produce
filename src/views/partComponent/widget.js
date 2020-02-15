@@ -4,6 +4,7 @@ import widgetFieldsCombine from './widget_fields_combine' // 定制化的form
 import validators from './validators'
 import validatorCombine from './validator_combine'
 import jsonTemplate from './json_template'
+import linechartJson from './linechartJson'
 
 /**
  * uuid: 前端唯一标识
@@ -166,6 +167,69 @@ class TitleChildTwo extends Title {
   }
 }
 
+// 折线图
+
+class LineChart extends Widget {
+  static componentDescription = {
+    name: '折线图',
+    parent: 'widget'
+  }
+
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 1920,
+      height: 50
+    })
+  }
+}
+
+class LineChartOne extends LineChart {
+  static componentDescription = {
+    name: '折线图1',
+    parent: 'LineChart',
+    img: 'linechartImg.png'
+  }
+  constructor(constructorData) {
+    super(constructorData)
+
+    this.componentKey = 'LineChartOne'
+
+    this.setFields(constructorData, {
+      url: widgetFields.FieldInput({
+        label: '链接',
+        validator: [validators.requireInput('请输入链接')]
+      }),
+      ip: widgetFields.FieldInput({
+        label: '地址',
+        validator: [validators.requireInput('请输入地址')]
+      }),
+      isFakeData: widgetFieldsCombine.FieldsDataSource({
+        validator: [validatorCombine.validateFieldDataSource()],
+        fakeData: JSON.stringify(linechartJson.ForTestComponentThree),
+        radios: [
+          {
+            label: '使用接口数据',
+            value: 'real'
+          },
+          {
+            label: '使用模拟数据',
+            value: 'fake'
+          }
+        ]
+      })
+    })
+
+    this.setStyleFields(constructorData, {
+      color: widgetFields.FieldColorPicker(),
+      fontSize: widgetFields.FieldSelect({
+        label: '字体大小',
+        options: ['12px', '20px', '30px']
+      })
+    })
+  }
+}
+
 // class TestComponentOne extends Widget {
 //   static initSize = {
 //     width: 300,
@@ -289,4 +353,4 @@ class TitleChildTwo extends Title {
 // }
 // TestComponentOne, TestComponentTwo, TestComponentThree,
 
-export { Title, TitleChildOne, TitleChildTwo }
+export { Title, TitleChildOne, TitleChildTwo, LineChart, LineChartOne }
