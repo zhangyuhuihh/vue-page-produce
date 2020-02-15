@@ -44,9 +44,32 @@ export default {
     evenRowBGC() {
       return { evenRowBGC: this.currentWidgetStyleFields.evenRowBGC.formModel }
     },
+    headerColor() {
+      return {
+        headerColor: this.currentWidgetStyleFields.headerColor.formModel
+      }
+    },
+    bodyColor() {
+      return { bodyColor: this.currentWidgetStyleFields.bodyColor.formModel }
+    },
     mergedConfig() {
-      const { fakeData, headerBGC, oddRowBGC, evenRowBGC } = this
-      return _.merge({}, fakeData, headerBGC, oddRowBGC, evenRowBGC)
+      const {
+        fakeData,
+        headerBGC,
+        oddRowBGC,
+        evenRowBGC,
+        headerColor,
+        bodyColor
+      } = this
+      return _.merge(
+        {},
+        fakeData,
+        headerBGC,
+        oddRowBGC,
+        evenRowBGC,
+        headerColor,
+        bodyColor
+      )
     }
   }
 }

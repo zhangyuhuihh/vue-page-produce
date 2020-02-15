@@ -209,6 +209,14 @@ class ScrollBoardChild extends ScrollBoard {
       evenRowBGC: widgetFields.FieldColorPicker({
         label: '偶数行背景色',
         formModel: '#0A2732'
+      }),
+      headerColor: widgetFields.FieldColorPicker({
+        label: '表头文字颜色',
+        formModel: '#FFF'
+      }),
+      bodyColor: widgetFields.FieldColorPicker({
+        label: '主体文字颜色',
+        formModel: '#FFF'
       })
     })
 

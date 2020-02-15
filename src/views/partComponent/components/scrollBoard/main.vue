@@ -14,6 +14,7 @@
           height: ${mergedConfig.headerHeight}px;
           line-height: ${mergedConfig.headerHeight}px;
           width: ${widths[i]}px;
+          color: ${mergedConfig.headerColor};
         `
         "
         :align="aligns[i]"
@@ -46,7 +47,7 @@
           class="ceil"
           v-for="(ceil, ci) in row.ceils"
           :key="ceil + ri + ci"
-          :style="`width: ${widths[ci]}px;`"
+          :style="`width: ${widths[ci]}px; color: ${mergedConfig.bodyColor};`"
           :align="aligns[ci]"
           v-html="ceil"
           @click="emitEvent(ri, ci, row, ceil)"
@@ -111,6 +112,18 @@ export default {
          * @default evenRowBGC = '#003B51'
          */
         evenRowBGC: '#0A2732',
+        /**
+         * @description Header color
+         * @type {String}
+         * @default headerColor = '#FFF'
+         */
+        headerColor: '#FFF',
+        /**
+         * @description Body color
+         * @type {String}
+         * @default bodyColor = '#FFF'
+         */
+        bodyColor: '#FFF',
         /**
          * @description Scroll wait time
          * @type {Number}
@@ -411,7 +424,6 @@ export default {
     flex-direction: row;
     font-size: 15px;
     .header-item {
-      // .text;
       padding: 0 10px;
       box-sizing: border-box;
       white-space: nowrap;
