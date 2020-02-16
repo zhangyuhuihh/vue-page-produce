@@ -178,8 +178,8 @@ class LineChart extends Widget {
   constructor(constructorData) {
     super(constructorData)
     this.setDragSize(constructorData, {
-      width: 1920,
-      height: 50
+      width: 500,
+      height: 400
     })
   }
 }

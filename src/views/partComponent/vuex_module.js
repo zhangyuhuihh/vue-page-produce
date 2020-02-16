@@ -23,8 +23,10 @@ export default {
     widgetList: [],
     activedWidget: {},
     bigScreenRatio: {
-      width: 1920,
-      height: 1080
+      // width: 1920,
+      // height: 1080
+      width: 1366,
+      height: 768
     },
     pageBgColor: '#999999',
     pageBgImgUrl: '',

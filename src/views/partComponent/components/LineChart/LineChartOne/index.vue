@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :id="`echarts${uuid}`" class="echartsStyle"></div>
+    <div :id="`echarts${uuid}`" class="echartsStyle" :style="`color:${lineChartColor}`"></div>
   </div>
 </template>
 
@@ -32,6 +32,16 @@ export default {
     currentWidgetStyleFields() {
       return this.currentWidget.styleFields
     },
+    lineChartColor: {
+      get: function () {
+        console.log(this.currentWidget.styleFields)
+        // this.drawLine()
+        return this.currentWidget.styleFields.color.formModel
+      },
+      set: function (v) {
+        console.log('lineChartColor:', v)
+      }
+    },
     currentWidgetFields() {
       return this.currentWidget.fields
     },
@@ -49,7 +59,6 @@ export default {
     drawLine() {
       let dom = document.getElementById('echarts' + this.uuid)
       let myChart = echarts.init(dom)
-      console.log('--------', this.currentWidgetStyleFields.color.formModel)
       myChart.setOption({
         title: { text: 'echarts' },
         tooltip: {
@@ -75,7 +84,6 @@ export default {
             type: 'line',
             itemStyle: {
               normal: {
-                // color: 'rgb(230, 30, 30)'
                 color: `${this.currentWidgetStyleFields.color.formModel}`
               }
             },
