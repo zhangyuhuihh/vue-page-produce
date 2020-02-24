@@ -41,7 +41,12 @@ import _ from 'lodash'
 export default {
   data() {
     return {
-      allCollapseParent: null,
+      allCollapseParent: [
+        {
+          name: "标题类", parent: "widget"
+        }
+      ],
+      allCollapseParent:null,
       allCollapseChild: null
     }
   },
@@ -49,9 +54,12 @@ export default {
     this.allCollapseParent = _.pickBy(widget, (value, key) => {
       return value.componentDescription.parent === 'widget'
     })
+    console.log('循环的widget', this.allCollapseParent)
     this.allCollapseChild = _.groupBy(widget, value => {
       return value.componentDescription.parent
     })
+    console.log('allCollapseChild', this.allCollapseChild)
+
   },
   methods: {
     ...mapActions('partComponent', ['addWidget']),

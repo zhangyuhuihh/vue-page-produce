@@ -17,6 +17,7 @@ const jsonEchart = {
                 },
             ]
         }
+        
         // {
         //     legend: '销量2',
         //     detail: [

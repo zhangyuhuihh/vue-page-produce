@@ -4,6 +4,8 @@ import widgetFieldsCombine from './widget_fields_combine' // 定制化的form
 import validators from './validators'
 import validatorCombine from './validator_combine'
 import jsonTemplate from './json_template'
+import jsonHistogram from './json_histogram'
+
 
 /**
  * uuid: 前端唯一标识
@@ -166,6 +168,215 @@ class TitleChildTwo extends Title {
   }
 }
 
+class Histogram extends Widget {
+  static componentDescription = {
+    name: '柱状图',
+    parent: 'widget'
+  }
+
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 500,
+      height: 500
+    })
+  }
+}
+
+class HistogramOne extends Histogram {
+  static componentDescription = {
+    name: '柱状图1',
+    parent: 'Histogram',
+    img: 'TitleChildOne_icon.jpg'
+  }
+  constructor(constructorData) {
+    super(constructorData)
+    this.componentKey = 'HistogramOne'
+
+    this.setFields(constructorData, {
+      url: widgetFields.FieldInput({
+        label: '链接',
+        validator: [validators.requireInput('请输入链接')]
+      }),
+      ip: widgetFields.FieldInput({
+        label: '地址',
+        validator: [validators.requireInput('请输入地址')]
+      }),
+      isFakeData: widgetFieldsCombine.FieldsDataSource({
+        validator: [validatorCombine.validateFieldDataSource()],
+        fakeData: JSON.stringify(jsonHistogram.ForTestComponentThree),
+        radios: [
+          {
+            label: '使用接口数据',
+            value: 'real'
+          },
+          {
+            label: '使用模拟数据',
+            value: 'fake'
+          }
+        ]
+      }),
+      title: widgetFields.FieldInput({
+        label: '图表标题',
+        validator: [validators.requireInput('请输入标题')]
+      }),
+      legend: widgetFields.FieldInput({
+        label: '图表图例',
+        validator: [validators.requireInput('请输入图例')]
+      }),
+    })
+
+    this.setStyleFields(constructorData, {
+      color: widgetFields.FieldColorPicker(),
+      fontSize: widgetFields.FieldSelect({
+        label: '字体大小',
+        options: ['12px', '20px', '30px']
+      })
+    })
+  }
+}
+
+
+class ScrollBoard extends Widget {
+  static componentDescription = {
+    name: '轮播表类',
+    parent: 'widget'
+  }
+
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 960,
+      height: 780
+    })
+  }
+}
+
+class ScrollBoardChild extends ScrollBoard {
+  static componentDescription = {
+    name: '轮播表一',
+    parent: 'ScrollBoard',
+    img: 'scrollboard.png'
+  }
+  constructor(constructorData) {
+    super(constructorData)
+    this.componentKey = 'ScrollBoardChild'
+
+    this.setStyleFields(constructorData, {
+      color: widgetFields.FieldColorPicker(),
+      fontSize: widgetFields.FieldSelect({
+        label: '字体大小',
+        options: ['12px', '20px', '30px']
+      })
+    })
+
+    this.setFields(constructorData, {
+      isFakeData: widgetFieldsCombine.FieldsDataSource({
+        validator: [validatorCombine.validateFieldDataSource()],
+        fakeData: JSON.stringify(jsonTemplate.ForScrollBoard),
+        radios: [
+          {
+            label: '使用模拟数据',
+            value: 'fake'
+          },
+          {
+            label: '使用接口数据',
+            value: 'real'
+          }
+        ]
+      })
+    })
+  }
+}
+
+class ImageModule extends Widget {
+  static componentDescription = {
+    name: '图片类',
+    parent: 'widget'
+  }
+
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 250,
+      height: 250
+    })
+  }
+}
+
+class PageImage extends ImageModule {
+  static componentDescription = {
+    name: '单页图片',
+    parent: 'ImageModule',
+    img: 'scrollboard.png'
+  }
+  constructor(constructorData) {
+    super(constructorData)
+    this.componentKey = 'PageImage'
+
+    this.setStyleFields(constructorData, {
+      // color: widgetFields.FieldColorPicker(),
+      // fontSize: widgetFields.FieldSelect({
+      //   label: '字体大小',
+      //   options: ['12px', '20px', '30px']
+      // })
+    })
+    console.log('constructorData', constructorData)
+
+    this.setFields(constructorData, {
+      url: widgetFields.FieldUpload({
+        label: '选择图片1'
+      })
+    })
+  }
+}
+
+// class HistogramTwo extends Histogram {
+//   static componentDescription = {
+//     name: '柱状图2',
+//     parent: 'Histogram',
+//     img: 'TitleChildOne_icon.jpg'
+//   }
+//   constructor(constructorData) {
+//     super(constructorData)
+
+//     this.componentKey = 'TitleChildTwo'
+
+//     this.setFields(constructorData, {
+//       url: widgetFields.FieldInput({
+//         label: '链接',
+//         validator: [validators.requireInput('请输入链接')]
+//       }),
+//       ip: widgetFields.FieldInput({
+//         label: '地址',
+//         validator: [validators.requireInput('请输入地址')]
+//       }),
+//       isFakeData: widgetFieldsCombine.FieldsDataSource({
+//         validator: [validatorCombine.validateFieldDataSource()],
+//         fakeData: JSON.stringify(jsonTemplate.ForTestComponentThree),
+//         radios: [
+//           {
+//             label: '使用接口数据',
+//             value: 'real'
+//           },
+//           {
+//             label: '使用模拟数据',
+//             value: 'fake'
+//           }
+//         ]
+//       })
+//     })
+
+//     this.setStyleFields(constructorData, {
+//       color: widgetFields.FieldColorPicker(),
+//       fontSize: widgetFields.FieldSelect({
+//         label: '字体大小',
+//         options: ['12px', '20px', '30px']
+//       })
+//     })
+//   }
+// }
+
 // class TestComponentOne extends Widget {
 //   static initSize = {
 //     width: 300,
@@ -289,4 +500,6 @@ class TitleChildTwo extends Title {
 // }
 // TestComponentOne, TestComponentTwo, TestComponentThree,
 
-export { Title, TitleChildOne, TitleChildTwo }
+export { Title, TitleChildOne, TitleChildTwo, Histogram, HistogramOne}
+// export { Title, TitleChildOne, TitleChildTwo }
+

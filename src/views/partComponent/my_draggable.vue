@@ -24,7 +24,7 @@
         @resizestop="onResizeStop"
         @activated="onActivated(item)"
       >
-        <component :is="item.componentKey" :uuid="item.uuid"></component>
+        <component :is="item.componentKey" :uuid="item.uuid" v-if="!(loadId===item.uuid)"></component>
       </vue-draggable-resizable>
     </template>
   </div>
@@ -39,6 +39,8 @@ import TestComponentTwo from './testComponents/testComponentTwo'
 import TestComponentThree from './testComponents/testComponentThree'
 import TitleChildOne from './components/title/TitleChildOne/index'
 import TitleChildTwo from './components/title/TitleChildTwo/index'
+import HistogramOne from './components/histogram/index'
+
 export default {
   name: 'myDraggable',
   components: {
@@ -47,12 +49,14 @@ export default {
     TestComponentTwo,
     TestComponentThree,
     TitleChildOne,
-    TitleChildTwo
+    TitleChildTwo,
+    HistogramOne
   },
   props: {},
   data() {
     return {
-      activeUUid: ''
+      activeUUid: '',
+      loadId: ''
     }
   },
   computed: {
@@ -67,6 +71,13 @@ export default {
       'updateWidgetDragPos',
       'updateWidgetDragSize'
     ]),
+    reload(){
+      this.loadId = this.activeUUid
+      this.$nextTick(()=>{
+        this.loadId = ''
+      })
+
+    },
 
     onDragStop(x, y) {
       this.updateWidgetDragPos({
@@ -87,6 +98,8 @@ export default {
         height: height,
         uuid: this.activeUUid
       })
+      console.log('宽高', width)
+      this.reload()
     },
 
     onActivated(params) {
