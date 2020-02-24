@@ -36,7 +36,9 @@ export default {
   },
   methods: {
     init() {
+
       var dom = document.getElementById("echarts" + this.uuid);
+      console.log(dom)
       var myChart = this.echarts.init(dom);
       myChart.setOption({
         title: {
