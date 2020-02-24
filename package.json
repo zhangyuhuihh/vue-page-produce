@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "core-js": "^3.3.2",
+    "echarts": "^4.6.0",
     "element-ui": "^2.12.0",
     "ulid": "^2.3.0",
     "vue": "^2.6.10",

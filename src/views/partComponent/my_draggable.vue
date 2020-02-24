@@ -39,6 +39,7 @@ import TestComponentTwo from './testComponents/testComponentTwo'
 import TestComponentThree from './testComponents/testComponentThree'
 import TitleChildOne from './components/title/TitleChildOne/index'
 import TitleChildTwo from './components/title/TitleChildTwo/index'
+import PieChildOne from './components/Pie/PieChildOne/index'
 export default {
   name: 'myDraggable',
   components: {
@@ -47,7 +48,8 @@ export default {
     TestComponentTwo,
     TestComponentThree,
     TitleChildOne,
-    TitleChildTwo
+    TitleChildTwo,
+    PieChildOne
   },
   props: {},
   data() {
@@ -59,7 +61,6 @@ export default {
     ...mapState('partComponent', ['widgetList', 'pageBgColor', 'pageBgImgUrl']),
     ...mapGetters('partComponent', ['editorAreaSize', 'requestDataList'])
   },
-
   created() {},
   methods: {
     ...mapActions('partComponent', [

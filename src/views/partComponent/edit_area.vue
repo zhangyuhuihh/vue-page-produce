@@ -63,6 +63,7 @@ export default {
       magnification: 'magnification'
     }),
     mouseXYMagnification() {
+      console.log(this.magnification)
       return this.magnification / 100
     }
   },

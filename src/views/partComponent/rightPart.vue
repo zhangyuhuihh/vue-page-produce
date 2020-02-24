@@ -2,7 +2,7 @@
   <div class="right_container">
     <el-tabs v-model="actTab" type="card" @tab-click="handleTabClick">
       <el-tab-pane label="数据" name="first">
-        <div>
+        <div >
           <!-- <div>数据区域</div> -->
           <template v-for="(item, key) in activedWidget.fields">
             <component

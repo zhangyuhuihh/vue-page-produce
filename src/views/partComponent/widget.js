@@ -78,12 +78,72 @@ class Widget {
   }
 }
 
+
+class Pie extends Widget {
+  static componentDescription = {
+    name: '饼图类',
+    parent: 'widget'
+  }
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 500,
+      height: 500
+    })
+  }
+}
+class PieChildOne extends Pie {
+  static componentDescription = {
+    name: '饼图1',
+    parent: 'Pie',
+    img: 'TitleChildOne_icon.jpg'
+  }
+  constructor(constructorData) {
+    super(constructorData)
+    this.componentKey = 'PieChildOne'
+    this.setFields(constructorData, {
+      url: widgetFields.FieldInput({
+        label: '链接',
+        validator: [validators.requireInput('请输入链接')]
+      }),
+      ip: widgetFields.FieldInput({
+        label: '地址',
+        validator: [validators.requireInput('请输入地址')]
+      }),
+      isFakeData: widgetFieldsCombine.FieldsDataSource({
+        validator: [validatorCombine.validateFieldDataSource()],
+        fakeData: JSON.stringify(jsonTemplate.PieData),
+        radios: [
+          {
+            label: '使用接口数据',
+            value: 'real'
+          },
+          {
+            label: '使用模拟数据',
+            value: 'fake'
+          }
+        ]
+      })
+    })
+
+    this.setStyleFields(constructorData, {
+      color: widgetFields.FieldColorPicker(),
+      fontSize: widgetFields.FieldSelect({
+        label: '字体大小',
+        options: ['12px', '20px', '30px']
+      })
+    })
+  }
+
+
+}
+
+
 class Title extends Widget {
   static componentDescription = {
     name: '标题类',
     parent: 'widget'
   }
-
   constructor(constructorData) {
     super(constructorData)
     this.setDragSize(constructorData, {
@@ -289,4 +349,4 @@ class TitleChildTwo extends Title {
 // }
 // TestComponentOne, TestComponentTwo, TestComponentThree,
 
-export { Title, TitleChildOne, TitleChildTwo }
+export { Title, TitleChildOne, TitleChildTwo, Pie, PieChildOne }
