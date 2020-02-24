@@ -25,7 +25,6 @@ export default {
   computed: {
     ...mapState('partComponent', ['widgetList']),
     currentWidgetStyleFields() {
-      console.log(this.widgetList)
       return this.widgetList.find(v => v.uuid === this.uuid).styleFields
     }
   }

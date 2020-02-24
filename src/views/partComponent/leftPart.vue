@@ -47,26 +47,17 @@ export default {
     }
   },
   mounted() {
-    console.log(widget)
     this.allCollapseParent = _.pickBy(widget, (value, key) => {
       return value.componentDescription.parent === 'widget'
     })
     this.allCollapseChild = _.groupBy(widget, value => {
       return value.componentDescription.parent
     })
-    console.log(this.allCollapseChild)
-    // this.l_allCollapseParent = _.pickBy(widget, (value, key) => {
-    //   return value.componentDescription.parent === 'widget'
-    // })
-    // this.l_allCollapseChild =  _.groupBy(widget, value => {
-    //   return value.componentDescription.parent
-    // })
   },
   methods: {
     ...mapActions('partComponent', ['addWidget']),
 
     handleAdd(Item) {
-      console.log(Item)
       const obj = new Item({
         uuid: ulid(),
         type: 'add'

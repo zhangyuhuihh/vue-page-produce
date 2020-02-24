@@ -93,7 +93,6 @@ export default {
     onActivated(params) {
       this.activeUUid = params.uuid
       const actWidget = this.widgetList.find(v => v.uuid === params.uuid)
-      console.log('actWidget: ', actWidget)
       this.setActivedWidget(_.cloneDeep(actWidget))
     }
   }
