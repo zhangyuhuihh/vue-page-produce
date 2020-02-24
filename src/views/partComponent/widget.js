@@ -4,7 +4,6 @@ import widgetFieldsCombine from './widget_fields_combine' // 定制化的form
 import validators from './validators'
 import validatorCombine from './validator_combine'
 import jsonTemplate from './json_template'
-import linechartJson from './linechartJson'
 
 /**
  * uuid: 前端唯一标识
@@ -179,7 +178,7 @@ class LineChart extends Widget {
     super(constructorData)
     this.setDragSize(constructorData, {
       width: 500,
-      height: 400
+      height: 500
     })
   }
 }
@@ -206,7 +205,7 @@ class LineChartOne extends LineChart {
       }),
       isFakeData: widgetFieldsCombine.FieldsDataSource({
         validator: [validatorCombine.validateFieldDataSource()],
-        fakeData: JSON.stringify(linechartJson.ForTestComponentThree),
+        fakeData: JSON.stringify(jsonTemplate.LineChartDataOne),
         radios: [
           {
             label: '使用接口数据',

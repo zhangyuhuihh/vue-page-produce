@@ -1,22 +1,17 @@
 <template>
   <div>
     <div
+      fontSize: currentWidgetStyleFields.fontSize.formModel
       class="echartsContainer"
       :id="`echarts${uuid}`"
-      :style="`color:${lineChartColor}; width: 100%; height: 100%`">
+     >
     </div>
   </div>
 </template>
 
 <script>
-import echarts from 'echarts/lib/echarts'
+import echarts from 'echarts'
 import { mapState } from 'vuex'
-import 'echarts/lib/chart/line'
-import 'echarts/lib/chart/bar'
-import 'echarts/lib/component/tooltip'
-import 'echarts/lib/component/title'
-import 'echarts/lib/component/legend'
-import 'echarts/lib/component/markPoint'
 export default {
   props: {
     uuid: {
@@ -29,18 +24,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['widgetList', 'widthAndHeight']),
+    ...mapState('partComponent', ['widgetList']),
     currentWidget() {
       return this.widgetList.find(v => v.uuid === this.uuid)
     },
     currentWidgetStyleFields() {
       return this.currentWidget.styleFields
-    },
-    lineChartColor: {
-      get: function () {
-        // this.drawLine()
-        return this.currentWidget.styleFields.color.formModel
-      }
     },
     currentWidgetFields() {
       return this.currentWidget.fields
@@ -53,11 +42,92 @@ export default {
     }
   },
   mounted() {
-    this.drawLine(this.fakeData)
+    this.drawLine()
+  },
+  watch: {
+    fakeData: {
+      handler(newVal, oldVal) {
+        this.initEcharts()
+      },
+      deep: true
+    },
+    currentWidgetStyleFields: {
+      handler(newVal, oldVal) {
+        this.initEcharts()
+      },
+      deep: true
+    }
   },
   methods: {
-    drawLine(fakeData) {
-      echarts.init(document.getElementById('echarts' + this.uuid)).setOption(fakeData)
+    drawLine() {
+      echarts.init(document.getElementById('echarts' + this.uuid)).setOption({
+        title: { text: this.fakeData.titleName },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['每月新增用户数量', '每月用户数量总计'],
+          textStyle: {
+            color: '#9e9fa4',
+            fontSize: 16
+          }
+        },
+        grid: {
+          containLabel: true
+        },
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '每日用户数量总计',
+            type: 'line',
+            itemStyle: {
+              normal: {
+                color: this.currentWidgetStyleFields.color.formModel
+              }
+            },
+            yAxisIndex: 0,
+            data: this.fakeData.data
+          }
+        ]
+      })
+    },
+    initEcharts() {
+      echarts.init(document.getElementById('echarts' + this.uuid)).setOption({
+        title: { text: this.fakeData.titleName },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['每月新增用户数量', '每月用户数量总计'],
+          textStyle: {
+            color: '#9e9fa4',
+            fontSize: 16
+          }
+        },
+        grid: {
+          containLabel: true
+        },
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '每日用户数量总计',
+            type: 'line',
+            itemStyle: {
+              normal: {
+                color: this.currentWidgetStyleFields.color.formModel
+              }
+            },
+            yAxisIndex: 0,
+            data: this.fakeData.data
+          }
+        ]
+      })
     }
   }
 }
@@ -66,6 +136,6 @@ export default {
 <style lang="scss" scoped>
 .echartsContainer {
   width: 500px;
-  height: 400px;
+  height: 500px;
 }
 </style>
