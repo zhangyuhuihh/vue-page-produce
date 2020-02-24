@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div :id="`echarts${uuid}`" class="echartsStyle" :style="`color:${lineChartColor}`"></div>
+    <div
+      class="echartsContainer"
+      :id="`echarts${uuid}`"
+      :style="`color:${lineChartColor}; width: 100%; height: 100%`">
+    </div>
   </div>
 </template>
 
@@ -25,7 +29,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['widgetList']),
+    ...mapState('partComponent', ['widgetList', 'widthAndHeight']),
     currentWidget() {
       return this.widgetList.find(v => v.uuid === this.uuid)
     },
@@ -34,12 +38,8 @@ export default {
     },
     lineChartColor: {
       get: function () {
-        console.log(this.currentWidget.styleFields)
         // this.drawLine()
         return this.currentWidget.styleFields.color.formModel
-      },
-      set: function (v) {
-        console.log('lineChartColor:', v)
       }
     },
     currentWidgetFields() {
@@ -53,53 +53,19 @@ export default {
     }
   },
   mounted() {
-    this.drawLine()
+    this.drawLine(this.fakeData)
   },
   methods: {
-    drawLine() {
-      let dom = document.getElementById('echarts' + this.uuid)
-      let myChart = echarts.init(dom)
-      myChart.setOption({
-        title: { text: 'echarts' },
-        tooltip: {
-          trigger: 'axis'
-        },
-        legend: {
-          data: ['每日新增用户数量", "每日用户数量总计'],
-          textStyle: {
-            color: '#9e9fa4',
-            fontSize: 16
-          }
-        },
-        grid: {
-          containLabel: true
-        },
-        xAxis: {
-          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-        },
-        yAxis: {},
-        series: [
-          {
-            name: '每日用户数量总计',
-            type: 'line',
-            itemStyle: {
-              normal: {
-                color: `${this.currentWidgetStyleFields.color.formModel}`
-              }
-            },
-            yAxisIndex: 0,
-            data: [5, 20, 36, 10, 10, 20]
-          }
-        ]
-      })
+    drawLine(fakeData) {
+      echarts.init(document.getElementById('echarts' + this.uuid)).setOption(fakeData)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-    .echartsStyle {
-        width: 400px;
-        height: 400px;
-    }
+.echartsContainer {
+  width: 500px;
+  height: 400px;
+}
 </style>

@@ -20,13 +20,12 @@ function getErrorMsg (validators = [], formModel) {
 export default {
   namespaced: true,
   state: {
+    widthAndHeight: [], // 当拖动区域放大缩小时保存宽高
     widgetList: [],
     activedWidget: {},
     bigScreenRatio: {
-      // width: 1920,
-      // height: 1080
-      width: 1366,
-      height: 768
+      width: 1920,
+      height: 1080
     },
     pageBgColor: '#999999',
     pageBgImgUrl: '',
@@ -119,6 +118,10 @@ export default {
 
     setMagnification: (state, newMagnification) => {
       state.magnification = newMagnification
+    },
+    // 保存拖动时的宽高
+    setWh: (state, widthAndHeight) => {
+      state.widthAndHeight = widthAndHeight
     }
   },
   actions: {

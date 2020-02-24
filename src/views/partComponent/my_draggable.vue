@@ -24,14 +24,14 @@
         @resizestop="onResizeStop"
         @activated="onActivated(item)"
       >
-        <component :is="item.componentKey" :uuid="item.uuid"></component>
+        <component :is="item.componentKey" :uuid="item.uuid" v-if="!(reloadId===item.uuid)"></component>
       </vue-draggable-resizable>
     </template>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapActions, mapState, mapGetters, mapMutations } from 'vuex'
 import VueDraggableResizable from './draggable/vue-draggable-resizable'
 import _ from 'lodash'
 import TestComponentOne from './testComponents/testComponentOne'
@@ -54,7 +54,8 @@ export default {
   props: {},
   data() {
     return {
-      activeUUid: ''
+      activeUUid: '',
+      reloadId: ''
     }
   },
   computed: {
@@ -70,6 +71,10 @@ export default {
       'updateWidgetDragSize'
     ]),
 
+    ...mapMutations('partComponent', [
+      'setWh'
+    ]),
+
     onDragStop(x, y) {
       this.updateWidgetDragPos({
         x: x,
@@ -78,7 +83,15 @@ export default {
       })
     },
 
+    reload() {
+      this.reloadId = this.activeUUid
+      this.$nextTick(() => {
+        this.reloadId = ''
+      })
+    },
+
     onResizeStop(x, y, width, height) {
+      this.setWh([width, height])
       this.updateWidgetDragPos({
         x: x,
         y: y,
@@ -89,12 +102,13 @@ export default {
         height: height,
         uuid: this.activeUUid
       })
+      this.reload()
     },
 
     onActivated(params) {
       this.activeUUid = params.uuid
       const actWidget = this.widgetList.find(v => v.uuid === params.uuid)
-      console.log('actWidget: ', actWidget)
+      // console.log('actWidget: ', actWidget)
       this.setActivedWidget(_.cloneDeep(actWidget))
     }
   }
