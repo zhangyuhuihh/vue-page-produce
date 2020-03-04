@@ -34,7 +34,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import * as widget from './widget.js'
+import * as widgetParent from './widget.js'
+import * as widgetChild from './components/all_class'
 import { ulid } from 'ulid' // 生成uuid
 import _ from 'lodash'
 
@@ -46,10 +47,10 @@ export default {
     }
   },
   mounted() {
-    this.allCollapseParent = _.pickBy(widget, (value, key) => {
+    this.allCollapseParent = _.pickBy(widgetParent, (value, key) => {
       return value.componentDescription.parent === 'widget'
     })
-    this.allCollapseChild = _.groupBy(widget, value => {
+    this.allCollapseChild = _.groupBy(widgetChild, value => {
       return value.componentDescription.parent
     })
   },
