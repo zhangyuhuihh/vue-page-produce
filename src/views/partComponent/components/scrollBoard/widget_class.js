@@ -5,7 +5,7 @@ import validatorCombine from '../../validator_combine'
 import widgetFieldsCombine from '../../widget_fields_combine'
 import jsonTemplate from '../../json_template'
 
-class ScrollBoardChild extends ScrollBoard {
+class ScrollBoardChildOne extends ScrollBoard {
   static componentDescription = {
     name: '轮播表一',
     parent: 'ScrollBoard',
@@ -13,7 +13,7 @@ class ScrollBoardChild extends ScrollBoard {
   }
   constructor(constructorData) {
     super(constructorData)
-    this.componentKey = 'ScrollBoardChild'
+    this.componentKey = 'ScrollBoardChildOne'
 
     this.setStyleFields(constructorData, {
       headerBGC: widgetFields.FieldColorPicker({
@@ -79,4 +79,4 @@ class ScrollBoardChild extends ScrollBoard {
   }
 }
 
-export { ScrollBoardChild }
+export { ScrollBoardChildOne }
