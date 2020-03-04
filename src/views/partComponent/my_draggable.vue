@@ -34,12 +34,12 @@
 import { mapActions, mapState, mapGetters } from 'vuex'
 import VueDraggableResizable from './draggable/vue-draggable-resizable'
 import _ from 'lodash'
-import TestComponentOne from './testComponents/testComponentOne'
-import TestComponentTwo from './testComponents/testComponentTwo'
-import TestComponentThree from './testComponents/testComponentThree'
+import TestComponentOne from './components/testComponents/testComponentOne'
+import TestComponentTwo from './components/testComponents/testComponentTwo'
+import TestComponentThree from './components/testComponents/testComponentThree'
 import TitleChildOne from './components/title/TitleChildOne/index'
 import TitleChildTwo from './components/title/TitleChildTwo/index'
-import ScrollBoardChild from './components/scrollBoard'
+import ScrollBoardChildOne from './components/scrollBoard/ScrollBoardChildOne'
 export default {
   name: 'myDraggable',
   components: {
@@ -49,7 +49,7 @@ export default {
     TestComponentThree,
     TitleChildOne,
     TitleChildTwo,
-    ScrollBoardChild
+    ScrollBoardChildOne
   },
   props: {},
   data() {
