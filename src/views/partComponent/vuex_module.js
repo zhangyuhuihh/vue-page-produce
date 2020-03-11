@@ -137,7 +137,8 @@ export default {
       commit('REMOVE_WIDGET', oneWdiget)
     },
 
-    setActivedWidget: ({ commit }, activeWdiget) => {
+    setActivedWidget: ({ commit, state }, activeUUid) => {
+      const activeWdiget = state.widgetList.find(v => v.uuid === activeUUid)
       commit('SET_ACTIVEDWIDGET', activeWdiget)
     },
 

@@ -2,7 +2,13 @@
   <div class="draggable_container">
     <draggable v-model="draggableList">
       <transition-group>
-        <div v-for="element in draggableList" :key="element.uuid">{{element.componentKey}}</div>
+        <div
+          @click="setActivedWidget(element.uuid)"
+          v-for="element in draggableList"
+          :key="element.uuid"
+        >
+          <div>{{element.componentKey}}</div>
+        </div>
       </transition-group>
     </draggable>
   </div>
@@ -55,7 +61,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('partComponent', ['updateWidgetZIndex'])
+    ...mapActions('partComponent', ['updateWidgetZIndex', 'setActivedWidget'])
   }
 }
 </script>
