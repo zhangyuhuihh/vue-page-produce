@@ -29,7 +29,7 @@ export default {
       let arr = newValue.map((v, index) => {
         return {
           uuid: v.uuid,
-          z: 999 + index
+          z: 999 - index
         }
       })
       this.updateWidgetZIndex(arr)
@@ -48,12 +48,11 @@ export default {
           let arr2 = arr.slice(0, arr.length - 1) // 不包括end
           this.draggableList = arr2
           this.draggableList.unshift(_.last(newValue))
+          return
         }
+        this.draggableList = arr
       }
     }
-  },
-  created() {
-    // this.draggableList = this.widgetList
   },
   methods: {
     ...mapActions('partComponent', ['updateWidgetZIndex'])
