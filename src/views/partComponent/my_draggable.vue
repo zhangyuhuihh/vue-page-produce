@@ -16,6 +16,7 @@
         :parent="true"
         :x="item.dragPosition.x"
         :y="item.dragPosition.y"
+        :z="item.dragPosition.z"
         :w="item.dragSize.width"
         :h="item.dragSize.height"
         :minWidth="20"

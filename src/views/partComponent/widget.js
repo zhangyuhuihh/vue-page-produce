@@ -24,13 +24,15 @@ class Widget {
       case 'add':
         this.dragPosition = {
           x: 0,
-          y: 0
+          y: 0,
+          z: 9999
         }
         break
       case 'edit':
         this.dragPosition = {
           x: constructorData.dragPosition.x,
-          y: constructorData.dragPosition.y
+          y: constructorData.dragPosition.y,
+          z: constructorData.dragPosition.z
         }
     }
   }

@@ -1,14 +1,15 @@
-// import _ from 'lodash'
+import _ from 'lodash'
 
 const ADD_WIDGET = 'ADD_WIDGET'
-const UPDATE_WIDGET_POS = 'UPDATE_WIDGET_POS'
+const UPDATE_WIDGET_POS_XY = 'UPDATE_WIDGET_POS_XY'
+const UPDATE_WIDGET_POX_Z = 'UPDATE_WIDGET_POX_Z'
 const UPDATE_WIDGET_SIZE = 'UPDATE_WIDGET_SIZE'
 const REMOVE_WIDGET = 'REMOVE_WIDGET'
 const SET_ACTIVEDWIDGET = 'SET_ACTIVEDWIDGET'
 const FIELDS_CHANGE = 'FIELDS_CHANGE'
 const UPDATE_WIDGET_ERROR = 'UPDATE_WIDGET_ERROR'
 
-function getErrorMsg (validators = [], formModel) {
+function getErrorMsg(validators = [], formModel) {
   let res = validators.map(fn => fn(formModel))
   if (res.every(v => v === 'pass')) {
     return ''
@@ -62,10 +63,18 @@ export default {
       state.widgetList.push(oneWidget)
     },
 
-    [UPDATE_WIDGET_POS]: (state, newDragPosMsg) => {
+    [UPDATE_WIDGET_POS_XY]: (state, newDragPosMsg) => {
       const widget = state.widgetList.find(v => v.uuid === newDragPosMsg.uuid)
       widget.dragPosition.x = newDragPosMsg.x
       widget.dragPosition.y = newDragPosMsg.y
+    },
+
+    [UPDATE_WIDGET_POX_Z]: (state, arr) => {
+      state.widgetList = arr.map(v => {
+        let obj = _.cloneDeep(state.widgetList.find(el => el.uuid === v.uuid))
+        obj.dragPosition.z = v.z
+        return obj
+      })
     },
 
     [UPDATE_WIDGET_SIZE]: (state, newDragSizeMsg) => {
@@ -132,19 +141,23 @@ export default {
       commit('SET_ACTIVEDWIDGET', activeWdiget)
     },
 
-    updateWidgetDragPos ({ commit }, newDragPosMsg) {
-      commit('UPDATE_WIDGET_POS', newDragPosMsg)
+    updateWidgetDragPos({ commit }, newDragPosMsg) {
+      commit('UPDATE_WIDGET_POS_XY', newDragPosMsg)
     },
 
-    updateWidgetDragSize ({ commit }, newDragSizeMsg) {
+    updateWidgetZIndex({ commit }, newZIndexArr) {
+      commit('UPDATE_WIDGET_POX_Z', newZIndexArr)
+    },
+
+    updateWidgetDragSize({ commit }, newDragSizeMsg) {
       commit('UPDATE_WIDGET_SIZE', newDragSizeMsg)
     },
 
-    fieldsChange ({ commit }, { uuid, fieldType, fieldKey, fieldValue }) {
+    fieldsChange({ commit }, { uuid, fieldType, fieldKey, fieldValue }) {
       commit('FIELDS_CHANGE', { uuid, fieldType, fieldKey, fieldValue })
     },
 
-    validateAllFields ({ commit, state }, uuid) {
+    validateAllFields({ commit, state }, uuid) {
       return new Promise((resolve, reject) => {
         const fields = state.widgetList.find(v => v.uuid === uuid).fields
 

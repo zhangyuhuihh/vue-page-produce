@@ -29,6 +29,7 @@
         </template>
       </el-collapse>
     </div>
+    <div><Layer></Layer></div>
   </div>
 </template>
 
@@ -38,8 +39,12 @@ import * as widgetParent from './widget.js'
 import * as widgetChild from './components/all_class'
 import { ulid } from 'ulid' // 生成uuid
 import _ from 'lodash'
+import Layer from './layer'
 
 export default {
+  components: {
+    Layer
+  },
   data() {
     return {
       allCollapseParent: null,
