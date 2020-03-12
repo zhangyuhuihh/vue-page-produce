@@ -34,7 +34,7 @@
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
 import VueDraggableResizable from './draggable/vue-draggable-resizable'
-import _ from 'lodash'
+// import _ from 'lodash'
 import TestComponentOne from './components/testComponents/testComponentOne'
 import TestComponentTwo from './components/testComponents/testComponentTwo'
 import TestComponentThree from './components/testComponents/testComponentThree'

@@ -12,8 +12,9 @@
               <template v-for="item2 in allCollapseChild[key]">
                 <div
                   class="cell_container"
+                  :id="item2.componentDescription.name"
                   :key="item2.componentDescription.name"
-                  @click="handleAdd(item2)"
+                  @mousedown.stop.prevent="(e) => elementDown(e, item2)"
                 >
                   <div class="img_container">
                     <img
@@ -29,7 +30,16 @@
         </template>
       </el-collapse>
     </div>
-    <div><Layer></Layer></div>
+    <div>
+      <Layer></Layer>
+    </div>
+    <fake-drag-dom
+      :visible="isVisible"
+      :top="fakedragtop"
+      :left="fakedragleft"
+      :width="fakedragWidth"
+      :height="fakedragHeight"
+    ></fake-drag-dom>
   </div>
 </template>
 
@@ -40,15 +50,51 @@ import * as widgetChild from './components/all_class'
 import { ulid } from 'ulid' // 生成uuid
 import _ from 'lodash'
 import Layer from './layer'
+import FakeDragDom from './construction/Fake_drag_dom'
+import { addEvent, removeEvent, pauseEvent } from '@/util/events_fn.js'
+
+const events = {
+  mouse: {
+    start: 'mousedown',
+    move: 'mousemove',
+    stop: 'mouseup'
+  },
+  touch: {
+    start: 'touchstart',
+    move: 'touchmove',
+    stop: 'touchend'
+  }
+}
+
+let startLeftPos = ''
+let startTopPos = ''
+
+let startMousePosX = ''
+let startMousePosY = ''
+
+let eventsFor = events.mouse
 
 export default {
   components: {
-    Layer
+    Layer,
+    FakeDragDom
   },
   data() {
     return {
       allCollapseParent: null,
-      allCollapseChild: null
+      allCollapseChild: null,
+      isVisible: false,
+      currentMoveEl: null,
+      fakedragtop: 0,
+      fakedragleft: 0,
+      fakedragWidth: 100,
+      fakedragHeight: 80,
+      mouseClickPosition: { mouseX: 0, mouseY: 0, x: 0, y: 0, w: 0, h: 0 }
+    }
+  },
+  computed: {
+    dragCenter() {
+      return [this.fakedragWidth / 2, this.fakedragHeight / 2]
     }
   },
   mounted() {
@@ -62,12 +108,43 @@ export default {
   methods: {
     ...mapActions('partComponent', ['addWidget']),
 
-    handleAdd(Item) {
-      const obj = new Item({
-        uuid: ulid(),
-        type: 'add'
-      })
-      this.addWidget(obj)
+    elementDown(e, item) {
+      pauseEvent(e)
+      this.isVisible = true
+      this.currentMoveEl = item
+
+      startMousePosX = e.touches ? e.touches[0].pageX : e.pageX
+      startMousePosY = e.touches ? e.touches[0].pageY : e.pageY
+
+      startLeftPos = startMousePosX
+      startTopPos = startMousePosY
+
+      this.fakedragleft = startMousePosX - this.dragCenter[0]
+      this.fakedragtop = startMousePosY - this.dragCenter[1]
+
+      addEvent(document.documentElement, eventsFor.move, this.move)
+      addEvent(document.documentElement, eventsFor.stop, this.handleUp)
+    },
+
+    move(e) {
+      pauseEvent(e)
+      this.fakedragleft =
+        startLeftPos +
+        ((e.touches ? e.touches[0].pageX : e.pageX) - startMousePosX) -
+        this.dragCenter[0]
+      this.fakedragtop =
+        startTopPos +
+        ((e.touches ? e.touches[0].pageY : e.pageY) - startMousePosY) -
+        this.dragCenter[1]
+    },
+
+    handleUp(e) {
+      console.log('e: ', e);
+      this.isVisible = false
+      this.fakedragleft = 0
+      this.fakedragtop = 0
+      removeEvent(document.documentElement, eventsFor.move, this.move)
+      removeEvent(document.documentElement, eventsFor.stop, this.handleUp)
     }
   }
 }

@@ -15,14 +15,7 @@
 <script>
 import myDraggable from './my_draggable'
 import { mapState } from 'vuex'
-
-function pauseEvent(e) {
-  if (e.stopPropagation) e.stopPropagation()
-  if (e.preventDefault) e.preventDefault()
-  e.cancelBubble = true
-  e.returnValue = false
-  return false
-}
+import { addEvent, removeEvent, pauseEvent } from '@/util/events_fn.js'
 
 const events = {
   mouse: {
@@ -75,8 +68,8 @@ export default {
       startMousePosX = e.touches ? e.touches[0].pageX : e.pageX
       startMousePosY = e.touches ? e.touches[0].pageY : e.pageY
 
-      this.addEvent(document.documentElement, eventsFor.move, this.move)
-      this.addEvent(document.documentElement, eventsFor.stop, this.handleUp)
+      addEvent(document.documentElement, eventsFor.move, this.move)
+      addEvent(document.documentElement, eventsFor.stop, this.handleUp)
 
       // console.log('e: ', e)
     },
@@ -86,40 +79,17 @@ export default {
       pauseEvent(e)
       this.left =
         startLeftPos -
-        ((e.touches ? e.touches[0].pageX : e.pageX) - startMousePosX) / this.mouseXYMagnification
+        ((e.touches ? e.touches[0].pageX : e.pageX) - startMousePosX) /
+          this.mouseXYMagnification
       this.top =
         startTopPos -
-        ((e.touches ? e.touches[0].pageY : e.pageY) - startMousePosY) / this.mouseXYMagnification
+        ((e.touches ? e.touches[0].pageY : e.pageY) - startMousePosY) /
+          this.mouseXYMagnification
     },
 
     handleUp(e) {
-      this.removeEvent(document.documentElement, eventsFor.move, this.move)
-    },
-
-    addEvent(el, event, handler) {
-      if (!el) {
-        return
-      }
-      if (el.attachEvent) {
-        el.attachEvent('on' + event, handler)
-      } else if (el.addEventListener) {
-        el.addEventListener(event, handler, true)
-      } else {
-        el['on' + event] = handler
-      }
-    },
-
-    removeEvent(el, event, handler) {
-      if (!el) {
-        return
-      }
-      if (el.detachEvent) {
-        el.detachEvent('on' + event, handler)
-      } else if (el.removeEventListener) {
-        el.removeEventListener(event, handler, true)
-      } else {
-        el['on' + event] = null
-      }
+      removeEvent(document.documentElement, eventsFor.move, this.move)
+      removeEvent(document.documentElement, eventsFor.stop, this.handleUp)
     }
   }
 }
