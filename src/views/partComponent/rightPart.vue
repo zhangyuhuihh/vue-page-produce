@@ -1,20 +1,7 @@
 <template>
   <div class="right_container">
     <el-tabs v-model="actTab" type="card" @tab-click="handleTabClick">
-      <el-tab-pane label="数据" name="first">
-        <div>
-          <!-- <div>数据区域</div> -->
-          <template v-for="(item, key) in activedWidget.fields">
-            <component
-              :is="item.type"
-              :key="key + activedWidget.uuid"
-              :field-key="key"
-              :field-type="'fields'"
-            ></component>
-          </template>
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="样式" name="second">
+      <el-tab-pane label="样式" name="first">
         <div>
           <!-- <div>样式区域</div> -->
           <template v-for="(item, key) in activedWidget.styleFields">
@@ -28,8 +15,20 @@
           </template>
         </div>
       </el-tab-pane>
+      <el-tab-pane label="数据" name="second">
+        <div>
+          <!-- <div>数据区域</div> -->
+          <template v-for="(item, key) in activedWidget.fields">
+            <component
+              :is="item.type"
+              :key="key + activedWidget.uuid"
+              :field-key="key"
+              :field-type="'fields'"
+            ></component>
+          </template>
+        </div>
+      </el-tab-pane>
     </el-tabs>
-
     <!-- <div style="margin-top: 50px">
       <el-button @click="handleClick" type="primary">保存</el-button>
     </div>-->
@@ -84,7 +83,7 @@ export default {
   box-shadow: 0px 5px 12px #777777;
   position: relative;
   z-index: 99;
-  overflow-y: scroll;
+  overflow-y: auto;
   /deep/ .el-tabs__item {
     width: 139px;
   }

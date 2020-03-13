@@ -113,7 +113,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions('partComponent', ['addWidget']),
+    ...mapActions('partComponent', ['addWidget', 'setActivedWidget']),
 
     elementDown(e, item) {
       pauseEvent(e)
@@ -205,6 +205,7 @@ export default {
             this.bigScreenRatio.height - widgetHeight - 2
         }
         this.addWidget(oneWidget)
+        this.setActivedWidget(oneWidget.uuid)
       }
     },
 

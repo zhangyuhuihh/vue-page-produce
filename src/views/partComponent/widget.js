@@ -89,7 +89,7 @@ class Title extends Widget {
   constructor(constructorData) {
     super(constructorData)
     this.setDragSize(constructorData, {
-      width: 1920,
+      width: 300,
       height: 50
     })
   }
@@ -105,7 +105,7 @@ class ScrollBoard extends Widget {
     super(constructorData)
     this.setDragSize(constructorData, {
       width: 960,
-      height: 780
+      height: 113
     })
   }
 }
