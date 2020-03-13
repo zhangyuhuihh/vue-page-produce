@@ -44,10 +44,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import * as widgetParent from './widget.js'
 import * as widgetChild from './components/all_class'
-// import { ulid } from 'ulid' // 生成uuid
+import { ulid } from 'ulid' // 生成uuid
 import _ from 'lodash'
 import Layer from './layer'
 import FakeDragDom from './construction/Fake_drag_dom'
@@ -93,8 +93,13 @@ export default {
     }
   },
   computed: {
+    ...mapState('partComponent', ['magnification']),
     dragCenter() {
       return [this.fakedragWidth / 2, this.fakedragHeight / 2]
+    },
+
+    disTanceMagnificition() {
+      return this.magnification / 100
     }
   },
   mounted() {
@@ -139,14 +144,42 @@ export default {
     },
 
     handleUp(e) {
-      console.log('e: ', e)
       this.isVisible = false
       this.fakedragleft = 0
       this.fakedragtop = 0
-      let dom = document.getElementById('editMainBox')
-      console.log('宽高 ', dom.getBoundingClientRect());
+      this.calculateElInitPos(e)
       removeEvent(document.documentElement, eventsFor.move, this.move)
       removeEvent(document.documentElement, eventsFor.stop, this.handleUp)
+    },
+
+    calculateElInitPos(e) {
+      let dom = document.getElementById('editMainBox')
+      let domDistance = dom.getBoundingClientRect()
+      let EditAreaX = parseInt(domDistance.left)
+      let EditAreaY = parseInt(domDistance.top)
+      console.log('EditAreaY: ', EditAreaY);
+
+      let elPosX = (e.clientX - EditAreaX) / this.disTanceMagnificition
+      let elPosY = (e.clientY - EditAreaY) / this.disTanceMagnificition
+      // 判断区域待调
+
+      let El = this.currentMoveEl
+
+      let obj = new El({
+        uuid: ulid(),
+        type: 'add',
+        initDragPosition: {
+          x: elPosX,
+          y: elPosY
+        }
+      })
+
+      console.log(obj)
+
+      this.addWidget(obj)
+
+      // 经过测验 dom.left = e.clientX
+      console.log('宽高 ', dom.getBoundingClientRect())
     }
   }
 }

@@ -23,8 +23,8 @@ class Widget {
     switch (constructorData.type) {
       case 'add':
         this.dragPosition = {
-          x: 0,
-          y: 0,
+          x: constructorData.initDragPosition.x,
+          y: constructorData.initDragPosition.y,
           z: 9999
         }
         break
