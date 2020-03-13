@@ -110,4 +110,33 @@ class ScrollBoard extends Widget {
   }
 }
 
-export { Title, ScrollBoard }
+class LineChart extends Widget {
+  static componentDescription = {
+    name: '折线图类',
+    parent: 'widget'
+  }
+
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 400,
+      height: 300
+    })
+  }
+}
+
+class PieChart extends Widget {
+  static componentDescription = {
+    name: '饼图类',
+    parent: 'widget'
+  }
+
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 350,
+      height: 350
+    })
+  }
+}
+export { Title, ScrollBoard, LineChart, PieChart }
