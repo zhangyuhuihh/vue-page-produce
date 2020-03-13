@@ -7,9 +7,9 @@ import jsonTemplate from '../../json_template'
 
 class LineChartChildOne extends LineChart {
   static componentDescription = {
-    name: '折现图一',
+    name: '折线图一',
     parent: 'LineChart',
-    img: 'scrollboard.png'
+    img: 'LineChartChildOne_icon.png'
   }
   constructor(constructorData) {
     super(constructorData)

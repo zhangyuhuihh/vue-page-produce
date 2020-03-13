@@ -139,4 +139,19 @@ class PieChart extends Widget {
     })
   }
 }
-export { Title, ScrollBoard, LineChart, PieChart }
+
+class BarChart extends Widget {
+  static componentDescription = {
+    name: '柱状图类',
+    parent: 'widget'
+  }
+
+  constructor(constructorData) {
+    super(constructorData)
+    this.setDragSize(constructorData, {
+      width: 400,
+      height: 300
+    })
+  }
+}
+export { Title, ScrollBoard, LineChart, PieChart, BarChart }

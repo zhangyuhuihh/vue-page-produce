@@ -236,15 +236,15 @@ export default {
     display: flex;
     flex-wrap: wrap;
     .cell_container {
-      width: 70px;
+      width: 100%;
       cursor: pointer;
-      height: 80px;
+      height: 120px;
       display: flex;
       align-items: center;
       flex-direction: column;
       .img_container {
-        width: 50px;
-        height: 50px;
+        width: 150px;
+        height: 110px;
       }
     }
   }

@@ -1,15 +1,15 @@
-import { ScrollBoard } from '../../widget'
+import { BarChart } from '../../widget'
 import widgetFields from '../../widget_fields' // 单一的form
 // import validators from '../../validators'
 import validatorCombine from '../../validator_combine'
 import widgetFieldsCombine from '../../widget_fields_combine'
 import jsonTemplate from '../../json_template'
 
-class ScrollBoardChildOne extends ScrollBoard {
+class BarChartChildOne extends BarChart {
   static componentDescription = {
-    name: '轮播表一',
-    parent: 'ScrollBoard',
-    img: 'ScrollboardChildOne_icon.png'
+    name: '柱状图一',
+    parent: 'BarChart',
+    img: 'BarChartChildOne_icon.png'
   }
   constructor(constructorData) {
     super(constructorData)
@@ -79,4 +79,4 @@ class ScrollBoardChildOne extends ScrollBoard {
   }
 }
 
-export { ScrollBoardChildOne }
+export { BarChartChildOne }

@@ -9,7 +9,7 @@ class PieChartChildOne extends PieChart {
   static componentDescription = {
     name: '饼图一',
     parent: 'PieChart',
-    img: 'scrollboard.png'
+    img: 'PieChartChildOne_icon.png'
   }
   constructor(constructorData) {
     super(constructorData)
