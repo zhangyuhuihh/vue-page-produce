@@ -93,7 +93,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['magnification']),
+    ...mapState('partComponent', ['magnification', 'bigScreenRatio']),
     dragCenter() {
       return [this.fakedragWidth / 2, this.fakedragHeight / 2]
     },
@@ -153,19 +153,22 @@ export default {
     },
 
     calculateElInitPos(e) {
-      let dom = document.getElementById('editMainBox')
-      let domDistance = dom.getBoundingClientRect()
+      let editMainBoxDom = document.getElementById('editMainBox')
+      let domDistance = editMainBoxDom.getBoundingClientRect()
+
       let EditAreaX = parseInt(domDistance.left)
       let EditAreaY = parseInt(domDistance.top)
-      console.log('EditAreaY: ', EditAreaY);
 
+      let EditAreaRightX = parseInt(domDistance.right)
+      let EditAreaBottomY = parseInt(domDistance.bottom)
+
+      // 经过测验 dom.left = e.clientX
       let elPosX = (e.clientX - EditAreaX) / this.disTanceMagnificition
       let elPosY = (e.clientY - EditAreaY) / this.disTanceMagnificition
-      // 判断区域待调
 
       let El = this.currentMoveEl
 
-      let obj = new El({
+      let oneWidget = new El({
         uuid: ulid(),
         type: 'add',
         initDragPosition: {
@@ -174,12 +177,31 @@ export default {
         }
       })
 
-      console.log(obj)
+      let isInArea = this.judgeIsInEditArea(e.clientX, EditAreaX, e.clientY, EditAreaY)
+      // 拖到指定编辑区域再进行数据添加
+      if (isInArea) {
+        let widgetWidth = oneWidget.dragSize.width
+        let widgetHeight = oneWidget.dragSize.height
+        // 当鼠标位置加上元素位置超出编辑区域的时候，进行位置修正
+        if ((EditAreaRightX - e.clientX) / this.disTanceMagnificition < widgetWidth) {
+          oneWidget.dragPosition.x = this.bigScreenRatio.width - widgetWidth - 2
+        }
+        if ((EditAreaBottomY - e.clientY) / this.disTanceMagnificition < widgetHeight) {
+          oneWidget.dragPosition.y = this.bigScreenRatio.height - widgetHeight - 2
+        }
+        this.addWidget(oneWidget)
+      }
+    },
 
-      this.addWidget(obj)
-
-      // 经过测验 dom.left = e.clientX
-      console.log('宽高 ', dom.getBoundingClientRect())
+    judgeIsInEditArea(clientX, EditAreaX, clientY, EditAreaY) {
+      return (
+        clientX - EditAreaX > 0 &&
+        (clientX - EditAreaX) / this.disTanceMagnificition <
+          this.bigScreenRatio.width &&
+        clientY - EditAreaY > 0 &&
+        (clientY - EditAreaY) / this.disTanceMagnificition <
+          this.bigScreenRatio.height
+      )
     }
   }
 }

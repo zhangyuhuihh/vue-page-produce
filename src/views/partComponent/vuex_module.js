@@ -29,7 +29,7 @@ export default {
     },
     pageBgColor: '#999999',
     pageBgImgUrl: '',
-    magnification: 50
+    magnification: 60
   },
   getters: {
     editorAreaSize: state => {
