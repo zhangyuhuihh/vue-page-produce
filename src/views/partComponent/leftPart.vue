@@ -47,7 +47,7 @@
 import { mapActions } from 'vuex'
 import * as widgetParent from './widget.js'
 import * as widgetChild from './components/all_class'
-import { ulid } from 'ulid' // 生成uuid
+// import { ulid } from 'ulid' // 生成uuid
 import _ from 'lodash'
 import Layer from './layer'
 import FakeDragDom from './construction/Fake_drag_dom'
@@ -139,10 +139,12 @@ export default {
     },
 
     handleUp(e) {
-      console.log('e: ', e);
+      console.log('e: ', e)
       this.isVisible = false
       this.fakedragleft = 0
       this.fakedragtop = 0
+      let dom = document.getElementById('editMainBox')
+      console.log('宽高 ', dom.getBoundingClientRect());
       removeEvent(document.documentElement, eventsFor.move, this.move)
       removeEvent(document.documentElement, eventsFor.stop, this.handleUp)
     }

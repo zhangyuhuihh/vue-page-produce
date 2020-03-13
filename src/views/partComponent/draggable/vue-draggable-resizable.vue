@@ -685,7 +685,7 @@ export default {
   computed: {
     ...mapState('partComponent', ['magnification']),
     mouseXYMagnification() {
-      return this.magnification / 100
+      return parseInt(this.magnification / 100)
     },
     style() {
       return {
