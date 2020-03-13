@@ -35,6 +35,7 @@
     </div>
     <fake-drag-dom
       :visible="isVisible"
+      :img="fakeDomImgUrl"
       :top="fakedragtop"
       :left="fakedragleft"
       :width="fakedragWidth"
@@ -85,6 +86,7 @@ export default {
       allCollapseChild: null,
       isVisible: false,
       currentMoveEl: null,
+      fakeDomImgUrl: '',
       fakedragtop: 0,
       fakedragleft: 0,
       fakedragWidth: 100,
@@ -117,6 +119,7 @@ export default {
       pauseEvent(e)
       this.isVisible = true
       this.currentMoveEl = item
+      this.fakeDomImgUrl = item.componentDescription.img
 
       startMousePosX = e.touches ? e.touches[0].pageX : e.pageX
       startMousePosY = e.touches ? e.touches[0].pageY : e.pageY
@@ -177,17 +180,29 @@ export default {
         }
       })
 
-      let isInArea = this.judgeIsInEditArea(e.clientX, EditAreaX, e.clientY, EditAreaY)
+      let isInArea = this.judgeIsInEditArea(
+        e.clientX,
+        EditAreaX,
+        e.clientY,
+        EditAreaY
+      )
       // 拖到指定编辑区域再进行数据添加
       if (isInArea) {
         let widgetWidth = oneWidget.dragSize.width
         let widgetHeight = oneWidget.dragSize.height
         // 当鼠标位置加上元素位置超出编辑区域的时候，进行位置修正
-        if ((EditAreaRightX - e.clientX) / this.disTanceMagnificition < widgetWidth) {
+        if (
+          (EditAreaRightX - e.clientX) / this.disTanceMagnificition <
+          widgetWidth
+        ) {
           oneWidget.dragPosition.x = this.bigScreenRatio.width - widgetWidth - 2
         }
-        if ((EditAreaBottomY - e.clientY) / this.disTanceMagnificition < widgetHeight) {
-          oneWidget.dragPosition.y = this.bigScreenRatio.height - widgetHeight - 2
+        if (
+          (EditAreaBottomY - e.clientY) / this.disTanceMagnificition <
+          widgetHeight
+        ) {
+          oneWidget.dragPosition.y =
+            this.bigScreenRatio.height - widgetHeight - 2
         }
         this.addWidget(oneWidget)
       }
