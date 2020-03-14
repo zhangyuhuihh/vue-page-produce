@@ -1,6 +1,6 @@
 <template>
   <div class="left_part_container">
-    <div>
+    <div class="left_part_top_choose">
       <el-collapse>
         <template v-for="(item, key) in allCollapseParent">
           <el-collapse-item
@@ -17,9 +17,7 @@
                   @mousedown.stop.prevent="(e) => elementDown(e, item2)"
                 >
                   <div class="img_container">
-                    <img
-                      :src="require(`./images/${item2.componentDescription.img}`)"
-                    />
+                    <img :src="require(`./images/${item2.componentDescription.img}`)" />
                   </div>
                   <div>{{item2.componentDescription.name}}</div>
                 </div>
@@ -29,8 +27,13 @@
         </template>
       </el-collapse>
     </div>
-    <div>
-      <Layer></Layer>
+
+    <div class="bottom_layer">
+      <div @click="handleClickLayer" style="height: 48px">{{isShowLayer ? '关闭' : '打开'}}图层</div>
+      <div v-if="isShowLayer" class="bottom_layer_contaniner">
+        <div style="border-bottom: 2px solid">请鼠标点击拖动调整图层</div>
+        <Layer></Layer>
+      </div>
     </div>
     <fake-drag-dom
       :visible="isVisible"
@@ -90,7 +93,9 @@ export default {
       fakedragleft: 0,
       fakedragWidth: 100,
       fakedragHeight: 80,
-      mouseClickPosition: { mouseX: 0, mouseY: 0, x: 0, y: 0, w: 0, h: 0 }
+      mouseClickPosition: { mouseX: 0, mouseY: 0, x: 0, y: 0, w: 0, h: 0 },
+
+      isShowLayer: false
     }
   },
   computed: {
@@ -217,6 +222,10 @@ export default {
         (clientY - EditAreaY) / this.disTanceMagnificition <
           this.bigScreenRatio.height
       )
+    },
+
+    handleClickLayer() {
+      this.isShowLayer = !this.isShowLayer
     }
   }
 }
@@ -226,39 +235,66 @@ export default {
 .left_part_container {
   // width: 100%;
   height: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-  // background-color: #20212C;
-  // box-shadow: 0px 5px 12px #777777;
-  position: relative;
-  z-index: 99;
-  margin-right: -20px;
-  overflow-y: scroll;
-  .block_container {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 20px;
-    color: rgb(182, 184, 204);
-    .cell_container {
-      width: 100%;
-      cursor: pointer;
-      height: 135px;
+  .left_part_top_choose {
+    height: calc(100% - 50px);
+    padding-left: 10px;
+    padding-right: 10px;
+    // background-color: #20212C;
+    // box-shadow: 0px 5px 12px #777777;
+    position: relative;
+    z-index: 99;
+    margin-right: -20px;
+    overflow-y: scroll;
+    .block_container {
       display: flex;
-      align-items: center;
-      flex-direction: column;
-      .img_container {
-        width: 150px;
-        padding: 6px;
-        height: 110px;
-        img {
-          border-radius: 5px;
-          width: 100%;
-          height: 100%;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      color: rgb(182, 184, 204);
+      .cell_container {
+        width: 100%;
+        cursor: pointer;
+        height: 135px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        .img_container {
+          width: 150px;
+          padding: 6px;
+          height: 110px;
+          img {
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+          }
         }
       }
+      .img_container :hover {
+        border: 1px solid #335ae9;
+      }
     }
-    .img_container :hover {
-      border: 1px solid #335ae9;
+  }
+
+  .bottom_layer {
+    height: 50px;
+    width: 200px;
+    left: 0px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    line-height: 50px;
+    color: rgb(182, 184, 204);
+    border-top: 2px solid rgb(182, 184, 204);
+    cursor: pointer;
+    .bottom_layer_contaniner {
+      position: absolute;
+      bottom: 0px;
+      left: 206px;
+      width: 200px;
+      height: calc(100vh - 52px);
+      background-color: #2c2e3f;
+      z-index: 99;
+      overflow-y: auto;
+      border-radius: 5px;
     }
   }
 

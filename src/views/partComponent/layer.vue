@@ -1,13 +1,16 @@
 <template>
   <div class="draggable_container">
     <draggable v-model="draggableList">
-      <transition-group>
+      <transition-group name="flip-list">
         <div
           @click="setActivedWidget(element.uuid)"
           v-for="element in draggableList"
           :key="element.uuid"
         >
-          <div>{{element.componentKey}}</div>
+          <div
+            :style="{fontSize: '12px',
+            backgroundColor: element.uuid === activedWidget.uuid ? '#3058EB' : ''}"
+          >{{element.componentKey + '_' + element.uuid.substr(element.uuid.length - 4, 4)}}</div>
         </div>
       </transition-group>
     </draggable>
@@ -28,7 +31,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['widgetList'])
+    ...mapState('partComponent', ['widgetList', 'activedWidget'])
   },
   watch: {
     draggableList(newValue, olaValue) {
@@ -40,24 +43,27 @@ export default {
       })
       this.updateWidgetZIndex(arr)
     },
-    widgetList(newValue, oldValue) {
-      if (newValue.length !== this.draggableList.length) {
-        const arr = newValue.map(v => {
-          return {
-            uuid: v.uuid,
-            componentKey: v.componentKey,
-            z: v.dragPosition.z
-          }
-        })
+    widgetList: {
+      handler: function(newValue, oldValue) {
+        if (newValue.length !== this.draggableList.length) {
+          const arr = newValue.map(v => {
+            return {
+              uuid: v.uuid,
+              componentKey: v.componentKey,
+              z: v.dragPosition.z
+            }
+          })
 
-        if (newValue.length > this.draggableList.length) {
-          let arr2 = arr.slice(0, arr.length - 1) // 不包括end
-          this.draggableList = arr2
-          this.draggableList.unshift(_.last(newValue))
-          return
+          if (newValue.length > this.draggableList.length) {
+            let arr2 = arr.slice(0, arr.length - 1) // 不包括end
+            this.draggableList = arr2
+            this.draggableList.unshift(_.last(newValue))
+            return
+          }
+          this.draggableList = arr
         }
-        this.draggableList = arr
-      }
+      },
+      immediate: true
     }
   },
   methods: {
@@ -67,4 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.flip-list-move {
+  transition: transform 0.5s;
+}
 </style>>
