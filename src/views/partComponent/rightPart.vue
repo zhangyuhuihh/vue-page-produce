@@ -77,15 +77,32 @@ export default {
 
 <style lang="scss" scoped>
 .right_container {
-  padding: 10px;
+  // padding: 10px;
   height: 100%;
   width: 100%;
-  box-shadow: 0px 5px 12px #777777;
+  background-color: #20212b;
+  color: #b6b8cc;
+  box-shadow: 0px 5px 12px #000000;
   position: relative;
   z-index: 99;
   overflow-y: auto;
   /deep/ .el-tabs__item {
-    width: 139px;
+    width: 150px;
+    text-align: center;
+    border: none;
+    color: #b6b8cc;
+    background-color: #20212b;
+  }
+  /deep/ .el-tabs__item.is-active {
+    color: #409EFF;
+    background-color: #2c2e3f;
+    border: none
+  }
+  /deep/ .el-tabs__nav {
+    border: none
+  }
+  /deep/ .el-tabs__content {
+    padding: 10px;
   }
 }
 </style>
