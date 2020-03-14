@@ -1,25 +1,31 @@
 <template>
-  <div>
-    <span>{{labelData}}</span>
-    <el-radio-group
-      :value="modelData.dataType"
-      @input="(value) => handleFieldModelChange(value, 'dataType')"
-    >
-      <el-radio :key="item.value" v-for="item in radios" :label="item.value">{{item.label}}</el-radio>
-    </el-radio-group>
-    <div v-if="modelData.dataType === 'real'">
-      <el-input :value="modelData.url" @input="(value) => handleFieldModelChange(value, 'url')"></el-input>
+  <div class="field_data_source_container">
+    <div class="field_data_source_top">
+      <span>{{labelData}}</span>
+      <el-radio-group
+        :value="modelData.dataType"
+        @input="(value) => handleFieldModelChange(value, 'dataType')"
+      >
+        <el-radio :key="item.value" v-for="item in radios" :label="item.value">{{item.label}}</el-radio>
+      </el-radio-group>
     </div>
-    <div v-if="modelData.dataType === 'fake'">
-      <el-input
-        type="textarea"
-        autosize
-        resize='none'
-        placeholder="请输入内容"
-        :value="getFormatData(modelData.fakeData)"
-        @input="(value) => handleFieldModelChange(value, 'fakeData')"
-      ></el-input>
+
+    <div class="field_data_source_bottom">
+      <div v-if="modelData.dataType === 'real'">
+        <el-input :value="modelData.url" @input="(value) => handleFieldModelChange(value, 'url')"></el-input>
+      </div>
+      <div v-if="modelData.dataType === 'fake'">
+        <el-input
+          type="textarea"
+          autosize
+          resize="none"
+          placeholder="请输入内容"
+          :value="getFormatData(modelData.fakeData)"
+          @input="(value) => handleFieldModelChange(value, 'fakeData')"
+        ></el-input>
+      </div>
     </div>
+
     <div>{{errorMsg}}</div>
   </div>
 </template>
@@ -112,3 +118,24 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.field_data_source_container {
+  .field_data_source_top {
+  }
+  .field_data_source_bottom {
+    margin-top: 10px;
+  }
+}
+</style>
+
+<style lang="scss">
+.field_data_source_container {
+  .el-textarea__inner {
+    color: #b6b8cc;
+    font-weight: bold;
+    background-color: #181a1f;
+    border: 1px solid hsla(0, 0%, 100%, 0.2);
+  }
+}
+</style>

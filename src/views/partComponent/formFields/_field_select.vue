@@ -29,7 +29,12 @@ export default {
   align-items: center;
   .select_cell {
     width: 180px;
-    margin-left: 10px
+    margin-left: 10px;
+  }
+  /deep/ .el-input__inner {
+    color: #b6b8cc;
+    background-color: #181a1f;
+    border: 1px solid hsla(0, 0%, 100%, 0.2);
   }
 }
 </style>

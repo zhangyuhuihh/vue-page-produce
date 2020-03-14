@@ -91,18 +91,18 @@ export default {
     text-align: center;
     border: none;
     color: #b6b8cc;
-    background-color: #20212b;
+    background-color: #2c2e3f;
   }
   /deep/ .el-tabs__item.is-active {
     color: #409EFF;
-    background-color: #2c2e3f;
+    background-color: #20212b;
     border: none
   }
   /deep/ .el-tabs__nav {
     border: none
   }
   /deep/ .el-tabs__content {
-    padding: 10px;
+    padding: 20px;
   }
 }
 </style>

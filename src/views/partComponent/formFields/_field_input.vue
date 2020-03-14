@@ -20,14 +20,19 @@ export default {
   position: relative;
   .input_width {
     width: 200px;
-    margin-left: 10px
+    margin-left: 10px;
   }
   .error_msg_cell {
     position: absolute;
     font-size: 12px;
     bottom: 0px;
     left: 41px;
-    color: red
+    color: red;
+  }
+  /deep/ .el-input__inner {
+    color: #b6b8cc;
+    background-color: #181a1f;
+    border: 1px solid hsla(0, 0%, 100%, 0.2);
   }
 }
 </style>
