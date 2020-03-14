@@ -89,7 +89,7 @@ class Title extends Widget {
   constructor(constructorData) {
     super(constructorData)
     this.setDragSize(constructorData, {
-      width: 300,
+      width: 200,
       height: 50
     })
   }

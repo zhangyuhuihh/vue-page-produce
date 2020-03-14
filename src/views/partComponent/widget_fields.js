@@ -1,8 +1,8 @@
 const widgetFields = {
-  FieldInput({ label, validator = [() => 'pass'] }) {
+  FieldInput({ label, validator = [() => 'pass'], formModel = '' }) {
     return {
       type: 'FieldInput',
-      formModel: '',
+      formModel,
       validator,
       label,
       errorMsg: ''
@@ -12,7 +12,7 @@ const widgetFields = {
   FieldSelect({ label, options }) {
     return {
       type: 'FieldSelect',
-      formModel: options[0],
+      formModel: options[0].value,
       label,
       options
     }
@@ -36,17 +36,17 @@ const widgetFields = {
     }
   },
 
-  FiledSwitch({ label, formModel }) {
+  FieldSwitch({ label, formModel }) {
     return {
-      type: 'FiledSwitch',
+      type: 'FieldSwitch',
       label,
       formModel
     }
   },
 
-  FiledSlider({ label, formModel, min, max }) {
+  FieldSlider({ label, formModel, min, max }) {
     return {
-      type: 'FiledSlider',
+      type: 'FieldSlider',
       label,
       formModel,
       min,

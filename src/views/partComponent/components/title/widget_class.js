@@ -16,20 +16,36 @@ class TitleChildOne extends Title {
     this.componentKey = 'TitleChildOne'
 
     this.setFields(constructorData, {
-      url: widgetFields.FieldInput({
-        label: '链接',
-        validator: [validators.requireInput('请输入链接')]
+      titleText: widgetFields.FieldInput({
+        label: '标题',
+        formModel: '子标题一',
+        validator: [validators.requireInput('请输入标题文字')]
       })
     })
 
     this.setStyleFields(constructorData, {
       color: widgetFields.FieldColorPicker({
-        label: '颜色',
+        label: '字体颜色',
         formModel: '#000'
       }),
-      fontSize: widgetFields.FieldSelect({
+      fontSize: widgetFields.FieldSlider({
         label: '字体大小',
-        options: ['12px', '20px', '30px']
+        formModel: 20,
+        min: 12,
+        max: 45
+      }),
+      fontWeight: widgetFields.FieldSelect({
+        label: '字体粗细',
+        options: [
+          {
+            label: '细',
+            value: '400'
+          },
+          {
+            label: '粗',
+            value: '700'
+          }
+        ]
       })
     })
   }

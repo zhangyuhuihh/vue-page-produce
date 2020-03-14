@@ -1,12 +1,16 @@
 <template>
   <div
-    class="testComponent_one"
+    class="title_child_one_container"
     :style="{
     color: currentWidgetStyleFields.color.formModel,
-    fontSize: currentWidgetStyleFields.fontSize.formModel
+    fontSize: currentWidgetStyleFields.fontSize.formModel + 'px',
+    fontWeight:currentWidgetStyleFields.fontWeight.formModel,
+    textAlign: 'center'
   }"
   >
-    <span>子标题一</span>
+    <div>
+      {{titleText ? titleText : '标题'}}
+    </div>
   </div>
 </template>
 
@@ -24,15 +28,27 @@ export default {
   },
   computed: {
     ...mapState('partComponent', ['widgetList']),
+
+    currentWidget() {
+      return this.widgetList.find(v => v.uuid === this.uuid)
+    },
     currentWidgetStyleFields() {
-      return this.widgetList.find(v => v.uuid === this.uuid).styleFields
+      return this.currentWidget.styleFields
+    },
+    titleText() {
+      return this.currentWidget.fields.titleText.formModel
     }
   }
 }
 </script>
 
 <style>
-.testComponent_one {
+.title_child_one_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   /* width: 50px;
   height: 50px; */
 }

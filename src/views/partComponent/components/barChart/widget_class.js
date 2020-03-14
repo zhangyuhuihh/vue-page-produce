@@ -36,23 +36,23 @@ class BarChartChildOne extends BarChart {
         label: '主体文字颜色',
         formModel: '#FFF'
       }),
-      headerFontSize: widgetFields.FiledSlider({
+      headerFontSize: widgetFields.FieldSlider({
         label: '表头字号',
         formModel: 16,
         max: 50,
         min: 10
       }),
-      bodyFontSize: widgetFields.FiledSlider({
+      bodyFontSize: widgetFields.FieldSlider({
         label: '主体字号',
         formModel: 14,
         max: 50,
         min: 10
       }),
-      index: widgetFields.FiledSwitch({
+      index: widgetFields.FieldSwitch({
         label: '显示行号',
         formModel: false
       }),
-      rowNum: widgetFields.FiledSlider({
+      rowNum: widgetFields.FieldSlider({
         label: '显示表行数',
         formModel: 5,
         max: 20,

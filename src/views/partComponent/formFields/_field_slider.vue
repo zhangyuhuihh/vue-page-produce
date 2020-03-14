@@ -15,7 +15,7 @@
 import fieldMixins from './field_mixins'
 
 export default {
-  name: 'FiledSlider',
+  name: 'FieldSlider',
   mixins: [fieldMixins],
   computed: {
     num() {
