@@ -4,6 +4,36 @@ const jsonTemplate = {
     age: '18',
     brothers: ['a', 'b', 'c']
   },
+  ForLineChartChildOne: [
+    {
+      xAxis: 'Mon',
+      yAxis: 820
+    },
+    {
+      xAxis: 'Tue',
+      yAxis: 932
+    },
+    {
+      xAxis: 'Wed',
+      yAxis: 901
+    },
+    {
+      xAxis: 'Thu',
+      yAxis: 934
+    },
+    {
+      xAxis: 'Fri',
+      yAxis: 1290
+    },
+    {
+      xAxis: 'Sat',
+      yAxis: 1330
+    },
+    {
+      xAxis: 'Sun',
+      yAxis: 1320
+    }
+  ],
   ForScrollBoard: {
     header: ['列1', '列2', '列3'],
     data: [

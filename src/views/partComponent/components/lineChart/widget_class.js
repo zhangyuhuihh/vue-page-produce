@@ -13,7 +13,7 @@ class LineChartChildOne extends LineChart {
   }
   constructor(constructorData) {
     super(constructorData)
-    this.componentKey = 'ScrollBoardChildOne'
+    this.componentKey = 'lineChartChildOne'
 
     this.setStyleFields(constructorData, {
       headerBGC: widgetFields.FieldColorPicker({
@@ -63,7 +63,7 @@ class LineChartChildOne extends LineChart {
     this.setFields(constructorData, {
       isFakeData: widgetFieldsCombine.FieldsDataSource({
         validator: [validatorCombine.validateFieldDataSource()],
-        fakeData: JSON.stringify(jsonTemplate.ForScrollBoard),
+        fakeData: JSON.stringify(jsonTemplate.ForLineChartChildOne),
         radios: [
           {
             label: '使用模拟数据',
