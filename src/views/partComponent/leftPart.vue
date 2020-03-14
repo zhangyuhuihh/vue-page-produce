@@ -19,7 +19,6 @@
                   <div class="img_container">
                     <img
                       :src="require(`./images/${item2.componentDescription.img}`)"
-                      style="width:100%;height:100%"
                     />
                   </div>
                   <div>{{item2.componentDescription.name}}</div>
@@ -225,28 +224,59 @@ export default {
 
 <style lang="scss" scoped>
 .left_part_container {
-  width: 100%;
+  // width: 100%;
   height: 100%;
   padding-left: 10px;
   padding-right: 10px;
-  box-shadow: 0px 5px 12px #777777;
+  // background-color: #20212C;
+  // box-shadow: 0px 5px 12px #777777;
   position: relative;
   z-index: 99;
+  margin-right: -20px;
+  overflow-y: scroll;
   .block_container {
     display: flex;
     flex-wrap: wrap;
+    padding-top: 20px;
+    color: rgb(182, 184, 204);
     .cell_container {
       width: 100%;
       cursor: pointer;
-      height: 120px;
+      height: 135px;
       display: flex;
       align-items: center;
       flex-direction: column;
       .img_container {
         width: 150px;
+        padding: 6px;
         height: 110px;
+        img {
+          border-radius: 5px;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
+    .img_container :hover {
+      border: 1px solid #335ae9;
+    }
+  }
+
+  /deep/ .el-collapse-item__header {
+    // width: 139px;
+    background-color: #2c2e3f;
+    color: rgb(182, 184, 204);
+    border-bottom: 2px solid #20212c;
+  }
+
+  /deep/ .el-collapse {
+    border-top: none;
+    border-bottom: none;
+  }
+
+  /deep/ .el-collapse-item__wrap {
+    border-bottom: none;
+    background-color: #20212b;
   }
 
   // display: flex;

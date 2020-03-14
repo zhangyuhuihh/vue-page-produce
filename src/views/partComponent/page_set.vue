@@ -58,7 +58,7 @@
       <div slot="reference">
         <el-tooltip class="item" effect="dark" content="页面设置" placement="right">
           <div @click="handleSetting" style="cursor: pointer">
-            <i class="el-icon-s-tools"></i>
+            <i class="el-icon-s-tools" style="color: #b6b8cc; font-size: 25px"></i>
           </div>
         </el-tooltip>
       </div>

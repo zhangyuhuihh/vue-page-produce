@@ -5,7 +5,7 @@
     </div>
     <edit-area></edit-area>
     <div class="slider_container">
-      <div>{{magnification}}%</div>
+      <div style="color: #b6b8cc">{{magnification}}%</div>
       <div class="slider_block">
         <el-slider
           :value="magnification"
@@ -53,22 +53,23 @@ export default {
   // align-items: center;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(
-      45deg,
-      #f5f5f5 25%,
-      transparent 0,
-      transparent 75%,
-      #f5f5f5 0
-    ),
-    linear-gradient(
-      45deg,
-      #f5f5f5 25%,
-      transparent 0,
-      transparent 75%,
-      #f5f5f5 0
-    );
-  background-position: 0 0, 13px 13px;
-  background-size: 26px 26px;
+  background-color: #0f1014;
+  // background-image: linear-gradient(
+  //     45deg,
+  //     #f5f5f5 25%,
+  //     transparent 0,
+  //     transparent 75%,
+  //     #f5f5f5 0
+  //   ),
+  //   linear-gradient(
+  //     45deg,
+  //     #f5f5f5 25%,
+  //     transparent 0,
+  //     transparent 75%,
+  //     #f5f5f5 0
+  //   );
+  // background-position: 0 0, 13px 13px;
+  // background-size: 26px 26px;
   .page-set--container {
     position: absolute;
     top: 20px;

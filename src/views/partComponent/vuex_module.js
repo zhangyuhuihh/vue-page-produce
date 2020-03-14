@@ -27,7 +27,7 @@ export default {
       width: 1920,
       height: 1080
     },
-    pageBgColor: '#999999',
+    pageBgColor: '#C4DDDA',
     pageBgImgUrl: '',
     magnification: 60
   },

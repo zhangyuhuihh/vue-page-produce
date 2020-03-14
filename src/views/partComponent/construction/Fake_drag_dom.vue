@@ -87,6 +87,8 @@ export default {
 
 <style lang="scss" scoped>
 .fake_drag_dom {
+  border-radius: 5px;
+  opacity: 0.5;
   // position: absolute;
   // background-image: url('../images/TitleChildOne_icon.jpg');
   // background-size: 100% 100%;

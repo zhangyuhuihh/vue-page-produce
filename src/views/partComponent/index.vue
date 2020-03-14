@@ -38,7 +38,8 @@ export default {
   .top_container {
     width: 100%;
     height: 50px;
-    background-color: #1f1e1c;
+    background-color: #20212C;
+    border-bottom: 2px solid #000
   }
   .main_container {
     display: flex;
@@ -46,15 +47,17 @@ export default {
     height: calc(100vh - 50px);
 
     .left_container {
+      overflow: hidden;
       width: 200px;
-      // background-color: red;
+      background-color: #2c2e3f;
+      // border-right: 2px solid #000
     }
     .middle_container {
       flex: 1;
       position: relative;
-      border-left: 1px solid #f3f1f1;
-      border-right: 1px solid #f3f1f1;
-      background-color: #ffffff
+      // border-left: 1px solid #f3f1f1;
+      // border-right: 1px solid #f3f1f1;
+      // background-color: #ffffff
     }
     .right_container {
       // flex: 2;
