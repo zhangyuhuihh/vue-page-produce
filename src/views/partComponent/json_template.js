@@ -41,6 +41,36 @@ const jsonTemplate = {
     { value: 235, name: '视频广告' },
     { value: 400, name: '搜索引擎' }
   ],
+  ForBarChartChildOne: [
+    {
+      xAxis: 'Mon',
+      yAxis: 120
+    },
+    {
+      xAxis: 'Tue',
+      yAxis: 200
+    },
+    {
+      xAxis: 'Wed',
+      yAxis: 150
+    },
+    {
+      xAxis: 'Thu',
+      yAxis: 80
+    },
+    {
+      xAxis: 'Fri',
+      yAxis: 70
+    },
+    {
+      xAxis: 'Sat',
+      yAxis: 110
+    },
+    {
+      xAxis: 'Sun',
+      yAxis: 130
+    }
+  ],
   ForScrollBoard: {
     header: ['列1', '列2', '列3'],
     data: [

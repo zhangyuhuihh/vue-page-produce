@@ -43,6 +43,7 @@ import TitleChildTwo from './components/title/TitleChildTwo/index'
 import ScrollBoardChildOne from './components/scrollBoard/ScrollBoardChildOne'
 import LineChartChildOne from './components/lineChart/lineChartChildOne/index'
 import PieChartChildOne from './components/pieChart/pieChartChildOne/index'
+import BarChartChildOne from './components/barChart/barChartChildOne/index'
 export default {
   name: 'myDraggable',
   components: {
@@ -54,7 +55,8 @@ export default {
     TitleChildTwo,
     ScrollBoardChildOne,
     LineChartChildOne,
-    PieChartChildOne
+    PieChartChildOne,
+    BarChartChildOne
   },
   props: {},
   data() {
