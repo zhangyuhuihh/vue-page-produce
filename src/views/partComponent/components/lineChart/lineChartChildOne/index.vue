@@ -19,17 +19,22 @@ export default {
     return {
       myChart: null,
       option: {
+        backgroundColor: '#333333',
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          axisLabel: {} // 待配置
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          axisLabel: {}
         },
         series: [
           {
             data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line'
+            type: 'line',
+            lineStyle: {},
+            itemStyle: {}
           }
         ]
       }
@@ -54,10 +59,24 @@ export default {
     },
     needToRefreshProperty: {
       handler(newValue, oldValue) {
+        console.log('newValue: ', newValue)
         let fakeData = JSON.parse(newValue.fields.isFakeData.formModel.fakeData)
         this.option.xAxis.data = fakeData.map(v => v.xAxis)
         this.option.series[0].data = fakeData.map(v => v.yAxis)
+        this.option.series[0].lineStyle.color =
+          newValue.styleFields.lineColor.formModel
+        this.option.series[0].lineStyle.width =
+          newValue.styleFields.lineWidth.formModel
+        this.option.series[0].itemStyle.color =
+          newValue.styleFields.itemColor.formModel
+        this.option.xAxis.axisLabel.fontSize =
+          newValue.styleFields.axisLabelFontSize.formModel
+        this.option.yAxis.axisLabel.fontSize =
+          newValue.styleFields.axisLabelFontSize.formModel
+        this.option.backgroundColor =
+          newValue.styleFields.backgroundColor.formModel
         this.myChart.setOption(this.option)
+        // this.setEchart()
       },
       deep: true
     }

@@ -5,7 +5,6 @@
       <el-color-picker
         :value="modelData"
         @active-change="handleFieldModelChange"
-        show-alpha
       ></el-color-picker>
     </div>
   </div>
