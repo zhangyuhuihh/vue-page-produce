@@ -6,6 +6,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'homePage',
+    component: () => import('@/views/homePage')
+  },
+  {
+    path: '/partComponent',
     name: 'partComponent',
     component: () => import('@/views/partComponent')
   },
@@ -17,6 +22,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'history', // 解决hash模式下跳回登录页面数据不刷新的问题
   routes
 })
 

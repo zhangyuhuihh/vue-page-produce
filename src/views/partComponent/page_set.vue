@@ -8,8 +8,10 @@
       trigger="click"
     >
       <div>
-        <span>屏幕大小</span>
-        <el-input
+        <span>屏幕大小&nbsp;&nbsp;</span>
+        <span style="margin-left: 10px">{{bigScreenRatioWidth}}</span> *
+        <span>{{bigScreenRatioHeight}}</span>
+        <!-- <el-input
           :value="bigScreenRatioWidth"
           @input="updateBigScreenRatioWidth"
           size="small"
@@ -22,7 +24,7 @@
           size="small"
           placeholder="宽"
           style="width:80px;margin-left:10px"
-        ></el-input>
+        ></el-input>-->
       </div>
       <div class="line_cell" v-if="dialogVisible">
         <span>背景颜色</span>
@@ -125,7 +127,7 @@ export default {
       var file2 = event.target.files[0]
       var reader = new FileReader()
       // 转base64
-      reader.onload = (e) => {
+      reader.onload = e => {
         const imgUrl = e.target.result
         this.setPageBgImgUrl(imgUrl)
         // _this.imageUrl = e.target.result // 将图片路径赋值给src
