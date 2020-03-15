@@ -18,7 +18,7 @@ class ScrollBoardChildOne extends ScrollBoard {
     this.setStyleFields(constructorData, {
       headerBGC: widgetFields.FieldColorPicker({
         label: '表头背景色',
-        formModel: '#00BAFF'
+        formModel: '#32444B'
       }),
       oddRowBGC: widgetFields.FieldColorPicker({
         label: '奇数行背景色',

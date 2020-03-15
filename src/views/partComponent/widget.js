@@ -97,14 +97,14 @@ class Title extends Widget {
 
 class ScrollBoard extends Widget {
   static componentDescription = {
-    name: '轮播表类',
+    name: '表格类',
     parent: 'widget'
   }
 
   constructor(constructorData) {
     super(constructorData)
     this.setDragSize(constructorData, {
-      width: 960,
+      width: 250,
       height: 113
     })
   }
