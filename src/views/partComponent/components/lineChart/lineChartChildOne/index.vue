@@ -22,7 +22,7 @@ export default {
         backgroundColor: '#333333',
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: [],
           axisLabel: {} // 待配置
         },
         yAxis: {
@@ -31,7 +31,7 @@ export default {
         },
         series: [
           {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: [],
             type: 'line',
             lineStyle: {},
             itemStyle: {}
@@ -75,9 +75,12 @@ export default {
           newValue.styleFields.axisLabelFontSize.formModel
         this.option.backgroundColor =
           newValue.styleFields.backgroundColor.formModel
-        this.myChart.setOption(this.option)
+        if (this.myChart) {
+          this.myChart.setOption(this.option)
+        }
         // this.setEchart()
       },
+      immediate: true,
       deep: true
     }
   },

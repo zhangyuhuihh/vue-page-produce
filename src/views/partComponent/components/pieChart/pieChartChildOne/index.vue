@@ -105,13 +105,14 @@ export default {
     },
     needToRefreshProperty: {
       handler(newValue, oldValue) {
-        // console.log('newValue: ', newValue)
         let fakeData = JSON.parse(newValue.fields.isFakeData.formModel.fakeData)
         this.option.series[0].data = fakeData.sort((a, b) => a.value - b.value)
         this.option.series[0].radius = `${newValue.styleFields.seriesRadius.formModel}%`
         this.option.series[0].itemStyle.color =
           newValue.styleFields.seriesItemStyle.formModel
-        this.myChart.setOption(this.option)
+        if (this.myChart) {
+          this.myChart.setOption(this.option)
+        }
       },
       deep: true
     }

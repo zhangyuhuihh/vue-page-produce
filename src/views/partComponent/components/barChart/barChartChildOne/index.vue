@@ -74,9 +74,12 @@ export default {
           newValue.styleFields.axisLabelFontSize.formModel
         this.option.backgroundColor =
           newValue.styleFields.backgroundColor.formModel
-        this.myChart.setOption(this.option)
+        if (this.myChart) {
+          this.myChart.setOption(this.option)
+        }
         // this.setEchart()
       },
+      immediate: true,
       deep: true
     }
   },

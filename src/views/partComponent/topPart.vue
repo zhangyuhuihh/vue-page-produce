@@ -37,9 +37,20 @@ export default {
   methods: {
     ...mapActions('partComponent', ['validateAllFields', 'removeWidget']),
     handleSave() {
-      this.validateAllFields(this.activedWidget.uuid).then(res => {
-        console.log('hahaha')
+      // todo 验证
+      // this.validateAllFields(this.activedWidget.uuid).then(res => {
+      //   console.log('hahaha')
+      // })
+      console.log()
+      let routeData = this.$router.resolve({
+        name: 'partComponentPreview'
+        // params: {
+        //   id: 1
+        // }
       })
+      let allData = JSON.stringify(this.$store.state.partComponent)
+      sessionStorage.setItem('allData', allData)
+      window.open(routeData.href, '_blank')
     },
     handleRemove() {
       this.removeWidget(this.activedWidget)
