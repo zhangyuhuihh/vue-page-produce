@@ -1,8 +1,10 @@
 <template>
   <div
+    class="preview_container"
     :style="{
     width: bigScreenRatio.width + 'px',
     height: bigScreenRatio.height + 'px',
+    backgroundImage: `url(${pageBgImgUrl})`,
     backgroundColor: pageBgColor,
     position: 'relative'
   }"
@@ -85,5 +87,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.preview_container {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
 </style>
