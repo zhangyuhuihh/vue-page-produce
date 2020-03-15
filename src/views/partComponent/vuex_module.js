@@ -84,7 +84,9 @@ export default {
     },
 
     [REMOVE_WIDGET]: (state, oneWidget) => {
-      state.widgetList = state.widgetList.filter(v => v.uuid === oneWidget.uuid)
+      state.widgetList = state.widgetList.filter(v => v.uuid !== oneWidget.uuid)
+      // 删除时清空当前高亮组件
+      state.activedWidget = {}
     },
 
     [SET_ACTIVEDWIDGET]: (state, activeWidget) => {

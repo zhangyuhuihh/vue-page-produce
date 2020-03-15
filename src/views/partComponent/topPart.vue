@@ -7,18 +7,20 @@
       ></el-avatar>
     </div>
     <div class="right_place">
-      <el-button-group>
-        <el-button type="primary" icon="el-icon-monitor" size="small"></el-button>
+      <!-- <el-button-group> -->
+      <!-- <el-button type="info" icon="el-icon-monitor" size="small"></el-button>
         <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
-          <el-button type="primary" icon="el-icon-edit" size="small"></el-button>
-        </el-tooltip>
-        <el-tooltip class="item" effect="dark" content="保存" placement="bottom">
-          <el-button @click="handleSave" type="primary" icon="el-icon-document-add" size="small"></el-button>
+          <el-button type="info" icon="el-icon-edit" size="small"></el-button>
+      </el-tooltip>-->
+      <!-- <el-tooltip class="item" effect="dark" content="保存" placement="bottom">
+          <el-button @click="handleSave" type="info" icon="el-icon-document-add" size="small"></el-button>
         </el-tooltip>
         <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
-          <el-button type="primary" icon="el-icon-delete" size="small"></el-button>
-        </el-tooltip>
-      </el-button-group>
+          <el-button type="info" icon="el-icon-delete" size="small"></el-button>
+      </el-tooltip>-->
+      <el-button @click="handleRemove" :disabled="!isCanRemove" type="primary" size="small">删除选中组件</el-button>
+      <el-button @click="handleSave" type="primary" size="small">保存预览</el-button>
+      <!-- </el-button-group> -->
     </div>
   </div>
 </template>
@@ -27,14 +29,20 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapState('partComponent', ['activedWidget'])
+    ...mapState('partComponent', ['activedWidget']),
+    isCanRemove() {
+      return Boolean(this.activedWidget.uuid)
+    }
   },
   methods: {
-    ...mapActions('partComponent', ['validateAllFields']),
+    ...mapActions('partComponent', ['validateAllFields', 'removeWidget']),
     handleSave() {
       this.validateAllFields(this.activedWidget.uuid).then(res => {
         console.log('hahaha')
       })
+    },
+    handleRemove() {
+      this.removeWidget(this.activedWidget)
     }
   }
 }
