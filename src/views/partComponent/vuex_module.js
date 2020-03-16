@@ -140,7 +140,7 @@ export default {
     },
 
     setActivedWidget: ({ commit, state }, activeUUid) => {
-      const activeWdiget = state.widgetList.find(v => v.uuid === activeUUid)
+      const activeWdiget = state.widgetList.find(v => v.uuid === activeUUid) || {}
       commit('SET_ACTIVEDWIDGET', activeWdiget)
     },
 

@@ -24,6 +24,7 @@
         @dragstop="onDragStop"
         @resizestop="onResizeStop"
         @activated="onActivated(item)"
+        @deactivated="onDeActivated(item)"
       >
         <component :is="item.componentKey" :uuid="item.uuid"></component>
       </vue-draggable-resizable>
@@ -101,6 +102,10 @@ export default {
     onActivated(params) {
       this.activeUUid = params.uuid
       this.setActivedWidget(this.activeUUid)
+    },
+
+    onDeActivated(params) {
+      this.setActivedWidget('')
     }
   }
 }
