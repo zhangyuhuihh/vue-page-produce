@@ -426,8 +426,9 @@ export default {
       const target = e.target || e.srcElement
       const regex = new RegExp(this.className + '-([trmbl]{2})', '')
       const domright = document.getElementById('right_container')
+      const domRemoveBtn = document.getElementById('remove_btn')
       //   !domright.contains(target) zyh2020.3.16
-      if (!this.$el.contains(target) && !regex.test(target.className) && !domright.contains(target)) {
+      if (!this.$el.contains(target) && !regex.test(target.className) && !domright.contains(target) && !domRemoveBtn.contains(target)) {
         if (this.enabled && !this.preventDeactivation) {
           this.enabled = false
 
