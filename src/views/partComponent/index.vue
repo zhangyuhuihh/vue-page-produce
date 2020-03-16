@@ -10,7 +10,8 @@
       <div class="middle_container">
         <middle-part></middle-part>
       </div>
-      <div class="right_container">
+      <!-- id为了让点击编辑区域其他点不失焦 -->
+      <div class="right_container" id="right_container">
         <right-part></right-part>
       </div>
     </div>

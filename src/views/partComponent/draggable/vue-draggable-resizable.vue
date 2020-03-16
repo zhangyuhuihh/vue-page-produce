@@ -425,8 +425,9 @@ export default {
     deselect(e) {
       const target = e.target || e.srcElement
       const regex = new RegExp(this.className + '-([trmbl]{2})', '')
-
-      if (!this.$el.contains(target) && !regex.test(target.className)) {
+      const domright = document.getElementById('right_container')
+      //   !domright.contains(target) zyh2020.3.16
+      if (!this.$el.contains(target) && !regex.test(target.className) && !domright.contains(target)) {
         if (this.enabled && !this.preventDeactivation) {
           this.enabled = false
 
