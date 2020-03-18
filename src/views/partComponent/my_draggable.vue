@@ -105,7 +105,7 @@ export default {
     },
 
     onDeActivated(params) {
-      this.setActivedWidget('')
+      // this.setActivedWidget('')
     }
   }
 }
