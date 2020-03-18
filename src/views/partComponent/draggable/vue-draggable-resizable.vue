@@ -424,11 +424,10 @@ export default {
     },
     deselect(e) {
       const target = e.target || e.srcElement
+      const siblingNode = this.$el.parentNode.children
       const regex = new RegExp(this.className + '-([trmbl]{2})', '')
-      const domright = document.getElementById('right_container')
-      const domRemoveBtn = document.getElementById('remove_btn')
-      //   !domright.contains(target) zyh2020.3.16
-      if (!this.$el.contains(target) && !regex.test(target.className) && !domright.contains(target) && !domRemoveBtn.contains(target)) {
+      // zyh2020.3.18
+      if (!this.$el.contains(target) && !regex.test(target.className) && this.isTargetOnSiblingNode(siblingNode, target)) {
         if (this.enabled && !this.preventDeactivation) {
           this.enabled = false
 
@@ -441,6 +440,15 @@ export default {
 
       this.resetBoundsAndMouseState()
     },
+    isTargetOnSiblingNode(siblingNodes, target) {
+      for (let i = 0; i < siblingNodes.length; i++) {
+        if (siblingNodes[i].contains(target)) {
+          return true
+        }
+      }
+      return false
+    },
+
     handleTouchDown(handle, e) {
       eventsFor = events.touch
 

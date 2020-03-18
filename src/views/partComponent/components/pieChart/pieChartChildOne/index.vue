@@ -114,7 +114,8 @@ export default {
           this.myChart.setOption(this.option)
         }
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   },
   mounted() {
