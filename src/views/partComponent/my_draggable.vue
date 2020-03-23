@@ -14,6 +14,7 @@
       <vue-draggable-resizable
         :key="item.uuid"
         :parent="true"
+        :active="item.uuid === activedWidget.uuid"
         :x="item.dragPosition.x"
         :y="item.dragPosition.y"
         :z="item.dragPosition.z"
@@ -24,9 +25,12 @@
         @dragstop="onDragStop"
         @resizestop="onResizeStop"
         @activated="onActivated(item)"
-        @deactivated="onDeActivated(item)"
       >
-        <component :is="item.componentKey" :uuid="item.uuid"></component>
+        <component
+          @contextmenu.prevent.native="openMenu($event)"
+          :is="item.componentKey"
+          :uuid="item.uuid"
+        ></component>
       </vue-draggable-resizable>
     </template>
   </div>
@@ -66,7 +70,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['widgetList', 'pageBgColor', 'pageBgImgUrl']),
+    ...mapState('partComponent', [
+      'widgetList',
+      'pageBgColor',
+      'pageBgImgUrl',
+      'activedWidget'
+    ]),
     ...mapGetters('partComponent', ['editorAreaSize', 'requestDataList'])
   },
 
@@ -104,6 +113,10 @@ export default {
       this.setActivedWidget(this.activeUUid)
     },
 
+    openMenu() {
+      // console.log('123123')
+    },
+
     onDeActivated(params) {
       // this.setActivedWidget('')
     }
@@ -116,7 +129,7 @@ export default {
   cursor: pointer;
   position: relative;
   background-size: 100% 100%;
-  background-repeat:no-repeat;
-  box-shadow: 0 2px 12px 0 #777777;
+  background-repeat: no-repeat;
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.3);
 }
 </style>

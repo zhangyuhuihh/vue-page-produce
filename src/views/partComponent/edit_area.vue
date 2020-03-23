@@ -110,6 +110,7 @@ export default {
     position: relative;
     // transition: transform 0.2s linear 0s;
     transform-origin: center center;
+    //  transform-origin: left top
   }
   .right_container {
     background-color: #5f5959;

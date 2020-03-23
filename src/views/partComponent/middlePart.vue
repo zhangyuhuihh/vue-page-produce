@@ -53,7 +53,7 @@ export default {
   // align-items: center;
   width: 100%;
   height: 100%;
-  background-color: #0f1014;
+  background-color: #2A2E33;
   // background-image: linear-gradient(
   //     45deg,
   //     #f5f5f5 25%,

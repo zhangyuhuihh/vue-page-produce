@@ -2,8 +2,12 @@
   touch-action: none;
   position: absolute;
   box-sizing: border-box;
-  border: 1px dashed black;
+  border: 2px dashed transparent;
 }
+.vdr-border {
+  border: 2px dashed #2483FF
+}
+
 .handle {
   box-sizing: border-box;
   position: absolute;

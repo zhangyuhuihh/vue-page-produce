@@ -7,7 +7,7 @@
       [classNameResizing]: resizing,
       [classNameDraggable]: draggable,
       [classNameResizable]: resizable
-    }, className]"
+    }, className, enabled ? 'vdr-border': '']"
     @mousedown.stop="elementDown"
     @touchstart.stop="elementTouchDown"
   >
@@ -167,7 +167,8 @@ export default {
       default: 'auto',
       validator: val => (typeof val === 'string' ? val === 'auto' : val >= 0)
     },
-    handles: { // 八个点
+    handles: {
+      // 八个点
       type: Array,
       default: () => ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml'],
       validator: val => {
@@ -424,10 +425,16 @@ export default {
     },
     deselect(e) {
       const target = e.target || e.srcElement
-      const siblingNode = this.$el.parentNode.children
+      // const siblingNode = this.$el.parentNode.children
+      const parentNode = this.$el.parentNode
       const regex = new RegExp(this.className + '-([trmbl]{2})', '')
       // zyh2020.3.18
-      if (!this.$el.contains(target) && !regex.test(target.className) && this.isTargetOnSiblingNode(siblingNode, target)) {
+      if (
+        !this.$el.contains(target) &&
+        !regex.test(target.className) &&
+        parentNode.contains(target)
+        // this.isTargetOnSiblingNode(siblingNode, target)
+      ) {
         if (this.enabled && !this.preventDeactivation) {
           this.enabled = false
 
@@ -454,7 +461,8 @@ export default {
 
       this.handleDown(handle, e)
     },
-    handleDown(handle, e) { // 按下几个拖拽点的事件
+    handleDown(handle, e) {
+      // 按下几个拖拽点的事件
       if (this.onResizeStart && this.onResizeStart(handle, e) === false) {
         return
       }
@@ -593,7 +601,7 @@ export default {
           limits.minBottom = -(top + maxH)
         }
 
-        if (this.lockAspectRatio && (maxW && maxH)) {
+        if (this.lockAspectRatio && maxW && maxH) {
           limits.minLeft = Math.min(limits.minLeft, -(right + maxW))
           limits.minTop = Math.min(limits.minTop, -(maxH + bottom))
           limits.minRight = Math.min(limits.minRight, -left - maxW)
@@ -618,12 +626,14 @@ export default {
       const tmpDeltaX =
         axis && axis !== 'y'
           ? (mouseClickPosition.mouseX -
-            (e.touches ? e.touches[0].pageX : e.pageX)) / this.mouseXYMagnification
+              (e.touches ? e.touches[0].pageX : e.pageX)) /
+            this.mouseXYMagnification
           : 0
       const tmpDeltaY =
         axis && axis !== 'x'
           ? (mouseClickPosition.mouseY -
-            (e.touches ? e.touches[0].pageY : e.pageY)) / this.mouseXYMagnification
+              (e.touches ? e.touches[0].pageY : e.pageY)) /
+            this.mouseXYMagnification
           : 0
 
       const [deltaX, deltaY] = this.snapToGrid(this.grid, tmpDeltaX, tmpDeltaY)
@@ -642,9 +652,13 @@ export default {
       const mouseClickPosition = this.mouseClickPosition
 
       const tmpDeltaX =
-        (mouseClickPosition.mouseX - (e.touches ? e.touches[0].pageX : e.pageX)) / this.mouseXYMagnification
+        (mouseClickPosition.mouseX -
+          (e.touches ? e.touches[0].pageX : e.pageX)) /
+        this.mouseXYMagnification
       const tmpDeltaY =
-        (mouseClickPosition.mouseY - (e.touches ? e.touches[0].pageY : e.pageY)) / this.mouseXYMagnification
+        (mouseClickPosition.mouseY -
+          (e.touches ? e.touches[0].pageY : e.pageY)) /
+        this.mouseXYMagnification
 
       const [deltaX, deltaY] = this.snapToGrid(this.grid, tmpDeltaX, tmpDeltaY)
 
@@ -741,14 +755,17 @@ export default {
   },
 
   watch: {
-    active(val) {
-      this.enabled = val
+    active: {
+      handler(val) {
+        this.enabled = val
 
-      if (val) {
-        this.$emit('activated')
-      } else {
-        this.$emit('deactivated')
-      }
+        if (val) {
+          this.$emit('activated')
+        } else {
+          this.$emit('deactivated')
+        }
+      },
+      immediate: true
     },
     z(val) {
       if (val >= 0 || val === 'auto') {
