@@ -6,27 +6,36 @@
         src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       ></el-avatar>
     </div>
-    <div class="right_place">
-      <!-- <el-button-group> -->
-      <!-- <el-button type="info" icon="el-icon-monitor" size="small"></el-button>
-        <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
-          <el-button type="info" icon="el-icon-edit" size="small"></el-button>
-      </el-tooltip>-->
-      <!-- <el-tooltip class="item" effect="dark" content="保存" placement="bottom">
-          <el-button @click="handleSave" type="info" icon="el-icon-document-add" size="small"></el-button>
-        </el-tooltip>
-        <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
-          <el-button type="info" icon="el-icon-delete" size="small"></el-button>
-      </el-tooltip>-->
-      <el-button @click="handleSave" type="primary" size="small">保存预览</el-button>
-      <!-- </el-button-group> -->
+    <div class="right_block_one">
+      <el-tooltip popper-class="top_pop_class" effect="dark" content="图层" placement="bottom">
+        <div @click="openLayer" class="coin_icon_c">
+          <i class="el-icon-coin"></i>
+        </div>
+      </el-tooltip>
+      <!-- <el-button @click="handleSave" type="primary" size="small">保存预览</el-button> -->
+      <div v-if="isShowLayer" class="top_layer_contaniner">
+        <div class="top_layer_title">
+          <span>图层</span>
+          <span @click="isShowLayer = false"><i class="el-icon-close"></i></span>
+        </div>
+        <Layer></Layer>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Layer from './construction/layer'
 export default {
+  components: {
+    Layer
+  },
+  data() {
+    return {
+      isShowLayer: false
+    }
+  },
   computed: {
     ...mapState('partComponent', ['activedWidget']),
     isCanRemove() {
@@ -50,6 +59,10 @@ export default {
       let allData = JSON.stringify(this.$store.state.partComponent)
       sessionStorage.setItem('allData', allData)
       window.open(routeData.href, '_blank')
+    },
+
+    openLayer() {
+      this.isShowLayer = !this.isShowLayer
     }
   }
 }
@@ -57,6 +70,7 @@ export default {
 
 <style lang="scss" scoped>
 .topbar_container {
+  position: relative;
   .left_place {
     float: left;
     display: flex;
@@ -65,11 +79,43 @@ export default {
     justify-content: center;
     align-items: center;
   }
-  .right_place {
+  .right_block_one {
+    position: absolute;
+    right: 300px;
     height: 40px;
     line-height: 40px;
-    float: right;
-    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .top_layer_contaniner {
+      position: absolute;
+      z-index: 10;
+      background-color: #181c22;
+      width: 300px;
+      height: 530px;
+      right: 0;
+      top: 40px;
+      .top_layer_title {
+        padding: 0 10px;
+        width: 100%;
+        height: 30px;
+        background-color: #303640;
+        color: #ffffff;
+        opacity: 0.5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    .coin_icon_c {
+      color: #ffffff;
+      text-align: center;
+      width: 40px;
+      height: 22px;
+      line-height: 22px;
+      background: rgba(48, 54, 64, 1);
+      border: 1px solid rgba(58, 70, 89, 1);
+    }
   }
 }
 </style>

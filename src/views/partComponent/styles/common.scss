@@ -1,0 +1,10 @@
+// tooltip固定颜色
+.top_pop_class {
+  background: #2483FF !important;
+  .popper__arrow {
+    border-bottom-color: #2483FF;
+  }
+  .popper__arrow::after {
+    border-bottom-color: #2483FF !important;
+  }
+}

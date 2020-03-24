@@ -27,14 +27,6 @@
         </template>
       </el-collapse>
     </div>
-
-    <div class="bottom_layer">
-      <div @click="handleClickLayer" style="height: 48px">{{isShowLayer ? '关闭' : '打开'}}图层</div>
-      <div v-if="isShowLayer" class="bottom_layer_contaniner">
-        <div style="border-bottom: 2px solid">请鼠标点击拖动调整图层</div>
-        <Layer></Layer>
-      </div>
-    </div>
     <fake-drag-dom
       :visible="isVisible"
       :img="fakeDomImgUrl"
@@ -52,7 +44,6 @@ import * as widgetParent from './widget.js'
 import * as widgetChild from './components/all_class'
 import { ulid } from 'ulid' // 生成uuid
 import _ from 'lodash'
-import Layer from './layer'
 import FakeDragDom from './construction/Fake_drag_dom'
 import { addEvent, removeEvent, pauseEvent } from '@/util/events_fn.js'
 
@@ -79,7 +70,6 @@ let eventsFor = events.mouse
 
 export default {
   components: {
-    Layer,
     FakeDragDom
   },
   data() {
@@ -93,9 +83,7 @@ export default {
       fakedragleft: 0,
       fakedragWidth: 100,
       fakedragHeight: 80,
-      mouseClickPosition: { mouseX: 0, mouseY: 0, x: 0, y: 0, w: 0, h: 0 },
-
-      isShowLayer: false
+      mouseClickPosition: { mouseX: 0, mouseY: 0, x: 0, y: 0, w: 0, h: 0 }
     }
   },
   computed: {
@@ -222,10 +210,6 @@ export default {
         (clientY - EditAreaY) / this.disTanceMagnificition <
           this.bigScreenRatio.height
       )
-    },
-
-    handleClickLayer() {
-      this.isShowLayer = !this.isShowLayer
     }
   }
 }
