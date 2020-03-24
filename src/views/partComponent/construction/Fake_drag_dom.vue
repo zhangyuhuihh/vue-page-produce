@@ -4,7 +4,7 @@
     class="fake_drag_dom"
     :style="{
       position: 'absolute',
-      zIndex: '99999',
+      zIndex: '9999',
       top: top + 'px',
       left: left + 'px',
       width: width + 'px',

@@ -80,7 +80,7 @@ export default {
   // padding: 10px;
   height: 100%;
   width: 100%;
-  background-color: #20212b;
+  background-color: #181C22;
   color: #b6b8cc;
   box-shadow: 0px 5px 12px #000000;
   position: relative;
@@ -91,11 +91,11 @@ export default {
     text-align: center;
     border: none;
     color: #b6b8cc;
-    background-color: #2c2e3f;
+    background-color: #303640;
   }
   /deep/ .el-tabs__item.is-active {
     color: #409EFF;
-    background-color: #20212b;
+    background-color: #181C22;
     border: none
   }
   /deep/ .el-tabs__nav {

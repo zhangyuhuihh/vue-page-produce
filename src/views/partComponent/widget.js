@@ -25,7 +25,7 @@ class Widget {
         this.dragPosition = {
           x: constructorData.initDragPosition.x,
           y: constructorData.initDragPosition.y,
-          z: 9999
+          z: 2000
         }
         break
       case 'edit':

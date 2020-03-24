@@ -38,14 +38,14 @@ export default {
 .root_container {
   .top_container {
     width: 100%;
-    height: 50px;
+    height: 40px;
     background-color: #181C22;
     border-bottom: 2px solid #000
   }
   .main_container {
     display: flex;
     width: 100%;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 40px);
 
     .left_container {
       overflow: hidden;

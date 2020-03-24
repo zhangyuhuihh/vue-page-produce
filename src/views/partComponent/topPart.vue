@@ -64,14 +64,14 @@ export default {
   .left_place {
     float: left;
     display: flex;
-    height: 50px;
+    height: 40px;
     width: 100px;
     justify-content: center;
     align-items: center;
   }
   .right_place {
-    height: 50px;
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
     float: right;
     margin-right: 20px;
   }

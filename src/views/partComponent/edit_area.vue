@@ -7,7 +7,7 @@
         padding: '20px'
       }"
     >
-      <my-draggable></my-draggable>
+      <my-draggable v-on="$listeners"></my-draggable>
     </div>
   </div>
 </template>

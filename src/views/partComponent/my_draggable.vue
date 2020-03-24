@@ -40,6 +40,7 @@
 import { mapActions, mapState, mapGetters } from 'vuex'
 import VueDraggableResizable from './draggable/vue-draggable-resizable'
 // import _ from 'lodash'
+
 import TestComponentOne from './components/testComponents/testComponentOne'
 import TestComponentTwo from './components/testComponents/testComponentTwo'
 import TestComponentThree from './components/testComponents/testComponentThree'
@@ -74,9 +75,13 @@ export default {
       'widgetList',
       'pageBgColor',
       'pageBgImgUrl',
-      'activedWidget'
+      'activedWidget',
+      'magnification'
     ]),
-    ...mapGetters('partComponent', ['editorAreaSize', 'requestDataList'])
+    ...mapGetters('partComponent', ['editorAreaSize', 'requestDataList']),
+    disTanceMagnificition() {
+      return this.magnification / 100
+    }
   },
 
   created() {},
@@ -113,8 +118,17 @@ export default {
       this.setActivedWidget(this.activeUUid)
     },
 
-    openMenu() {
-      // console.log('123123')
+    openMenu(e) {
+      let rightMenu = {}
+      rightMenu['isShow'] = true
+      this.$nextTick(() => {
+        let mousePosX = e.clientX - 200 // 鼠标位置减去左边的距离
+        let mousePosY = e.clientY - 40 // 鼠标位置减去右边的距离
+
+        rightMenu['left'] = mousePosX
+        rightMenu['top'] = mousePosY
+        this.$emit('openRightMouseMenu', rightMenu)
+      })
     },
 
     onDeActivated(params) {
