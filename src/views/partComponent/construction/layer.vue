@@ -1,10 +1,19 @@
 <template>
   <div class="draggable_container">
     <div class="draggable_lay_top">
-      <span><i class="el-icon-upload2" /></span>
-      <span><i class="el-icon-download" /></span>
-      <span><i class="el-icon-top" /></span>
-      <span><i class="el-icon-bottom" /></span>
+      <template v-for="item in topIconList">
+        <el-tooltip
+          :key="item.value"
+          popper-class="top_pop_class"
+          effect="dark"
+          :content="item.popName"
+          placement="top"
+        >
+          <div class="lay_icon_cell tool_tip_hover">
+            <i :class="item.value" style="opacity: 0.5" />
+          </div>
+        </el-tooltip>
+      </template>
     </div>
     <div class="draggable_lay_middle">
       <draggable v-model="draggableList">
@@ -25,9 +34,19 @@
       </draggable>
     </div>
     <div class="draggable_lay_bottom">
-      <span><i class="el-icon-delete" /></span>
-      <span><i class="el-icon-download" /></span>
-      <span><i class="el-icon-lock" /></span>
+      <template v-for="item in bottomIconList">
+        <el-tooltip
+          :key="item.value"
+          popper-class="top_pop_class"
+          effect="dark"
+          :content="item.popName"
+          placement="bottom"
+        >
+          <div class="lay_icon_cell tool_tip_hover">
+            <i :class="item.value" />
+          </div>
+        </el-tooltip>
+      </template>
     </div>
   </div>
 </template>
@@ -42,7 +61,18 @@ export default {
   },
   data() {
     return {
-      draggableList: []
+      draggableList: [],
+      topIconList: [
+        { popName: '置顶', value: 'el-icon-upload2' },
+        { popName: '置底', value: 'el-icon-download' },
+        { popName: '上移一层', value: 'el-icon-top' },
+        { popName: '下移一层', value: 'el-icon-bottom' }
+      ],
+      bottomIconList: [
+        { popName: '删除', value: 'el-icon-delete' },
+        { popName: '隐藏', value: 'el-icon-download' },
+        { popName: '上锁', value: 'el-icon-lock' }
+      ]
     }
   },
   computed: {
@@ -97,7 +127,6 @@ export default {
     justify-content: space-around;
     align-items: center;
     color: #ffffff;
-    opacity: 0.5;
   }
   .draggable_lay_middle {
     margin-top: 10px;
@@ -116,10 +145,16 @@ export default {
     color: #ffffff;
     position: absolute;
     bottom: 0;
-    border-top: 2px solid #0E0F14;
+    border-top: 2px solid #0e0f14;
     display: flex;
     justify-content: space-around;
     align-items: center;
+  }
+  .lay_icon_cell {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
   }
 }
 .flip-list-move {

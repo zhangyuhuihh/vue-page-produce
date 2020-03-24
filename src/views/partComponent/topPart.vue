@@ -8,7 +8,7 @@
     </div>
     <div class="right_block_one">
       <el-tooltip popper-class="top_pop_class" effect="dark" content="图层" placement="bottom">
-        <div @click="openLayer" class="coin_icon_c">
+        <div @click="openLayer" class="coin_icon_c tool_tip_hover">
           <i class="el-icon-coin"></i>
         </div>
       </el-tooltip>
