@@ -22,13 +22,13 @@
         <li><i class="el-icon-download" /><span>置底</span></li>
         <li><i class="el-icon-top" /><span>上移一层</span></li>
         <li><i class="el-icon-bottom" /><span>下移一层</span></li>
-        <li><i class="el-icon-delete" /><span>删除组件</span></li>
+        <li @click="handleRemove"><i class="el-icon-delete" /><span>删除组件</span></li>
       </ul>
     </right-mouse-menu>
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import RightMouseMenu from './construction/Right_mouse_menu'
 import EditArea from './edit_area'
 import PageSet from './page_set'
@@ -45,7 +45,8 @@ export default {
         isShow: false,
         left: 0,
         right: 0
-      }
+      },
+      rightMouseUUid: ''
     }
   },
   computed: {
@@ -56,13 +57,19 @@ export default {
 
   methods: {
     ...mapMutations('partComponent', ['setMagnification']),
+    ...mapActions('partComponent', ['removeWidget']),
 
     handleSliderChange(v) {
       this.setMagnification(v)
     },
 
-    openRightMouseMenu(v) {
-      this.rightMenu = { ...v }
+    openRightMouseMenu(obj, uuid) {
+      this.rightMenu = { ...obj }
+      this.rightMouseUUid = uuid
+    },
+
+    handleRemove() {
+      this.removeWidget(this.rightMouseUUid)
     }
   }
 }

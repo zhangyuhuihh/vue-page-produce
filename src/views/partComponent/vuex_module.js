@@ -83,8 +83,8 @@ export default {
       widget.dragSize.height = newDragSizeMsg.height
     },
 
-    [REMOVE_WIDGET]: (state, oneWidget) => {
-      state.widgetList = state.widgetList.filter(v => v.uuid !== oneWidget.uuid)
+    [REMOVE_WIDGET]: (state, oneWidgetUUId) => {
+      state.widgetList = state.widgetList.filter(v => v.uuid !== oneWidgetUUId)
       // 删除时清空当前高亮组件
       state.activedWidget = {}
     },
@@ -135,8 +135,8 @@ export default {
       commit('ADD_WIDGET', oneWidget)
     },
 
-    removeWidget: ({ commit }, oneWdiget) => {
-      commit('REMOVE_WIDGET', oneWdiget)
+    removeWidget: ({ commit }, oneWdigetuuid) => {
+      commit('REMOVE_WIDGET', oneWdigetuuid)
     },
 
     setActivedWidget: ({ commit, state }, activeUUid) => {

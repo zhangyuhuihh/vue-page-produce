@@ -18,7 +18,6 @@
         <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
           <el-button type="info" icon="el-icon-delete" size="small"></el-button>
       </el-tooltip>-->
-      <el-button  id="remove_btn" @click="handleRemove" :disabled="!isCanRemove" type="primary" size="small">删除选中组件</el-button>
       <el-button @click="handleSave" type="primary" size="small">保存预览</el-button>
       <!-- </el-button-group> -->
     </div>
@@ -35,7 +34,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('partComponent', ['validateAllFields', 'removeWidget']),
+    ...mapActions('partComponent', ['validateAllFields']),
     handleSave() {
       // todo 验证
       // this.validateAllFields(this.activedWidget.uuid).then(res => {
@@ -51,9 +50,6 @@ export default {
       let allData = JSON.stringify(this.$store.state.partComponent)
       sessionStorage.setItem('allData', allData)
       window.open(routeData.href, '_blank')
-    },
-    handleRemove() {
-      this.removeWidget(this.activedWidget)
     }
   }
 }

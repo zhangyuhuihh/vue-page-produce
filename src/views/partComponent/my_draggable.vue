@@ -27,7 +27,7 @@
         @activated="onActivated(item)"
       >
         <component
-          @contextmenu.prevent.native="openMenu($event)"
+          @contextmenu.prevent.native="openMenu($event, item)"
           :is="item.componentKey"
           :uuid="item.uuid"
         ></component>
@@ -118,7 +118,7 @@ export default {
       this.setActivedWidget(this.activeUUid)
     },
 
-    openMenu(e) {
+    openMenu(e, item) {
       let rightMenu = {}
       rightMenu['isShow'] = true
       this.$nextTick(() => {
@@ -127,7 +127,7 @@ export default {
 
         rightMenu['left'] = mousePosX
         rightMenu['top'] = mousePosY
-        this.$emit('openRightMouseMenu', rightMenu)
+        this.$emit('openRightMouseMenu', rightMenu, item.uuid)
       })
     },
 
