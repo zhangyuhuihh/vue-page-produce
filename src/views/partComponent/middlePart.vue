@@ -108,7 +108,7 @@ export default {
   .slider_container {
     position: absolute;
     bottom: 0px;
-    height: 30px;
+    height: 40px;
     width: 100%;
     background-color: #181C22;
     display: flex;
