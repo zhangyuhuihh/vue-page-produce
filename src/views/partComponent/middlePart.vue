@@ -1,8 +1,8 @@
 <template>
   <div class="main-edit-part">
-    <div class="page-set--container">
+    <!-- <div class="page-set--container">
       <page-set></page-set>
-    </div>
+    </div> -->
     <edit-area @openRightMouseMenu="openRightMouseMenu"></edit-area>
     <div class="slider_container">
       <div style="color: #b6b8cc">{{magnification}}%</div>
@@ -31,11 +31,11 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import RightMouseMenu from './construction/Right_mouse_menu'
 import EditArea from './edit_area'
-import PageSet from './page_set'
+// import PageSet from './page_set'
 
 export default {
   components: {
-    PageSet,
+    // PageSet,
     EditArea,
     RightMouseMenu
   },
@@ -107,15 +107,16 @@ export default {
   }
   .slider_container {
     position: absolute;
-    bottom: 50px;
-    right: 10px;
-    width: 250px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+    background-color: #181C22;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     .slider_block {
       margin-left: 20px;
-      width: 150px;
+      width: 100px;
     }
   }
 }
