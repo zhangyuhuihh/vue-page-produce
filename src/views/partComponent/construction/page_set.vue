@@ -1,17 +1,11 @@
 <template>
-  <div>
-    <el-popover
-      @show="dialogVisible = true"
-      @hide="dialogVisible = false"
-      placement="left-start"
-      width="300"
-      trigger="click"
-    >
-      <div>
-        <span>屏幕大小&nbsp;&nbsp;</span>
-        <span style="margin-left: 10px">{{bigScreenRatioWidth}}</span> *
-        <span>{{bigScreenRatioHeight}}</span>
-        <!-- <el-input
+  <div class="page_set_container">
+    <div class="ps_title">页面设置</div>
+    <div class="ps_main">
+      <span>屏幕大小&nbsp;&nbsp;</span>
+      <span style="margin-left: 10px">{{bigScreenRatioWidth}}</span> *
+      <span>{{bigScreenRatioHeight}}</span>
+      <!-- <el-input
           :value="bigScreenRatioWidth"
           @input="updateBigScreenRatioWidth"
           size="small"
@@ -24,9 +18,8 @@
           size="small"
           placeholder="宽"
           style="width:80px;margin-left:10px"
-        ></el-input>-->
-      </div>
-      <div class="line_cell" v-if="dialogVisible">
+      ></el-input>-->
+      <div class="line_cell">
         <span>背景颜色</span>
         <div style="margin-left: 10px">
           <el-color-picker :value="pageBgColor" @input="handleBgColorChange"></el-color-picker>
@@ -57,14 +50,7 @@
           </el-upload>
         </div>
       </div>
-      <div slot="reference">
-        <el-tooltip class="item" effect="dark" content="页面设置" placement="right">
-          <div @click="handleSetting" style="cursor: pointer">
-            <i class="el-icon-s-tools" style="color: #b6b8cc; font-size: 25px"></i>
-          </div>
-        </el-tooltip>
-      </div>
-    </el-popover>
+    </div>
   </div>
 </template>
 
@@ -73,7 +59,6 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      dialogVisible: false,
       fileList: [],
       imageUrl: ''
     }
@@ -139,19 +124,33 @@ export default {
 
     handleRemove(file, fileList) {
       this.setPageBgImgUrl('')
-    },
-
-    handleSetting() {
-      this.dialogVisible = true
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.line_cell {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
+.page_set_container {
+  .ps_title {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background-color: #303640;
+    color: #ffffff;
+    opacity: 0.5;
+    font-size: 14px;
+    padding-left: 10px;
+  }
+  .ps_main {
+    padding: 10px;
+    font-size: 12px;
+    color: #ffffff;
+    opacity: 0.5;
+  }
+  .line_cell {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
 }
 </style>
