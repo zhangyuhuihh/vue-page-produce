@@ -85,8 +85,6 @@ export default {
 
     [REMOVE_WIDGET]: (state, oneWidgetUUId) => {
       state.widgetList = state.widgetList.filter(v => v.uuid !== oneWidgetUUId)
-      // 删除时清空当前高亮组件
-      state.activedWidget = {}
     },
 
     [SET_ACTIVEDWIDGET]: (state, activeWidget) => {
@@ -135,13 +133,20 @@ export default {
       commit('ADD_WIDGET', oneWidget)
     },
 
-    removeWidget: ({ commit }, oneWdigetuuid) => {
+    removeWidget: ({ commit, dispatch }, oneWdigetuuid) => {
+      dispatch('removeActivedWidget', oneWdigetuuid)
       commit('REMOVE_WIDGET', oneWdigetuuid)
     },
 
     setActivedWidget: ({ commit, state }, activeUUid) => {
-      const activeWdiget = state.widgetList.find(v => v.uuid === activeUUid) || {}
-      commit('SET_ACTIVEDWIDGET', activeWdiget)
+      const activedWidget = state.widgetList.find(v => v.uuid === activeUUid) || {}
+      commit('SET_ACTIVEDWIDGET', activedWidget)
+    },
+
+    removeActivedWidget: ({ commit, state }, deActiveUUid) => {
+      if (state.activedWidget.uuid === deActiveUUid) {
+        commit('SET_ACTIVEDWIDGET', {})
+      }
     },
 
     updateWidgetDragPos({ commit }, newDragPosMsg) {
