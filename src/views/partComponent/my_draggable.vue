@@ -25,6 +25,7 @@
         @dragstop="onDragStop"
         @resizestop="onResizeStop"
         @activated="onActivated(item)"
+        @deactivated="onDeActivated(item)"
       >
         <component
           @contextmenu.prevent.native="openMenu($event, item)"
@@ -89,7 +90,8 @@ export default {
     ...mapActions('partComponent', [
       'setActivedWidget',
       'updateWidgetDragPos',
-      'updateWidgetDragSize'
+      'updateWidgetDragSize',
+      'removeActivedWidget'
     ]),
 
     onDragStop(x, y) {
@@ -132,7 +134,8 @@ export default {
     },
 
     onDeActivated(params) {
-      // this.setActivedWidget('')
+      // 失去焦点时清空activeWidget
+      this.removeActivedWidget(params.uuid)
     }
   }
 }
