@@ -3,6 +3,7 @@ import _ from 'lodash'
 const ADD_WIDGET = 'ADD_WIDGET'
 const UPDATE_WIDGET_POS_XY = 'UPDATE_WIDGET_POS_XY'
 const UPDATE_WIDGET_POX_Z = 'UPDATE_WIDGET_POX_Z'
+const UPDATE_WIGET_POX_Z_SINGLE = 'UPDATE_WIGET_POX_Z_SINGLE'
 const UPDATE_WIDGET_SITUTATION = 'UPDATE_WIDGET_SITUTATION'
 const UPDATE_WIDGET_SIZE = 'UPDATE_WIDGET_SIZE'
 const REMOVE_WIDGET = 'REMOVE_WIDGET'
@@ -33,8 +34,9 @@ export default {
     magnification: 60
   },
   getters: {
-    activedWidget: (state) => {
-      let obj = state.widgetList.find(v => v.uuid === state.activedWidgetUUID) || {}
+    activedWidget: state => {
+      let obj =
+        state.widgetList.find(v => v.uuid === state.activedWidgetUUID) || {}
       return obj
     },
     editorAreaSize: state => {
@@ -82,8 +84,15 @@ export default {
       })
     },
 
+    [UPDATE_WIGET_POX_Z_SINGLE]: (state, { z, uuid }) => {
+      const widget = state.widgetList.find(v => v.uuid === uuid)
+      widget.dragPosition.z = z
+    },
+
     [UPDATE_WIDGET_SITUTATION]: (state, newDragSitutation) => {
-      const widget = state.widgetList.find(v => v.uuid === newDragSitutation.uuid)
+      const widget = state.widgetList.find(
+        v => v.uuid === newDragSitutation.uuid
+      )
       widget.dragSitutation = newDragSitutation.dragSitutation
     },
 
@@ -164,6 +173,10 @@ export default {
 
     updateWidgetZIndex({ commit }, newZIndexArr) {
       commit('UPDATE_WIDGET_POX_Z', newZIndexArr)
+    },
+
+    updateWidgetZIndexSingle({ commit }, { uuid, z }) {
+      commit('UPDATE_WIGET_POX_Z_SINGLE', { uuid, z })
     },
 
     updateWidgetSitutation({ commit }, newDragSitutation) {

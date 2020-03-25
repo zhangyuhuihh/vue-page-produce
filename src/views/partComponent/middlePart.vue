@@ -2,7 +2,7 @@
   <div class="main-edit-part">
     <!-- <div class="page-set--container">
       <page-set></page-set>
-    </div> -->
+    </div>-->
     <edit-area @openRightMouseMenu="openRightMouseMenu"></edit-area>
     <div class="slider_container">
       <div style="color: #b6b8cc">{{magnification}}%</div>
@@ -16,19 +16,16 @@
         ></el-slider>
       </div>
     </div>
-    <right-mouse-menu :isShow.sync="rightMenu.isShow" :left="rightMenu.left" :top="rightMenu.top">
-      <ul class="right_menu_slot">
-        <li><i class="el-icon-upload2" /><span>置顶</span></li>
-        <li><i class="el-icon-download" /><span>置底</span></li>
-        <li><i class="el-icon-top" /><span>上移一层</span></li>
-        <li><i class="el-icon-bottom" /><span>下移一层</span></li>
-        <li @click="handleRemove"><i class="el-icon-delete" /><span>删除组件</span></li>
-      </ul>
-    </right-mouse-menu>
+    <right-mouse-menu
+      :uuid="rightMouseUUid"
+      :isShow.sync="rightMenu.isShow"
+      :left="rightMenu.left"
+      :top="rightMenu.top"
+    ></right-mouse-menu>
   </div>
 </template>
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import RightMouseMenu from './construction/Right_mouse_menu'
 import EditArea from './edit_area'
 // import PageSet from './page_set'
@@ -57,7 +54,6 @@ export default {
 
   methods: {
     ...mapMutations('partComponent', ['setMagnification']),
-    ...mapActions('partComponent', ['removeWidget']),
 
     handleSliderChange(v) {
       this.setMagnification(v)
@@ -66,10 +62,6 @@ export default {
     openRightMouseMenu(obj, uuid) {
       this.rightMenu = { ...obj }
       this.rightMouseUUid = uuid
-    },
-
-    handleRemove() {
-      this.removeWidget(this.rightMouseUUid)
     }
   }
 }
@@ -110,33 +102,13 @@ export default {
     bottom: 0px;
     height: 40px;
     width: 100%;
-    background-color: #181C22;
+    background-color: #181c22;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     .slider_block {
       margin-left: 20px;
       width: 100px;
-    }
-  }
-}
-.right_menu_slot {
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  font-size: 14px;
-  margin: 0;
-  color: #ffffff;
-  opacity: 0.9;
-  background: #303640;
-  list-style-type: none;
-  li {
-    margin: 0;
-    cursor: pointer;
-    height: 20px;
-    margin-bottom: 13px;
-    span {
-      margin-left: 10px;
     }
   }
 }

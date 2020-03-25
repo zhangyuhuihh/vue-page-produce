@@ -90,7 +90,7 @@ export default {
       let arr = newValue.map((v, index) => {
         return {
           uuid: v.uuid,
-          z: 999 - index
+          z: 1990 - index
         }
       })
       this.updateWidgetZIndex(arr)
@@ -115,6 +115,7 @@ export default {
           })
         }
       },
+      deep: true,
       immediate: true
     }
   },
