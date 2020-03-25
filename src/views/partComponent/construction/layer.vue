@@ -53,7 +53,7 @@
       </el-tooltip>
       <el-tooltip popper-class="top_pop_class" effect="dark" content="上锁" placement="bottom">
         <div class="lay_icon_cell tool_tip_hover">
-          <i v-if="isUnLocked" @click="doLock('unlock')" class="el-icon-lock" />
+          <i v-if="isLocked" @click="doLock('unlock')" class="el-icon-lock" />
           <i v-else @click="doLock('lock')" class="el-icon-unlock" />
         </div>
       </el-tooltip>
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import draggable from 'vuedraggable'
 import _ from 'lodash'
 export default {
@@ -75,10 +75,14 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['widgetList', 'activedWidget']),
-    isUnLocked() {
-      const { draggable, resizable } = this.activedWidget.dragSitutation
-      return draggable && resizable
+    ...mapState('partComponent', ['widgetList']),
+    ...mapGetters('partComponent', ['activedWidget']),
+    isLocked() {
+      if (!_.isEmpty(this.activedWidget)) {
+        const { draggable, resizable } = this.activedWidget.dragSitutation
+        return !(draggable && resizable)
+      }
+      return false
     }
   },
   watch: {
@@ -115,9 +119,30 @@ export default {
     }
   },
   methods: {
-    ...mapActions('partComponent', ['updateWidgetZIndex', 'setActivedWidget']),
+    ...mapActions('partComponent', [
+      'updateWidgetZIndex',
+      'setActivedWidget',
+      'updateWidgetSitutation'
+    ]),
     doLock(v) {
-      
+      if (v === 'lock') {
+        this.updateWidgetSitutation({
+          uuid: this.activedWidget.uuid,
+          dragSitutation: {
+            draggable: false,
+            resizable: false
+          }
+        })
+      }
+      if (v === 'unlock') {
+        this.updateWidgetSitutation({
+          uuid: this.activedWidget.uuid,
+          dragSitutation: {
+            draggable: true,
+            resizable: true
+          }
+        })
+      }
     }
   }
 }

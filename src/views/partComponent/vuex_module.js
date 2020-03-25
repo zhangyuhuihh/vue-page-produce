@@ -3,6 +3,7 @@ import _ from 'lodash'
 const ADD_WIDGET = 'ADD_WIDGET'
 const UPDATE_WIDGET_POS_XY = 'UPDATE_WIDGET_POS_XY'
 const UPDATE_WIDGET_POX_Z = 'UPDATE_WIDGET_POX_Z'
+const UPDATE_WIDGET_SITUTATION = 'UPDATE_WIDGET_SITUTATION'
 const UPDATE_WIDGET_SIZE = 'UPDATE_WIDGET_SIZE'
 const REMOVE_WIDGET = 'REMOVE_WIDGET'
 const SET_ACTIVEDWIDGET_UUID = 'SET_ACTIVEDWIDGET_UUID'
@@ -79,6 +80,11 @@ export default {
         obj.dragPosition.z = v.z
         return obj
       })
+    },
+
+    [UPDATE_WIDGET_SITUTATION]: (state, newDragSitutation) => {
+      const widget = state.widgetList.find(v => v.uuid === newDragSitutation.uuid)
+      widget.dragSitutation = newDragSitutation.dragSitutation
     },
 
     [UPDATE_WIDGET_SIZE]: (state, newDragSizeMsg) => {
@@ -158,6 +164,10 @@ export default {
 
     updateWidgetZIndex({ commit }, newZIndexArr) {
       commit('UPDATE_WIDGET_POX_Z', newZIndexArr)
+    },
+
+    updateWidgetSitutation({ commit }, newDragSitutation) {
+      commit('UPDATE_WIDGET_SITUTATION', newDragSitutation)
     },
 
     updateWidgetDragSize({ commit }, newDragSizeMsg) {

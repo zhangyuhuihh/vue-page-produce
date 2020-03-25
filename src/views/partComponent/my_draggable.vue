@@ -14,8 +14,8 @@
       <vue-draggable-resizable
         :key="item.uuid"
         :parent="true"
-        :draggable="item.draggable"
-        :resizable="item.resizable"
+        :draggable="item.dragSitutation.draggable"
+        :resizable="item.dragSitutation.resizable"
         :active="item.uuid === activedWidget.uuid"
         :x="item.dragPosition.x"
         :y="item.dragPosition.y"
