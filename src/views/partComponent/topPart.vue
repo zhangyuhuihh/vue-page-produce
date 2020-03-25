@@ -13,7 +13,7 @@
         </div>
       </el-tooltip>
       <!-- <el-button @click="handleSave" type="primary" size="small">保存预览</el-button> -->
-      <div v-if="isShowLayer" class="top_layer_contaniner">
+      <div v-show="isShowLayer" class="top_layer_contaniner">
         <div class="top_layer_title">
           <span>图层</span>
           <span @click="isShowLayer = false">

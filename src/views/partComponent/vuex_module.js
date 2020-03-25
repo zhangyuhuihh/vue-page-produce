@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import vuexDraggable from './vuexs/vuex_draggable'
 
 const ADD_WIDGET = 'ADD_WIDGET'
 const UPDATE_WIDGET_POS_XY = 'UPDATE_WIDGET_POS_XY'
@@ -217,5 +218,8 @@ export default {
         }
       })
     }
+  },
+  modules: {
+    vuexDraggable
   }
 }

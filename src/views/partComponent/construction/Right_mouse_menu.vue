@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
 export default {
   name: 'RightMouseMenu',
   props: {
@@ -77,6 +77,7 @@ export default {
   },
 
   computed: {
+    ...mapState('partComponent/vuexDraggable', ['draggableList']),
     ...mapGetters('partComponent', ['activedWidget'])
   },
 
@@ -85,6 +86,7 @@ export default {
       'removeWidget',
       'updateWidgetZIndexSingle'
     ]),
+    ...mapMutations('partComponent/vuexDraggable', ['setDraggableList']),
     closeMenu() {
       this.$emit('update:isShow', false)
     },
@@ -95,25 +97,64 @@ export default {
     },
 
     setTop() {
-      // let z = this.activedWidget.dragPosition.z + 
+      const id = this.uuid
+      let arr = []
+      for (let i = 0; i < this.draggableList.length; i++) {
+        let element = this.draggableList[i]
+        if (element.uuid === id) {
+          arr.unshift({ ...element })
+        } else {
+          arr.push({ ...element })
+        }
+      }
+      this.setDraggableList(arr)
     },
 
-    setBottom() {},
+    setBottom() {
+      const id = this.uuid
+      let arr = []
+      let last
+      for (let i = 0; i < this.draggableList.length; i++) {
+        let element = this.draggableList[i]
+        if (element.uuid === id) {
+          last = { ...element }
+        } else {
+          arr.push({ ...element })
+        }
+      }
+      this.setDraggableList(arr.concat([last]))
+    },
 
     setUpOneStep() {
-      // let z = this.activedWidget.dragPosition.z + 1
-      // this.updateWidgetZIndexSingle({
-      //   uuid: this.uuid,
-      //   z
-      // })
+      const id = this.uuid
+      let arr = [...this.draggableList]
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].uuid === id) {
+          if (i > 0) {
+            let temp = arr[i - 1]
+            arr[i - 1] = arr[i]
+            arr[i] = temp
+            break
+          }
+        }
+      }
+      this.setDraggableList(arr)
     },
 
     setDownOneStep() {
-      // let z = this.activedWidget.dragPosition.z - 1
-      // this.updateWidgetZIndexSingle({
-      //   uuid: this.uuid,
-      //   z
-      // })
+      const id = this.uuid
+      let arr = [...this.draggableList]
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].uuid === id) {
+          if (i < arr.length - 1) {
+            let temp = arr[i + 1]
+            arr[i + 1] = arr[i]
+            arr[i] = temp
+            break
+          }
+        }
+      }
+      this.setDraggableList(arr)
     },
 
     handleRemove() {

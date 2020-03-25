@@ -23,7 +23,7 @@
       </el-tooltip>
     </div>
     <div class="draggable_lay_middle">
-      <draggable v-model="draggableList">
+      <draggable :value="draggableList" @input="handleDraggableInput">
         <transition-group name="flip-list">
           <div
             @click="setActivedWidget(element.uuid)"
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import draggable from 'vuedraggable'
 import _ from 'lodash'
 export default {
@@ -71,11 +71,12 @@ export default {
   },
   data() {
     return {
-      draggableList: []
+      // draggableList: []
     }
   },
   computed: {
     ...mapState('partComponent', ['widgetList', 'activedWidgetUUID']),
+    ...mapState('partComponent/vuexDraggable', ['draggableList']),
     ...mapGetters('partComponent', ['activedWidget']),
     isLocked() {
       if (!_.isEmpty(this.activedWidget)) {
@@ -96,23 +97,28 @@ export default {
       this.updateWidgetZIndex(arr)
     },
     widgetList: {
+      /** todo 这里的图层逻辑日后可能会出现bug现象。到时候采用将
+           draggable的v-model拆分直接绑定widgetList的方式
+     */
       handler: function(newValue, oldValue) {
         if (newValue.length !== this.draggableList.length) {
-          const arr = newValue.map(v => {
-            return {
-              uuid: v.uuid,
-              componentKey: v.componentKey,
-              z: v.dragPosition.z
-            }
-          })
-          this.draggableList = arr.sort((a, b) => {
-            // 如果a.z === b.z，那么说明这两条数据是直接加进去的，所以要换位置
-            if (a.z === b.z) {
-              return -1
-            } else {
-              return b.z - a.z
-            }
-          })
+          const arr = newValue
+            .map(v => {
+              return {
+                uuid: v.uuid,
+                componentKey: v.componentKey,
+                z: v.dragPosition.z
+              }
+            })
+            .sort((a, b) => {
+              // 如果a.z === b.z，那么说明这两条数据是直接加进去的，所以要换位置
+              if (a.z === b.z) {
+                return -1
+              } else {
+                return b.z - a.z
+              }
+            })
+          this.setDraggableList(arr)
         }
       },
       deep: true,
@@ -126,6 +132,11 @@ export default {
       'removeWidget',
       'updateWidgetSitutation'
     ]),
+    ...mapMutations('partComponent/vuexDraggable', ['setDraggableList']),
+
+    handleDraggableInput(arr) {
+      this.setDraggableList(arr)
+    },
 
     setTop() {
       const id = this.activedWidgetUUID
@@ -138,7 +149,7 @@ export default {
           arr.push({ ...element })
         }
       }
-      this.draggableList = arr
+      this.setDraggableList(arr)
     },
 
     setBottom() {
@@ -153,7 +164,7 @@ export default {
           arr.push({ ...element })
         }
       }
-      this.draggableList = arr.concat([last])
+      this.setDraggableList(arr.concat([last]))
     },
 
     setUpOneStep() {
@@ -169,7 +180,7 @@ export default {
           }
         }
       }
-      this.draggableList = arr
+      this.setDraggableList(arr)
     },
 
     setDownOneStep() {
@@ -185,7 +196,7 @@ export default {
           }
         }
       }
-      this.draggableList = arr
+      this.setDraggableList(arr)
     },
 
     handleRemove() {
