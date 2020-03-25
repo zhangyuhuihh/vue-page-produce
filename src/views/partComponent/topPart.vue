@@ -16,7 +16,9 @@
       <div v-if="isShowLayer" class="top_layer_contaniner">
         <div class="top_layer_title">
           <span>图层</span>
-          <span @click="isShowLayer = false"><i class="el-icon-close"></i></span>
+          <span @click="isShowLayer = false">
+            <i class="el-icon-close"></i>
+          </span>
         </div>
         <Layer></Layer>
       </div>
@@ -25,7 +27,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Layer from './construction/layer'
 export default {
   components: {
@@ -37,10 +39,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['activedWidget']),
-    isCanRemove() {
-      return Boolean(this.activedWidget.uuid)
-    }
+    ...mapGetters('partComponent', ['activedWidget'])
   },
   methods: {
     ...mapActions('partComponent', ['validateAllFields']),

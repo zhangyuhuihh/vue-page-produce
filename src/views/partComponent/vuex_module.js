@@ -5,7 +5,7 @@ const UPDATE_WIDGET_POS_XY = 'UPDATE_WIDGET_POS_XY'
 const UPDATE_WIDGET_POX_Z = 'UPDATE_WIDGET_POX_Z'
 const UPDATE_WIDGET_SIZE = 'UPDATE_WIDGET_SIZE'
 const REMOVE_WIDGET = 'REMOVE_WIDGET'
-const SET_ACTIVEDWIDGET = 'SET_ACTIVEDWIDGET'
+const SET_ACTIVEDWIDGET_UUID = 'SET_ACTIVEDWIDGET_UUID'
 const FIELDS_CHANGE = 'FIELDS_CHANGE'
 const UPDATE_WIDGET_ERROR = 'UPDATE_WIDGET_ERROR'
 
@@ -22,7 +22,7 @@ export default {
   namespaced: true,
   state: {
     widgetList: [],
-    activedWidget: {},
+    activedWidgetUUID: '',
     bigScreenRatio: {
       width: 1920,
       height: 1080
@@ -32,6 +32,10 @@ export default {
     magnification: 60
   },
   getters: {
+    activedWidget: (state) => {
+      let obj = state.widgetList.find(v => v.uuid === state.activedWidgetUUID) || {}
+      return obj
+    },
     editorAreaSize: state => {
       return {
         // width: state.bigScreenRatio.width * state.magnification / 100,
@@ -87,8 +91,8 @@ export default {
       state.widgetList = state.widgetList.filter(v => v.uuid !== oneWidgetUUId)
     },
 
-    [SET_ACTIVEDWIDGET]: (state, activeWidget) => {
-      state.activedWidget = activeWidget
+    [SET_ACTIVEDWIDGET_UUID]: (state, activeWidgetUUid) => {
+      state.activedWidgetUUID = activeWidgetUUid
     },
 
     [FIELDS_CHANGE]: (state, { uuid, fieldType, fieldKey, fieldValue }) => {
@@ -138,14 +142,13 @@ export default {
       commit('REMOVE_WIDGET', oneWdigetuuid)
     },
 
-    setActivedWidget: ({ commit, state }, activeUUid) => {
-      const activedWidget = state.widgetList.find(v => v.uuid === activeUUid) || {}
-      commit('SET_ACTIVEDWIDGET', activedWidget)
+    setActivedWidget: ({ commit }, activeUUid) => {
+      commit('SET_ACTIVEDWIDGET_UUID', activeUUid)
     },
 
     removeActivedWidget: ({ commit, state }, deActiveUUid) => {
-      if (state.activedWidget.uuid === deActiveUUid) {
-        commit('SET_ACTIVEDWIDGET', {})
+      if (state.activedWidgetUUID === deActiveUUid) {
+        commit('SET_ACTIVEDWIDGET_UUID', '')
       }
     },
 

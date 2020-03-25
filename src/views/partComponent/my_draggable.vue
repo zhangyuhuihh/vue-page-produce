@@ -78,10 +78,13 @@ export default {
       'widgetList',
       'pageBgColor',
       'pageBgImgUrl',
-      'activedWidget',
       'magnification'
     ]),
-    ...mapGetters('partComponent', ['editorAreaSize', 'requestDataList']),
+    ...mapGetters('partComponent', [
+      'activedWidget',
+      'editorAreaSize',
+      'requestDataList'
+    ]),
     disTanceMagnificition() {
       return this.magnification / 100
     }

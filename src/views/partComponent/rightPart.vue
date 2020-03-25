@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import PageSet from './construction/page_set'
 import FieldInput from './formFields/_field_input'
 import FieldColorPicker from './formFields/_field_color_picker'
@@ -70,7 +70,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['activedWidget']),
+    ...mapGetters('partComponent', ['activedWidget']),
     isShowActiveWidgetPro() {
       return !_.isEmpty(this.activedWidget)
     }
