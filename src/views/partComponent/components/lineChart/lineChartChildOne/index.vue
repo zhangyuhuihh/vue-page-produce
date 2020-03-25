@@ -53,7 +53,9 @@ export default {
     'currentWidget.dragSize': {
       // todo 防抖和节流
       handler() {
-        this.myChart.resize()
+        this.$nextTick(() => {
+          this.myChart.resize()
+        })
       },
       deep: true
     },
