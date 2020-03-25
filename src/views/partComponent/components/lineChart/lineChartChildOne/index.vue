@@ -61,7 +61,6 @@ export default {
     },
     needToRefreshProperty: {
       handler(newValue, oldValue) {
-        console.log('newValue: ', newValue)
         let fakeData = JSON.parse(newValue.fields.isFakeData.formModel.fakeData)
         this.option.xAxis.data = fakeData.map(v => v.xAxis)
         this.option.series[0].data = fakeData.map(v => v.yAxis)

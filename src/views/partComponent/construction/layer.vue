@@ -13,12 +13,12 @@
       </el-tooltip>
       <el-tooltip popper-class="top_pop_class" effect="dark" content="上移一层" placement="top">
         <div class="lay_icon_cell tool_tip_hover">
-          <i class="el-icon-top" style="opacity: 0.5" />
+          <i @click="setUpOneStep" class="el-icon-top" style="opacity: 0.5" />
         </div>
       </el-tooltip>
       <el-tooltip popper-class="top_pop_class" effect="dark" content="下移一层" placement="top">
         <div class="lay_icon_cell tool_tip_hover">
-          <i class="el-icon-bottom" style="opacity: 0.5" />
+          <i @click="setDownOneStep" class="el-icon-bottom" style="opacity: 0.5" />
         </div>
       </el-tooltip>
     </div>
@@ -154,9 +154,37 @@ export default {
       this.draggableList = arr.concat([last])
     },
 
-    setTopOneStep() {},
+    setUpOneStep() {
+      const id = this.activedWidgetUUID
+      let arr = [...this.draggableList]
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].uuid === id) {
+          if (i > 0) {
+            let temp = arr[i - 1]
+            arr[i - 1] = arr[i]
+            arr[i] = temp
+            break
+          }
+        }
+      }
+      this.draggableList = arr
+    },
 
-    setBottomOneStep() {},
+    setDownOneStep() {
+      const id = this.activedWidgetUUID
+      let arr = [...this.draggableList]
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].uuid === id) {
+          if (i < arr.length - 1) {
+            let temp = arr[i + 1]
+            arr[i + 1] = arr[i]
+            arr[i] = temp
+            break
+          }
+        }
+      }
+      this.draggableList = arr
+    },
 
     doLock(v) {
       if (v === 'lock') {

@@ -73,7 +73,7 @@ export default {
     this.setBigScreenRatioWidth(allData.bigScreenRatio.width)
     this.setBigScreenRatioHeight(allData.bigScreenRatio.height)
     // 这里需要初始化vuex中的widget数据
-    console.log('widgetList: ', this.widgetList)
+    // console.log('widgetList: ', this.widgetList)
   },
   methods: {
     ...mapMutations('partComponent', [
