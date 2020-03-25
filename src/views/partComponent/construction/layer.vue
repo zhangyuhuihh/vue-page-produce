@@ -3,12 +3,12 @@
     <div class="draggable_lay_top">
       <el-tooltip popper-class="top_pop_class" effect="dark" content="置顶" placement="top">
         <div class="lay_icon_cell tool_tip_hover">
-          <i class="el-icon-upload2" style="opacity: 0.5" />
+          <i @click="setTop" class="el-icon-upload2" style="opacity: 0.5" />
         </div>
       </el-tooltip>
       <el-tooltip popper-class="top_pop_class" effect="dark" content="置底" placement="top">
         <div class="lay_icon_cell tool_tip_hover">
-          <i class="el-icon-download" style="opacity: 0.5" />
+          <i @click="setBottom" class="el-icon-download" style="opacity: 0.5" />
         </div>
       </el-tooltip>
       <el-tooltip popper-class="top_pop_class" effect="dark" content="上移一层" placement="top">
@@ -75,7 +75,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('partComponent', ['widgetList']),
+    ...mapState('partComponent', ['widgetList', 'activedWidgetUUID']),
     ...mapGetters('partComponent', ['activedWidget']),
     isLocked() {
       if (!_.isEmpty(this.activedWidget)) {
@@ -105,14 +105,14 @@ export default {
               z: v.dragPosition.z
             }
           })
-
-          if (newValue.length > this.draggableList.length) {
-            let arr2 = arr.slice(0, arr.length - 1) // 不包括end
-            this.draggableList = arr2
-            this.draggableList.unshift(_.last(newValue))
-            return
-          }
-          this.draggableList = arr
+          this.draggableList = arr.sort((a, b) => {
+            // 如果a.z === b.z，那么说明这两条数据是直接加进去的，所以要换位置
+            if (a.z === b.z) {
+              return -1
+            } else {
+              return b.z - a.z
+            }
+          })
         }
       },
       immediate: true
@@ -124,10 +124,44 @@ export default {
       'setActivedWidget',
       'updateWidgetSitutation'
     ]),
+
+    setTop() {
+      const id = this.activedWidgetUUID
+      let arr = []
+      for (let i = 0; i < this.draggableList.length; i++) {
+        let element = this.draggableList[i]
+        if (element.uuid === id) {
+          arr.unshift({ ...element })
+        } else {
+          arr.push({ ...element })
+        }
+      }
+      this.draggableList = arr
+    },
+
+    setBottom() {
+      const id = this.activedWidgetUUID
+      let arr = []
+      let last
+      for (let i = 0; i < this.draggableList.length; i++) {
+        let element = this.draggableList[i]
+        if (element.uuid === id) {
+          last = { ...element }
+        } else {
+          arr.push({ ...element })
+        }
+      }
+      this.draggableList = arr.concat([last])
+    },
+
+    setTopOneStep() {},
+
+    setBottomOneStep() {},
+
     doLock(v) {
       if (v === 'lock') {
         this.updateWidgetSitutation({
-          uuid: this.activedWidget.uuid,
+          uuid: this.activedWidgetUUID,
           dragSitutation: {
             draggable: false,
             resizable: false
@@ -136,7 +170,7 @@ export default {
       }
       if (v === 'unlock') {
         this.updateWidgetSitutation({
-          uuid: this.activedWidget.uuid,
+          uuid: this.activedWidgetUUID,
           dragSitutation: {
             draggable: true,
             resizable: true
