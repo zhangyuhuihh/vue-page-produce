@@ -43,14 +43,14 @@
     <div class="draggable_lay_bottom">
       <el-tooltip popper-class="top_pop_class" effect="dark" content="删除" placement="bottom">
         <div class="lay_icon_cell tool_tip_hover">
-          <i class="el-icon-delete" />
+          <i @click="handleRemove" class="el-icon-delete" />
         </div>
       </el-tooltip>
-      <el-tooltip popper-class="top_pop_class" effect="dark" content="隐藏" placement="bottom">
+      <!-- <el-tooltip popper-class="top_pop_class" effect="dark" content="隐藏" placement="bottom">
         <div class="lay_icon_cell tool_tip_hover">
           <i class="el-icon-download" />
         </div>
-      </el-tooltip>
+      </el-tooltip>-->
       <el-tooltip popper-class="top_pop_class" effect="dark" content="上锁" placement="bottom">
         <div class="lay_icon_cell tool_tip_hover">
           <i v-if="isLocked" @click="doLock('unlock')" class="el-icon-lock" />
@@ -122,6 +122,7 @@ export default {
     ...mapActions('partComponent', [
       'updateWidgetZIndex',
       'setActivedWidget',
+      'removeWidget',
       'updateWidgetSitutation'
     ]),
 
@@ -184,6 +185,10 @@ export default {
         }
       }
       this.draggableList = arr
+    },
+
+    handleRemove() {
+      this.removeWidget(this.activedWidgetUUID)
     },
 
     doLock(v) {
