@@ -9,6 +9,7 @@ import _ from 'lodash'
  * uuid: 前端唯一标识
  * dragPosition: 拖动位置信息
  * dragSize: 拖动大小信息
+ * dragSitutation: 组件当前拖动状态
  * fields: 组件表单信息,
  * styleFields: 组件样式信息
  */
@@ -17,6 +18,7 @@ class Widget {
   constructor(constructorData) {
     this.uuid = constructorData.uuid
     this.setDragPosition(constructorData)
+    this.setDragSitutation(constructorData)
   }
 
   setDragPosition(constructorData) {
@@ -49,6 +51,22 @@ class Widget {
         this.dragSize = {
           width: constructorData.dragSize.width,
           height: constructorData.dragSize.height
+        }
+    }
+  }
+
+  setDragSitutation(constructorData) {
+    switch (constructorData.type) {
+      case 'add':
+        this.dragSitutation = {
+          draggable: true,
+          resizable: true
+        }
+        break
+      case 'edit':
+        this.dragSize = {
+          draggable: constructorData.dragSitutation.draggable,
+          resizable: constructorData.dragSitutation.resizable
         }
     }
   }

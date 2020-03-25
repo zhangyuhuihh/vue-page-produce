@@ -1,19 +1,26 @@
 <template>
   <div class="draggable_container">
     <div class="draggable_lay_top">
-      <template v-for="item in topIconList">
-        <el-tooltip
-          :key="item.value"
-          popper-class="top_pop_class"
-          effect="dark"
-          :content="item.popName"
-          placement="top"
-        >
-          <div class="lay_icon_cell tool_tip_hover">
-            <i :class="item.value" style="opacity: 0.5" />
-          </div>
-        </el-tooltip>
-      </template>
+      <el-tooltip popper-class="top_pop_class" effect="dark" content="置顶" placement="top">
+        <div class="lay_icon_cell tool_tip_hover">
+          <i class="el-icon-upload2" style="opacity: 0.5" />
+        </div>
+      </el-tooltip>
+      <el-tooltip popper-class="top_pop_class" effect="dark" content="置底" placement="top">
+        <div class="lay_icon_cell tool_tip_hover">
+          <i class="el-icon-download" style="opacity: 0.5" />
+        </div>
+      </el-tooltip>
+      <el-tooltip popper-class="top_pop_class" effect="dark" content="上移一层" placement="top">
+        <div class="lay_icon_cell tool_tip_hover">
+          <i class="el-icon-top" style="opacity: 0.5" />
+        </div>
+      </el-tooltip>
+      <el-tooltip popper-class="top_pop_class" effect="dark" content="下移一层" placement="top">
+        <div class="lay_icon_cell tool_tip_hover">
+          <i class="el-icon-bottom" style="opacity: 0.5" />
+        </div>
+      </el-tooltip>
     </div>
     <div class="draggable_lay_middle">
       <draggable v-model="draggableList">
@@ -34,19 +41,22 @@
       </draggable>
     </div>
     <div class="draggable_lay_bottom">
-      <template v-for="item in bottomIconList">
-        <el-tooltip
-          :key="item.value"
-          popper-class="top_pop_class"
-          effect="dark"
-          :content="item.popName"
-          placement="bottom"
-        >
-          <div class="lay_icon_cell tool_tip_hover">
-            <i :class="item.value" />
-          </div>
-        </el-tooltip>
-      </template>
+      <el-tooltip popper-class="top_pop_class" effect="dark" content="删除" placement="bottom">
+        <div class="lay_icon_cell tool_tip_hover">
+          <i class="el-icon-delete" />
+        </div>
+      </el-tooltip>
+      <el-tooltip popper-class="top_pop_class" effect="dark" content="隐藏" placement="bottom">
+        <div class="lay_icon_cell tool_tip_hover">
+          <i class="el-icon-download" />
+        </div>
+      </el-tooltip>
+      <el-tooltip popper-class="top_pop_class" effect="dark" content="上锁" placement="bottom">
+        <div class="lay_icon_cell tool_tip_hover">
+          <i v-if="isUnLocked" @click="doLock('unlock')" class="el-icon-lock" />
+          <i v-else @click="doLock('lock')" class="el-icon-unlock" />
+        </div>
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -61,22 +71,15 @@ export default {
   },
   data() {
     return {
-      draggableList: [],
-      topIconList: [
-        { popName: '置顶', value: 'el-icon-upload2' },
-        { popName: '置底', value: 'el-icon-download' },
-        { popName: '上移一层', value: 'el-icon-top' },
-        { popName: '下移一层', value: 'el-icon-bottom' }
-      ],
-      bottomIconList: [
-        { popName: '删除', value: 'el-icon-delete' },
-        { popName: '隐藏', value: 'el-icon-download' },
-        { popName: '上锁', value: 'el-icon-lock' }
-      ]
+      draggableList: []
     }
   },
   computed: {
-    ...mapState('partComponent', ['widgetList', 'activedWidget'])
+    ...mapState('partComponent', ['widgetList', 'activedWidget']),
+    isUnLocked() {
+      const { draggable, resizable } = this.activedWidget.dragSitutation
+      return draggable && resizable
+    }
   },
   watch: {
     draggableList(newValue, olaValue) {
@@ -112,7 +115,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('partComponent', ['updateWidgetZIndex', 'setActivedWidget'])
+    ...mapActions('partComponent', ['updateWidgetZIndex', 'setActivedWidget']),
+    doLock(v) {
+      
+    }
   }
 }
 </script>
