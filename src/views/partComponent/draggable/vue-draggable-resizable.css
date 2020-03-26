@@ -2,10 +2,10 @@
   touch-action: none;
   position: absolute;
   box-sizing: border-box;
-  border: 2px dashed transparent;
+  border: 1px solid transparent;
 }
 .vdr-border {
-  border: 2px dashed #2483FF
+  border: 1px solid #2483FF
 }
 
 .handle {

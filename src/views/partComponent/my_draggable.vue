@@ -20,8 +20,8 @@
         :x="item.dragPosition.x"
         :y="item.dragPosition.y"
         :z="item.dragPosition.z"
-        :w="item.dragSize.width"
-        :h="item.dragSize.height"
+        :w="item.dragSize.width + widthHeightPadding"
+        :h="item.dragSize.height + widthHeightPadding"
         :minWidth="20"
         :minHeight="20"
         @dragstop="onDragStop"
@@ -29,11 +29,14 @@
         @activated="onActivated(item)"
         @deactivated="onDeActivated(item)"
       >
-        <component
-          @contextmenu.prevent.native="openMenu($event, item)"
-          :is="item.componentKey"
-          :uuid="item.uuid"
-        ></component>
+        <div style="width: 100%; height: 100%; padding: 5px">
+          <!-- 这边的padding,决定了widthHeightPadding的大小 -->
+          <component
+            @contextmenu.prevent.native="openMenu($event, item)"
+            :is="item.componentKey"
+            :uuid="item.uuid"
+          ></component>
+        </div>
       </vue-draggable-resizable>
     </template>
   </div>
@@ -70,7 +73,8 @@ export default {
   props: {},
   data() {
     return {
-      activeUUid: ''
+      activeUUid: '',
+      widthHeightPadding: 10
     }
   },
   computed: {
@@ -114,8 +118,8 @@ export default {
         uuid: this.activeUUid
       })
       this.updateWidgetDragSize({
-        width: width,
-        height: height,
+        width: width - this.widthHeightPadding,
+        height: height - this.widthHeightPadding,
         uuid: this.activeUUid
       })
     },
