@@ -49,7 +49,7 @@ export default {
 
     .left_container {
       overflow: hidden;
-      width: 200px;
+      width: 300px;
       background-color: #181C22;
     }
     .middle_container {

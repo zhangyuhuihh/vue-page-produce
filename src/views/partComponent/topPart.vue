@@ -12,7 +12,6 @@
           <i class="el-icon-coin"></i>
         </div>
       </el-tooltip>
-      <!-- <el-button @click="handleSave" type="primary" size="small">保存预览</el-button> -->
       <div v-show="isShowLayer" class="top_layer_contaniner">
         <div class="top_layer_title">
           <span>图层</span>
@@ -22,6 +21,13 @@
         </div>
         <Layer></Layer>
       </div>
+    </div>
+    <div class="right_block_two">
+      <el-tooltip popper-class="top_pop_class" effect="dark" content="预览" placement="bottom">
+        <div @click="handleSave" class="coin_icon_c tool_tip_hover">
+          <i class="el-icon-s-promotion"></i>
+        </div>
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -106,15 +112,24 @@ export default {
         align-items: center;
       }
     }
-    .coin_icon_c {
-      color: #ffffff;
-      text-align: center;
-      width: 40px;
-      height: 22px;
-      line-height: 22px;
-      background: rgba(48, 54, 64, 1);
-      border: 1px solid rgba(58, 70, 89, 1);
-    }
+  }
+  .right_block_two {
+    position: absolute;
+    right: 10px;
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .coin_icon_c {
+    color: #ffffff;
+    text-align: center;
+    width: 40px;
+    height: 22px;
+    line-height: 22px;
+    background: rgba(48, 54, 64, 1);
+    border: 1px solid rgba(58, 70, 89, 1);
   }
 }
 </style>

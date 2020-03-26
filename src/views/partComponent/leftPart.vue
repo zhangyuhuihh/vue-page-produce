@@ -1,13 +1,20 @@
 <template>
   <div class="left_part_container">
+    <div class="ps_title">组件列表</div>
     <div class="left_part_top_choose">
       <el-collapse>
         <template v-for="(item, key) in allCollapseParent">
           <el-collapse-item
-            :title="item.componentDescription.name"
             :name="item.componentDescription.name"
             :key="item.componentDescription.name"
           >
+            <template slot="title">
+              <span>
+                <i class="el-icon-basketball"></i>
+                <span style="margin-left: 5px">{{item.componentDescription.name}}</span>
+                <span>({{allCollapseChild[key].length}})</span>
+              </span>
+            </template>
             <div class="block_container">
               <template v-for="item2 in allCollapseChild[key]">
                 <div
@@ -19,7 +26,7 @@
                   <div class="img_container">
                     <img :src="require(`./images/${item2.componentDescription.img}`)" />
                   </div>
-                  <div>{{item2.componentDescription.name}}</div>
+                  <div class="cell_bottom_text">{{item2.componentDescription.name}}</div>
                 </div>
               </template>
             </div>
@@ -219,6 +226,17 @@ export default {
 .left_part_container {
   // width: 100%;
   height: 100%;
+  border-right: 1px solid #2a2e33;
+  .ps_title {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background-color: #303640;
+    color: #ffffff;
+    opacity: 0.5;
+    font-size: 14px;
+    padding-left: 10px;
+  }
   .left_part_top_choose {
     height: calc(100% - 50px);
     padding-left: 10px;
@@ -233,23 +251,26 @@ export default {
       display: flex;
       flex-wrap: wrap;
       padding-top: 20px;
-      color: rgb(182, 184, 204);
       .cell_container {
-        width: 100%;
+        width: 90px;
+        height: 90px;
         cursor: pointer;
-        height: 135px;
         display: flex;
         align-items: center;
         flex-direction: column;
         .img_container {
-          width: 150px;
-          padding: 6px;
-          height: 110px;
+          width: 90px;
+          padding: 4px;
+          height: 67px;
           img {
             border-radius: 5px;
             width: 100%;
             height: 100%;
           }
+        }
+        .cell_bottom_text {
+          color: #ffffff;
+          opacity: 0.5;
         }
       }
       .img_container :hover {
@@ -284,9 +305,10 @@ export default {
 
   /deep/ .el-collapse-item__header {
     // width: 139px;
-    background-color: #2c2e3f;
+    background-color: #181c22;
     color: rgb(182, 184, 204);
-    border-bottom: 2px solid #20212c;
+    // border-bottom: 2px solid #20212c;
+    border-bottom: none;
   }
 
   /deep/ .el-collapse {
@@ -296,7 +318,7 @@ export default {
 
   /deep/ .el-collapse-item__wrap {
     border-bottom: none;
-    background-color: #20212b;
+    background-color: #181c22;
   }
 
   // display: flex;

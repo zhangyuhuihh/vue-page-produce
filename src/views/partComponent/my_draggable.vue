@@ -133,7 +133,7 @@ export default {
       let rightMenu = {}
       rightMenu['isShow'] = true
       this.$nextTick(() => {
-        let mousePosX = e.clientX - 200 // 鼠标位置减去左边的距离
+        let mousePosX = e.clientX - 300 // 鼠标位置减去左边的距离
         let mousePosY = e.clientY - 40 // 鼠标位置减去右边的距离
 
         rightMenu['left'] = mousePosX
