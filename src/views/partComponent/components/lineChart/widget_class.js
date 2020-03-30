@@ -18,7 +18,8 @@ class LineChartChildOne extends LineChart {
     this.setStyleFields(constructorData, {
       lineColor: widgetFields.FieldColorPicker({
         label: '折线颜色',
-        formModel: '#dd6b66'
+        formModel: '#dd6b66',
+        memorable: true
       }),
       lineWidth: widgetFields.FieldSlider({
         label: '折线宽度',

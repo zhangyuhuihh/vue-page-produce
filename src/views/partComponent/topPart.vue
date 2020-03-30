@@ -1,10 +1,13 @@
 <template>
   <div class="topbar_container">
-    <div class="left_place">
+    <div class="left_part_one">
       <el-avatar
         size="small"
         src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       ></el-avatar>
+    </div>
+    <div class="left_part_two">
+      <back-forward></back-forward>
     </div>
     <div class="right_block_one">
       <el-tooltip popper-class="top_pop_class" effect="dark" content="图层" placement="bottom">
@@ -35,9 +38,11 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import Layer from './construction/layer'
+import BackForward from './construction/back_forward'
 export default {
   components: {
-    Layer
+    Layer,
+    BackForward
   },
   data() {
     return {
@@ -47,6 +52,7 @@ export default {
   computed: {
     ...mapGetters('partComponent', ['activedWidget'])
   },
+
   methods: {
     ...mapActions('partComponent', ['validateAllFields']),
     handleSave() {
@@ -76,13 +82,17 @@ export default {
 <style lang="scss" scoped>
 .topbar_container {
   position: relative;
-  .left_place {
-    float: left;
+  .left_part_one {
+    position: absolute;
     display: flex;
+    left: 50px;
     height: 40px;
-    width: 100px;
     justify-content: center;
     align-items: center;
+  }
+  .left_part_two {
+    position: absolute;
+    left: 300px;
   }
   .right_block_one {
     position: absolute;

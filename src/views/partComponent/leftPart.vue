@@ -112,7 +112,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions('partComponent', ['addWidget', 'setActivedWidget']),
+    ...mapActions('partComponent', ['addWidget', 'setActivedWidget', 'setMemoryForBackForward']),
 
     elementDown(e, item) {
       pauseEvent(e)
@@ -205,6 +205,7 @@ export default {
         }
         this.addWidget(oneWidget)
         this.setActivedWidget(oneWidget.uuid)
+        this.setMemoryForBackForward()
       }
     },
 

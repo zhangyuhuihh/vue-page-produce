@@ -100,7 +100,8 @@ export default {
       'setActivedWidget',
       'updateWidgetDragPos',
       'updateWidgetDragSize',
-      'removeActivedWidget'
+      'removeActivedWidget',
+      'setMemoryForBackForward'
     ]),
 
     onDragStop(x, y) {
@@ -109,6 +110,7 @@ export default {
         y: y,
         uuid: this.activeUUid
       })
+      this.setMemoryForBackForward()
     },
 
     onResizeStop(x, y, width, height) {
@@ -122,6 +124,7 @@ export default {
         height: height - this.widthHeightPadding,
         uuid: this.activeUUid
       })
+      this.setMemoryForBackForward()
     },
 
     onActivated(params) {

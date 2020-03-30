@@ -1,15 +1,16 @@
 const widgetFields = {
-  FieldInput({ label, validator = [() => 'pass'], formModel = '' }) {
+  FieldInput({ label, validator = [() => 'pass'], formModel = '', memorable = true }) {
     return {
       type: 'FieldInput',
       formModel,
       validator,
       label,
-      errorMsg: ''
+      errorMsg: '',
+      memorable
     }
   },
 
-  FieldSelect({ label, options }) {
+  FieldSelect({ label, options, memorable = true }) {
     return {
       type: 'FieldSelect',
       formModel: options[0].value,
@@ -18,39 +19,43 @@ const widgetFields = {
     }
   },
 
-  FieldColorPicker({ label, formModel }) {
+  FieldColorPicker({ label, formModel, memorable = true }) {
     return {
       type: 'FieldColorPicker',
       label,
-      formModel
+      formModel,
+      memorable
     }
   },
 
-  FieldRadio({ type, radios, validator = [() => 'pass'] }) {
+  FieldRadio({ type, radios, validator = [() => 'pass'], memorable = true }) {
     return {
       type: 'FieldRadio',
       formModel: '',
       radios,
       validator,
-      errorMsg: ''
+      errorMsg: '',
+      memorable
     }
   },
 
-  FieldSwitch({ label, formModel }) {
+  FieldSwitch({ label, formModel, memorable = true }) {
     return {
       type: 'FieldSwitch',
       label,
-      formModel
+      formModel,
+      memorable
     }
   },
 
-  FieldSlider({ label, formModel, min, max }) {
+  FieldSlider({ label, formModel, min, max, memorable = true }) {
     return {
       type: 'FieldSlider',
       label,
       formModel,
       min,
-      max
+      max,
+      memorable
     }
   }
 }

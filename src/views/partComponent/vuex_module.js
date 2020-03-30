@@ -2,6 +2,8 @@ import _ from 'lodash'
 import vuexDraggable from './vuexs/vuex_draggable'
 
 const ADD_WIDGET = 'ADD_WIDGET'
+const BACK_FORWARD_TO_STATE = 'BACK_FORWARD_TO_STATE'
+const MEMORY_FOR_BACK_FORWARD = 'MEMORY_FOR_BACK_FORWARD'
 const UPDATE_WIDGET_POS_XY = 'UPDATE_WIDGET_POS_XY'
 const UPDATE_WIDGET_POX_Z = 'UPDATE_WIDGET_POX_Z'
 const UPDATE_WIGET_POX_Z_SINGLE = 'UPDATE_WIGET_POX_Z_SINGLE'
@@ -32,7 +34,8 @@ export default {
     },
     pageBgColor: '#07122A',
     pageBgImgUrl: '',
-    magnification: 60
+    magnification: 60,
+    cacheStateCount: 0
   },
   getters: {
     activedWidget: state => {
@@ -69,6 +72,14 @@ export default {
   mutations: {
     [ADD_WIDGET]: (state, oneWidget) => {
       state.widgetList.push(oneWidget)
+    },
+
+    [BACK_FORWARD_TO_STATE]: (state, newState) => {
+      state.widgetList = [...newState.widgetList]
+    },
+
+    [MEMORY_FOR_BACK_FORWARD]: (state) => {
+      state.cacheStateCount++
     },
 
     [UPDATE_WIDGET_POS_XY]: (state, newDragPosMsg) => {
@@ -151,6 +162,14 @@ export default {
   actions: {
     addWidget: ({ commit }, oneWidget) => {
       commit('ADD_WIDGET', oneWidget)
+    },
+
+    backForwardToState: ({ commit }, newState) => {
+      commit('BACK_FORWARD_TO_STATE', newState)
+    },
+
+    setMemoryForBackForward: ({ commit }) => {
+      commit('MEMORY_FOR_BACK_FORWARD')
     },
 
     removeWidget: ({ commit, dispatch }, oneWdigetuuid) => {

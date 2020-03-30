@@ -27,10 +27,13 @@ const mixins = {
     },
     errorMsg() {
       return this.currentBindWidget.errorMsg
+    },
+    memorable() {
+      return this.currentBindWidget.memorable
     }
   },
   methods: {
-    ...mapActions('partComponent', ['fieldsChange']),
+    ...mapActions('partComponent', ['fieldsChange', 'setMemoryForBackForward']),
     handleFieldModelChange(v) {
       this.fieldsChange({
         uuid: this.uuid,
@@ -38,6 +41,9 @@ const mixins = {
         fieldKey: this.fieldKey,
         fieldValue: v
       })
+      if (this.memorable) {
+        this.setMemoryForBackForward()
+      }
     }
   }
 }
