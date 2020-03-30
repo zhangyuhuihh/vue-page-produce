@@ -88,10 +88,7 @@ export default {
       'activedWidget',
       'editorAreaSize',
       'requestDataList'
-    ]),
-    disTanceMagnificition() {
-      return this.magnification / 100
-    }
+    ])
   },
 
   created() {},

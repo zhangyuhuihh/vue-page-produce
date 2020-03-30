@@ -16,6 +16,36 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import _ from 'lodash'
+
+function handleBack() {
+  let len = this.cacheStates.length
+  if (this.backStep > -1 && this.backStep < len - 1) {
+    this.backStep++
+    let backStateIndex = len - this.backStep - 1
+    let currentState = this.cacheStates[backStateIndex]
+    this.updateState(currentState) // 更新当前的状态
+  }
+}
+
+function handleForward() {
+  let len = this.cacheStates.length
+  if (this.backStep > 0 && this.backStep < len) {
+    this.backStep--
+    let backStateIndex = len - this.backStep - 1
+    let currentState = this.cacheStates[backStateIndex]
+    this.updateState(currentState) // 更新当前的状态
+  }
+}
+
+const _handleBack = _.throttle(handleBack, 1000, {
+  leading: true,
+  trailing: false
+})
+const _handleForward = _.throttle(handleForward, 1000, {
+  leading: true,
+  trailing: false
+})
+
 export default {
   data() {
     return {
@@ -28,13 +58,9 @@ export default {
     ...mapState('partComponent', [
       'widgetList',
       'cacheStateCount',
-      // 'activedWidgetUUID',
       'pageBgColor',
       'pageBgImgUrl'
-    ]),
-    ddd() {
-      return this.cacheStates.map(v => v.widgetList[0].dragPosition.x)
-    }
+    ])
   },
   watch: {
     cacheStateCount: {
@@ -42,7 +68,6 @@ export default {
         let len = this.cacheStates.length
         let currentStateIndex = len - this.backStep - 1
         this.cacheStates.splice(currentStateIndex + 1, this.backStep)
-        // 这里有问题，但是目前不晓得出在哪里的问题
         this.UpdateCacheStates()
         this.backStep = 0
       }
@@ -63,23 +88,11 @@ export default {
     },
 
     handleBack() {
-      let len = this.cacheStates.length
-      if (this.backStep > -1 && this.backStep < len - 1) {
-        this.backStep++
-        let backStateIndex = len - this.backStep - 1
-        let currentState = this.cacheStates[backStateIndex]
-        this.updateState(currentState) // 更新当前的状态
-      }
+      _handleBack.call(this)
     },
 
     handleForward() {
-      let len = this.cacheStates.length
-      if (this.backStep > 0 && this.backStep < len) {
-        this.backStep--
-        let backStateIndex = len - this.backStep - 1
-        let currentState = this.cacheStates[backStateIndex]
-        this.updateState(currentState) // 更新当前的状态
-      }
+      _handleForward.call(this)
     },
 
     updateState(newState) {
