@@ -129,14 +129,22 @@ export default {
         context.beginPath()
         context.fillStyle = TICKS_COLOR
         if (i % 5 === 0) {
-          context.moveTo(20, 0 + VERTICAL_TICK_SPACING * i)
+          context.moveTo(13, 0 + VERTICAL_TICK_SPACING * i)
           context.lineTo(7, 0 + VERTICAL_TICK_SPACING * i)
-          context.textAlign = 'right'
+          context.stroke()
+
+          context.save()// 记录状态
+
+          context.textAlign = 'center'
+          context.translate(10, 0 + VERTICAL_TICK_SPACING * i)
+          context.rotate(-Math.PI / 2)
           context.fillText(
             parseInt(i * degree),
-            20,
-            -2 + VERTICAL_TICK_SPACING * i
+            14,
+            0
           )
+
+          context.restore() // 旋转之后释放状态
         }
         context.moveTo(20, i * VERTICAL_TICK_SPACING)
         context.lineTo(13, i * VERTICAL_TICK_SPACING)
