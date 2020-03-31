@@ -17,7 +17,7 @@
           :value="magnification"
           @input="handleSliderChange"
           :max="100"
-          :min="0"
+          :min="30"
           :show-tooltip="false"
         ></el-slider>
       </div>
