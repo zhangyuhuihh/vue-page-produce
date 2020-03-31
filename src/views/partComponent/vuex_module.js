@@ -34,7 +34,7 @@ export default {
     },
     pageBgColor: '#07122A',
     pageBgImgUrl: '',
-    magnification: 60,
+    magnification: 50,
     cacheStateCount: 0
   },
   getters: {
