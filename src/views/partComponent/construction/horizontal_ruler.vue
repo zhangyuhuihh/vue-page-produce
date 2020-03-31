@@ -1,13 +1,12 @@
 <template>
   <div>
-    <canvas id="canvas" :width="canvasWidth" height="20" />
-    <div @click="handleClick">
-      增大增大
-    </div>
+    <canvas id="horizontal_ruler" :width="canvasWidth" height="20" />
   </div>
 </template>
 
 <script>
+// 两种方式：1.刻度形状不变，改变刻度值。2.刻度形状改变，刻度值也跟着改变
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -19,7 +18,7 @@ export default {
 
       AXIS_TOP: 0,
       AXIS_RIGHT: 0,
-      HORIZONTAL_TICK_SPACING: 20,
+      HORIZONTAL_TICK_SPACING: 10,
       // VERTICAL_TICK_SPACING: 50,
 
       AXIS_WIDTH: 0,
@@ -33,8 +32,16 @@ export default {
       AXIS_COLOR: '#0E0F14'
     }
   },
+  computed: {
+    ...mapState('partComponent', ['magnification', 'bigScreenRatio']),
+    rulermagnification() {
+      return this.magnification / 100
+    }
+  },
   watch: {
-    HORIZONTAL_TICK_SPACING() {
+    // 标尺的形状其实一直不变，变的只是刻度而已
+    rulermagnification(newValue) {
+      this.context.clearRect(0, 0, this.canvasWidth, 20)
       this.drawAxes()
     }
   },
@@ -42,8 +49,7 @@ export default {
     this.canvasWidth = window.screen.availWidth
   },
   mounted() {
-    console.log('哈哈哈')
-    let canvas = document.getElementById('canvas')
+    let canvas = document.getElementById('horizontal_ruler')
     this.context = canvas.getContext('2d')
 
     this.AXIS_MARGIN = 0
@@ -55,11 +61,12 @@ export default {
     this.AXIS_TOP = this.AXIS_MARGIN
     this.AXIS_RIGHT = canvas.width - this.AXIS_MARGIN
 
-    this.HORIZONTAL_TICK_SPACING = 10
-    // this.VERTICAL_TICK_SPACING = 50
     this.AXIS_WIDTH = this.AXIS_RIGHT - this.AXIS_ORIGIN.x
     this.AXIS_HEIGHT = this.AXIS_ORIGIN.y - this.AXIS_TOP
 
+    // 这里需要单位换算
+    this.HORIZONTAL_TICK_SPACING = 10
+    // this.VERTICAL_TICK_SPACING = 50
     // this.NUM_VERTICAL_TICKS = this.AXIS_HEIGHT / this.VERTICAL_TICK_SPACING
     this.NUM_HORIZONTAL_TICKS = this.AXIS_WIDTH / this.HORIZONTAL_TICK_SPACING
 
@@ -68,11 +75,11 @@ export default {
     })
   },
   methods: {
-    handleClick() {
-      this.context.clearRect(0, 0, this.canvasWidth, 20)
-      this.HORIZONTAL_TICK_SPACING = this.HORIZONTAL_TICK_SPACING + 10
-      this.NUM_HORIZONTAL_TICKS = this.AXIS_WIDTH / this.HORIZONTAL_TICK_SPACING
-    },
+    // handleClick() {
+    //   this.context.clearRect(0, 0, this.canvasWidth, 20)
+    //   this.HORIZONTAL_TICK_SPACING = this.HORIZONTAL_TICK_SPACING + 10
+    //   this.NUM_HORIZONTAL_TICKS = this.AXIS_WIDTH / this.HORIZONTAL_TICK_SPACING
+    // },
     drawAxes() {
       let {
         context,
@@ -147,19 +154,22 @@ export default {
         // VERTICAL_TICK_SPACING,
         AXIS_ORIGIN
       } = this
+
+      const degree = this.calcDegree(this.rulermagnification)
       for (let i = 0; i < NUM_HORIZONTAL_TICKS; ++i) {
         context.beginPath()
         if (i % 5 === 0) {
-          context.moveTo(0 + HORIZONTAL_TICK_SPACING * i, 13) // 移动到横坐标(x, 13), 即canvans底部（canvas左上角(0, 0)为坐标原点，canvans的高度为20）
+          context.fillStyle = '#85888b'
+          context.moveTo(0 + HORIZONTAL_TICK_SPACING * i, 13) // 移动到横坐标(x, 13), 即canvas底部（canvas左上角(0, 0)为坐标原点，canvans的高度为20）
           context.lineTo(0 + HORIZONTAL_TICK_SPACING * i, 4) // 划线到 (x, 2)这个坐标 => 生成18px长的线
           context.textAlign = 'left'
-          context.fillText( // 填充刻度
-            i * HORIZONTAL_TICK_SPACING,
+          context.fillText(
+            // 填充刻度，这里默认每50取一次刻度
+            parseInt(i * degree),
             2 + HORIZONTAL_TICK_SPACING * i,
             11 // 刻度的位置信息，具体查阅相关api
           )
         }
-        context.fillStyle = '#85888b'
 
         context.moveTo(AXIS_ORIGIN.x + i * HORIZONTAL_TICK_SPACING, 20) // 正常情况下，将光标移动到(x, 20)坐标，同上
         context.lineTo(
@@ -168,14 +178,29 @@ export default {
         )
         context.stroke()
       }
+    },
+
+    calcDegree(v) {
+      return 10 / this.rulermagnification
+      // if (v >= 0 && v <= 0.2) {
+      //   return 20
+      // } else if (v > 0.2 && v <= 0.4) {
+      //   return 15
+      // } else if (v > 0.4 && v <= 0.6) {
+      //   return 10
+      // } else if (v > 0.6 && v <= 0.8) {
+      //   return 5
+      // } else if (v > 0.8 && v <= 1) {
+      //   return 2
+      // }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-#canvas {
-  background: #0E0F14;
+#horizontal_ruler {
+  background: #0e0f14;
   cursor: pointer;
   // margin-left: 10px;
   // margin-top: 10px;

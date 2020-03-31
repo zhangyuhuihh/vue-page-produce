@@ -1,7 +1,13 @@
 <template>
   <div class="main-edit-part">
-    <div class="ruler_container">
-      <ruler></ruler>
+    <div class="top_ruler_container">
+      <horizontal-ruler></horizontal-ruler>
+    </div>
+    <div class="ruler_lock_container">
+
+    </div>
+    <div class="left_ruler_container">
+      <vertical-ruler></vertical-ruler>
     </div>
     <edit-area @openRightMouseMenu="openRightMouseMenu"></edit-area>
     <div class="slider_container">
@@ -27,14 +33,16 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import RightMouseMenu from './construction/Right_mouse_menu'
-import Ruler from './construction/ruler'
+import HorizontalRuler from './construction/horizontal_ruler'
+import VerticalRuler from './construction/vertical_ruler'
 import EditArea from './edit_area'
 
 export default {
   components: {
     EditArea,
     RightMouseMenu,
-    Ruler
+    HorizontalRuler,
+    VerticalRuler
   },
   data() {
     return {
@@ -91,13 +99,31 @@ export default {
   //   );
   // background-position: 0 0, 13px 13px;
   // background-size: 26px 26px;
-  .ruler_container {
+  .top_ruler_container {
     position: absolute;
-    left: 0;
+    left: 20px;
     top: 0;
     right: 0;
     height: 60px;
-    z-index: 10;
+    z-index: 8;
+    overflow: hidden;
+  }
+  .ruler_lock_container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: #0e0f14;
+  }
+  .left_ruler_container {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    bottom: 0;
+    // height: 500px;
+    width: 60px;
+    z-index: 8;
     overflow: hidden;
   }
   .slider_container {
@@ -105,6 +131,7 @@ export default {
     bottom: 0px;
     height: 40px;
     width: 100%;
+    z-index: 11;
     background-color: #181c22;
     display: flex;
     justify-content: flex-end;
