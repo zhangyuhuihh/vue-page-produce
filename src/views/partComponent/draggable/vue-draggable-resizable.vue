@@ -28,6 +28,7 @@
 <script>
 import { matchesSelectorToParentElements, addEvent, removeEvent } from './dom'
 import { mapState } from 'vuex'
+import _ from 'lodash'
 
 const events = {
   mouse: {
@@ -57,6 +58,56 @@ const userSelectAuto = {
 }
 
 let eventsFor = events.mouse
+
+function elementDown(e) {
+  const target = e.target || e.srcElement
+
+  if (this.$el.contains(target)) {
+    if (this.onDragStart && this.onDragStart(e) === false) {
+      return
+    }
+
+    if (
+      (this.dragHandle &&
+        !matchesSelectorToParentElements(target, this.dragHandle, this.$el)) ||
+      (this.dragCancel &&
+        matchesSelectorToParentElements(target, this.dragCancel, this.$el))
+    ) {
+      return
+    }
+
+    if (!this.enabled) {
+      this.enabled = true
+
+      this.$emit('activated')
+      this.$emit('update:active', true)
+    }
+
+    if (this.draggable) {
+      this.dragging = true
+    }
+
+    this.mouseClickPosition.mouseX = e.touches ? e.touches[0].pageX : e.pageX
+    this.mouseClickPosition.mouseY = e.touches ? e.touches[0].pageY : e.pageY
+
+    this.mouseClickPosition.left = this.left
+    this.mouseClickPosition.right = this.right
+    this.mouseClickPosition.top = this.top
+    this.mouseClickPosition.bottom = this.bottom
+
+    if (this.parent) {
+      this.bounds = this.calcDragLimits()
+    }
+
+    addEvent(document.documentElement, eventsFor.move, this.move)
+    addEvent(document.documentElement, eventsFor.stop, this.handleUp)
+  }
+}
+
+const _elementDown = _.throttle(elementDown, 600, {
+  leading: true,
+  trailing: false
+})
 
 export default {
   replace: true,
@@ -340,56 +391,7 @@ export default {
       this.elementDown(e)
     },
     elementDown(e) {
-      const target = e.target || e.srcElement
-
-      if (this.$el.contains(target)) {
-        if (this.onDragStart && this.onDragStart(e) === false) {
-          return
-        }
-
-        if (
-          (this.dragHandle &&
-            !matchesSelectorToParentElements(
-              target,
-              this.dragHandle,
-              this.$el
-            )) ||
-          (this.dragCancel &&
-            matchesSelectorToParentElements(target, this.dragCancel, this.$el))
-        ) {
-          return
-        }
-
-        if (!this.enabled) {
-          this.enabled = true
-
-          this.$emit('activated')
-          this.$emit('update:active', true)
-        }
-
-        if (this.draggable) {
-          this.dragging = true
-        }
-
-        this.mouseClickPosition.mouseX = e.touches
-          ? e.touches[0].pageX
-          : e.pageX
-        this.mouseClickPosition.mouseY = e.touches
-          ? e.touches[0].pageY
-          : e.pageY
-
-        this.mouseClickPosition.left = this.left
-        this.mouseClickPosition.right = this.right
-        this.mouseClickPosition.top = this.top
-        this.mouseClickPosition.bottom = this.bottom
-
-        if (this.parent) {
-          this.bounds = this.calcDragLimits()
-        }
-
-        addEvent(document.documentElement, eventsFor.move, this.move)
-        addEvent(document.documentElement, eventsFor.stop, this.handleUp)
-      }
+      _elementDown.call(this, e)
     },
     calcDragLimits() {
       return {
