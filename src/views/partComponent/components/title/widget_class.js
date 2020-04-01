@@ -15,7 +15,7 @@ class TitleChildOne extends Title {
     super(constructorData)
     this.componentKey = 'TitleChildOne'
 
-    this.setFields(constructorData, {
+    this.setFields({
       titleText: widgetFields.FieldInput({
         label: '标题',
         formModel: '子标题一',
@@ -23,7 +23,7 @@ class TitleChildOne extends Title {
       })
     })
 
-    this.setStyleFields(constructorData, {
+    this.setStyleFields({
       color: widgetFields.FieldColorPicker({
         label: '字体颜色',
         formModel: '#000'

@@ -15,7 +15,7 @@ class PieChartChildOne extends PieChart {
     super(constructorData)
     this.componentKey = 'pieChartChildOne'
 
-    this.setStyleFields(constructorData, {
+    this.setStyleFields({
       seriesItemStyle: widgetFields.FieldColorPicker({
         label: '扇面主色',
         formModel: '#c23531'
@@ -48,7 +48,7 @@ class PieChartChildOne extends PieChart {
       // })
     })
 
-    this.setFields(constructorData, {
+    this.setFields({
       isFakeData: widgetFieldsCombine.FieldsDataSource({
         validator: [validatorCombine.validateFieldDataSource()],
         fakeData: JSON.stringify(jsonTemplate.ForPieChartChildOne),

@@ -1,4 +1,4 @@
-import _ from 'lodash'
+// import _ from 'lodash'
 // import widgetFields from './widget_fields' // 单一的form
 // import widgetFieldsCombine from './widget_fields_combine' // 定制化的form
 // import validators from './validators'
@@ -22,79 +22,33 @@ class Widget {
   }
 
   setDragPosition(constructorData) {
-    switch (constructorData.type) {
-      case 'add':
-        this.dragPosition = {
-          x: constructorData.initDragPosition.x,
-          y: constructorData.initDragPosition.y,
-          z: 2000
-        }
-        break
-      case 'edit':
-        this.dragPosition = {
-          x: constructorData.dragPosition.x,
-          y: constructorData.dragPosition.y,
-          z: constructorData.dragPosition.z
-        }
+    this.dragPosition = {
+      x: constructorData.initDragPosition.x,
+      y: constructorData.initDragPosition.y,
+      z: 2000
     }
   }
 
-  setDragSize(constructorData, initDragSize) {
-    switch (constructorData.type) {
-      case 'add':
-        this.dragSize = {
-          width: initDragSize.width,
-          height: initDragSize.height
-        }
-        break
-      case 'edit':
-        this.dragSize = {
-          width: constructorData.dragSize.width,
-          height: constructorData.dragSize.height
-        }
+  setInitDragSize(initDragSize) {
+    this.dragSize = {
+      width: initDragSize.width,
+      height: initDragSize.height
     }
   }
 
-  setDragSitutation(constructorData) {
-    switch (constructorData.type) {
-      case 'add':
-        this.dragSitutation = {
-          draggable: true,
-          resizable: true
-        }
-        break
-      case 'edit':
-        this.dragSize = {
-          draggable: constructorData.dragSitutation.draggable,
-          resizable: constructorData.dragSitutation.resizable
-        }
+  setDragSitutation() {
+    this.dragSitutation = {
+      draggable: true,
+      resizable: true
     }
   }
 
-  setFields(constructorData, fields) {
-    switch (constructorData.type) {
-      case 'add':
-        this.fields = { ...fields }
-        break
-      case 'edit':
-        this.fields = _.mapValues(fields, (value, key) => {
-          return constructorData[key]
-        })
-        break
-    }
+  setFields(fields) {
+    this.fields = { ...fields }
   }
 
-  setStyleFields(constructorData, styleFields) {
-    switch (constructorData.type) {
-      case 'add':
-        this.styleFields = { ...styleFields }
-        break
-      case 'edit':
-        this.styleFields = _.mapValues(styleFields, (value, key) => {
-          return constructorData[key]
-        })
-        break
-    }
+  setStyleFields(styleFields) {
+    this.styleFields = { ...styleFields }
   }
 }
 
@@ -106,7 +60,7 @@ class Title extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setDragSize(constructorData, {
+    this.setInitDragSize({
       width: 200,
       height: 50
     })
@@ -121,7 +75,7 @@ class ScrollBoard extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setDragSize(constructorData, {
+    this.setInitDragSize({
       width: 250,
       height: 113
     })
@@ -136,7 +90,7 @@ class LineChart extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setDragSize(constructorData, {
+    this.setInitDragSize({
       width: 400,
       height: 300
     })
@@ -151,7 +105,7 @@ class PieChart extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setDragSize(constructorData, {
+    this.setInitDragSize({
       width: 350,
       height: 350
     })
@@ -166,7 +120,7 @@ class BarChart extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setDragSize(constructorData, {
+    this.setInitDragSize({
       width: 400,
       height: 300
     })

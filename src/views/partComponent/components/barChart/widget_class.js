@@ -15,7 +15,7 @@ class BarChartChildOne extends BarChart {
     super(constructorData)
     this.componentKey = 'barChartChildOne'
 
-    this.setStyleFields(constructorData, {
+    this.setStyleFields({
       seriesItemColor: widgetFields.FieldColorPicker({
         label: '柱体颜色',
         formModel: '#dd6b66'
@@ -33,7 +33,7 @@ class BarChartChildOne extends BarChart {
       })
     })
 
-    this.setFields(constructorData, {
+    this.setFields({
       isFakeData: widgetFieldsCombine.FieldsDataSource({
         validator: [validatorCombine.validateFieldDataSource()],
         fakeData: JSON.stringify(jsonTemplate.ForBarChartChildOne),

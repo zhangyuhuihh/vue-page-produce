@@ -15,7 +15,7 @@ class LineChartChildOne extends LineChart {
     super(constructorData)
     this.componentKey = 'lineChartChildOne'
 
-    this.setStyleFields(constructorData, {
+    this.setStyleFields({
       lineColor: widgetFields.FieldColorPicker({
         label: '折线颜色',
         formModel: '#dd6b66',
@@ -43,7 +43,7 @@ class LineChartChildOne extends LineChart {
       })
     })
 
-    this.setFields(constructorData, {
+    this.setFields({
       isFakeData: widgetFieldsCombine.FieldsDataSource({
         validator: [validatorCombine.validateFieldDataSource()],
         fakeData: JSON.stringify(jsonTemplate.ForLineChartChildOne),

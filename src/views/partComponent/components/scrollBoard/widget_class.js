@@ -15,7 +15,7 @@ class ScrollBoardChildOne extends ScrollBoard {
     super(constructorData)
     this.componentKey = 'ScrollBoardChildOne'
 
-    this.setStyleFields(constructorData, {
+    this.setStyleFields({
       headerBGC: widgetFields.FieldColorPicker({
         label: '表头背景色',
         formModel: '#32444B'
@@ -60,7 +60,7 @@ class ScrollBoardChildOne extends ScrollBoard {
       })
     })
 
-    this.setFields(constructorData, {
+    this.setFields({
       isFakeData: widgetFieldsCombine.FieldsDataSource({
         validator: [validatorCombine.validateFieldDataSource()],
         fakeData: JSON.stringify(jsonTemplate.ForScrollBoard),
