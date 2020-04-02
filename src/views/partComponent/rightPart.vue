@@ -7,7 +7,11 @@
       <el-tabs v-model="actTab" type="card" @tab-click="handleTabClick">
         <el-tab-pane label="样式" name="first">
           <div>
-            <!-- <div>样式区域</div> -->
+            <!-- 宽高位置表单区域 -->
+            <div>
+              <drag-fields></drag-fields>
+            </div>
+            <!-- 样式区域 -->
             <template v-for="(item, key) in activedWidget.styleFields">
               <!-- 这里的key绑定的是'color,fontSize',所以这里有可能组件是不会重新渲染的，所以key要改成activedWidget，保证每次的全部更新，避免bug -->
               <component
@@ -21,7 +25,7 @@
         </el-tab-pane>
         <el-tab-pane label="数据" name="second">
           <div>
-            <!-- <div>数据区域</div> -->
+            <!--数据区域-->
             <template v-for="(item, key) in activedWidget.fields">
               <component
                 :is="item.type"
@@ -43,6 +47,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import DragFields from './construction/drag_fields'
 import PageSet from './construction/page_set'
 import FieldInput from './formFields/_field_input'
 import FieldColorPicker from './formFields/_field_color_picker'
@@ -56,6 +61,7 @@ import _ from 'lodash'
 export default {
   components: {
     PageSet,
+    DragFields,
     FieldInput,
     FieldColorPicker,
     FieldSelect,

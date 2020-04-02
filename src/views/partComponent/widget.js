@@ -17,23 +17,8 @@
 class Widget {
   constructor(constructorData) {
     this.uuid = constructorData.uuid
-    this.setDragPosition(constructorData)
+    this.setDragPositionFields(constructorData)
     this.setDragSitutation(constructorData)
-  }
-
-  setDragPosition(constructorData) {
-    this.dragPosition = {
-      x: constructorData.initDragPosition.x,
-      y: constructorData.initDragPosition.y,
-      z: 2000
-    }
-  }
-
-  setInitDragSize(initDragSize) {
-    this.dragSize = {
-      width: initDragSize.width,
-      height: initDragSize.height
-    }
   }
 
   setDragSitutation() {
@@ -50,6 +35,21 @@ class Widget {
   setStyleFields(styleFields) {
     this.styleFields = { ...styleFields }
   }
+
+  setDragSizeFields(initDragSize) {
+    this.dragSize = {
+      width: initDragSize.width,
+      height: initDragSize.height
+    }
+  }
+
+  setDragPositionFields(constructorData) {
+    this.dragPosition = {
+      x: constructorData.initDragPosition.x,
+      y: constructorData.initDragPosition.y,
+      z: 2000
+    }
+  }
 }
 
 class Title extends Widget {
@@ -60,7 +60,7 @@ class Title extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setInitDragSize({
+    this.setDragSizeFields({
       width: 200,
       height: 50
     })
@@ -75,7 +75,7 @@ class ScrollBoard extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setInitDragSize({
+    this.setDragSizeFields({
       width: 250,
       height: 113
     })
@@ -90,7 +90,7 @@ class LineChart extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setInitDragSize({
+    this.setDragSizeFields({
       width: 400,
       height: 300
     })
@@ -105,7 +105,7 @@ class PieChart extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setInitDragSize({
+    this.setDragSizeFields({
       width: 350,
       height: 350
     })
@@ -120,7 +120,7 @@ class BarChart extends Widget {
 
   constructor(constructorData) {
     super(constructorData)
-    this.setInitDragSize({
+    this.setDragSizeFields({
       width: 400,
       height: 300
     })

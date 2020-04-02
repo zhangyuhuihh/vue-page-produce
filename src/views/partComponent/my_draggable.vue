@@ -24,6 +24,8 @@
         :h="item.dragSize.height + widthHeightPadding"
         :minWidth="20"
         :minHeight="20"
+        @resizing="onResizing"
+        @dragging="onDragging"
         @dragstop="onDragStop"
         @resizestop="onResizeStop"
         @activated="onActivated(item)"
@@ -92,6 +94,9 @@ export default {
   },
 
   created() {},
+  mounted() {
+    this.ddd = _.throttle(() => {})
+  },
   methods: {
     ...mapActions('partComponent', [
       'setActivedWidget',
@@ -122,6 +127,22 @@ export default {
         uuid: this.activeUUid
       })
       this.setMemoryForBackForward()
+    },
+
+    onResizing(x, y, width, height) {
+      this.updateWidgetDragSize({
+        width: width - this.widthHeightPadding,
+        height: height - this.widthHeightPadding,
+        uuid: this.activeUUid
+      })
+    },
+
+    onDragging(x, y) {
+      this.updateWidgetDragPos({
+        x: x,
+        y: y,
+        uuid: this.activeUUid
+      })
     },
 
     onActivated(params) {

@@ -1,4 +1,4 @@
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 const mixins = {
   props: {
     fieldKey: {
@@ -11,10 +11,9 @@ const mixins = {
     }
   },
   computed: {
-    ...mapState('partComponent', ['widgetList']),
-    ...mapGetters('partComponent', ['activedWidget']),
+    ...mapState('partComponent', ['widgetList', 'activedWidgetUUID']),
     uuid() {
-      return this.activedWidget.uuid
+      return this.activedWidgetUUID
     },
     currentBindWidget() {
       return this.widgetList.find(item => item.uuid === this.uuid)[this.fieldType][this.fieldKey]

@@ -78,14 +78,16 @@ export default {
       state.widgetList = [...newState.widgetList]
     },
 
-    [MEMORY_FOR_BACK_FORWARD]: (state) => {
+    [MEMORY_FOR_BACK_FORWARD]: state => {
       state.cacheStateCount++
     },
 
     [UPDATE_WIDGET_POS_XY]: (state, newDragPosMsg) => {
       const widget = state.widgetList.find(v => v.uuid === newDragPosMsg.uuid)
-      widget.dragPosition.x = newDragPosMsg.x
-      widget.dragPosition.y = newDragPosMsg.y
+      if (widget) {
+        widget.dragPosition.x = newDragPosMsg.x
+        widget.dragPosition.y = newDragPosMsg.y
+      }
     },
 
     [UPDATE_WIDGET_POX_Z]: (state, arr) => {
@@ -110,8 +112,10 @@ export default {
 
     [UPDATE_WIDGET_SIZE]: (state, newDragSizeMsg) => {
       const widget = state.widgetList.find(v => v.uuid === newDragSizeMsg.uuid)
-      widget.dragSize.width = newDragSizeMsg.width
-      widget.dragSize.height = newDragSizeMsg.height
+      if (widget) {
+        widget.dragSize.width = newDragSizeMsg.width
+        widget.dragSize.height = newDragSizeMsg.height
+      }
     },
 
     [REMOVE_WIDGET]: (state, oneWidgetUUId) => {

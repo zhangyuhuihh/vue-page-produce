@@ -104,7 +104,43 @@ function elementDown(e) {
   }
 }
 
+function handleDown(handle, e) {
+  // 按下几个拖拽点的事件
+  if (this.onResizeStart && this.onResizeStart(handle, e) === false) {
+    return
+  }
+
+  if (e.stopPropagation) e.stopPropagation()
+
+  // Here we avoid a dangerous recursion by faking
+  // corner handles as middle handles
+  if (this.lockAspectRatio && !handle.includes('m')) {
+    this.handle = 'm' + handle.substring(1)
+  } else {
+    this.handle = handle
+  }
+
+  this.resizing = true
+
+  this.mouseClickPosition.mouseX = e.touches ? e.touches[0].pageX : e.pageX
+  this.mouseClickPosition.mouseY = e.touches ? e.touches[0].pageY : e.pageY
+  this.mouseClickPosition.left = this.left
+  this.mouseClickPosition.right = this.right
+  this.mouseClickPosition.top = this.top
+  this.mouseClickPosition.bottom = this.bottom
+
+  this.bounds = this.calcResizeLimits()
+
+  addEvent(document.documentElement, eventsFor.move, this.handleMove)
+  addEvent(document.documentElement, eventsFor.stop, this.handleUp)
+}
+
 const _elementDown = _.throttle(elementDown, 600, {
+  leading: true,
+  trailing: false
+})
+
+const _handleDown = _.throttle(handleDown, 600, {
   leading: true,
   trailing: false
 })
@@ -464,34 +500,7 @@ export default {
       this.handleDown(handle, e)
     },
     handleDown(handle, e) {
-      // 按下几个拖拽点的事件
-      if (this.onResizeStart && this.onResizeStart(handle, e) === false) {
-        return
-      }
-
-      if (e.stopPropagation) e.stopPropagation()
-
-      // Here we avoid a dangerous recursion by faking
-      // corner handles as middle handles
-      if (this.lockAspectRatio && !handle.includes('m')) {
-        this.handle = 'm' + handle.substring(1)
-      } else {
-        this.handle = handle
-      }
-
-      this.resizing = true
-
-      this.mouseClickPosition.mouseX = e.touches ? e.touches[0].pageX : e.pageX
-      this.mouseClickPosition.mouseY = e.touches ? e.touches[0].pageY : e.pageY
-      this.mouseClickPosition.left = this.left
-      this.mouseClickPosition.right = this.right
-      this.mouseClickPosition.top = this.top
-      this.mouseClickPosition.bottom = this.bottom
-
-      this.bounds = this.calcResizeLimits()
-
-      addEvent(document.documentElement, eventsFor.move, this.handleMove)
-      addEvent(document.documentElement, eventsFor.stop, this.handleUp)
+      _handleDown.call(this, handle, e)
     },
     calcResizeLimits() {
       let minW = this.minW
