@@ -94,9 +94,7 @@ export default {
   },
 
   created() {},
-  mounted() {
-    this.ddd = _.throttle(() => {})
-  },
+  mounted() {},
   methods: {
     ...mapActions('partComponent', [
       'setActivedWidget',
