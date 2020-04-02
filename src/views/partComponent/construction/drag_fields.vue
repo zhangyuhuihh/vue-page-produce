@@ -9,7 +9,7 @@
         controls-position="right"
         size="small"
         :min="20"
-        :max="1920"
+        :max="maxWidth"
       ></el-input-number>
     </div>
     <div>
@@ -21,7 +21,7 @@
         controls-position="right"
         size="small"
         :min="20"
-        :max="1920"
+        :max="maxHeight"
       ></el-input-number>
     </div>
     <div>
@@ -33,7 +33,7 @@
         controls-position="right"
         size="small"
         :min="0"
-        :max="1920"
+        :max="maxX"
       ></el-input-number>
     </div>
     <div>
@@ -45,7 +45,7 @@
         controls-position="right"
         size="small"
         :min="0"
-        :max="1920"
+        :max="maxY"
       ></el-input-number>
     </div>
   </div>
@@ -57,10 +57,7 @@ import _ from 'lodash'
 
 export default {
   data() {
-    return {
-      // width: 0,
-      // height: 0
-    }
+    return {}
   },
   computed: {
     ...mapState('partComponent', ['bigScreenRatio', 'activedWidgetUUID']),
@@ -91,6 +88,18 @@ export default {
         return this.activedWidget.dragPosition.y
       }
       return 0
+    },
+    maxWidth() {
+      return this.bigScreenRatio.width - this.x
+    },
+    maxHeight() {
+      return this.bigScreenRatio.height - this.y
+    },
+    maxX() {
+      return this.bigScreenRatio.width - this.width
+    },
+    maxY() {
+      return this.bigScreenRatio.height - this.height
     }
   },
   methods: {
@@ -134,7 +143,7 @@ export default {
 
     handleChange() {
       // change事件，在:value改变的时候是不会触发的
-      // 这个的监听事件是用来
+      // 这个的监听事件是用来单独记录后退前进的状态
       this.setMemoryForBackForward()
     }
   }
