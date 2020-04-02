@@ -20,8 +20,8 @@
         :x="item.dragPosition.x"
         :y="item.dragPosition.y"
         :z="item.dragPosition.z"
-        :w="item.dragSize.width + widthHeightPadding"
-        :h="item.dragSize.height + widthHeightPadding"
+        :w="item.dragSize.width"
+        :h="item.dragSize.height"
         :minWidth="20"
         :minHeight="20"
         @resizing="onResizing"
@@ -31,7 +31,7 @@
         @activated="onActivated(item)"
         @deactivated="onDeActivated(item)"
       >
-        <div style="width: 100%; height: 100%; padding: 5px">
+        <div style="width: 100%; height: 100%">
           <!-- 这边的padding,决定了widthHeightPadding的大小 -->
           <component
             @contextmenu.prevent.native="openMenu($event, item)"
@@ -120,8 +120,8 @@ export default {
         uuid: this.activeUUid
       })
       this.updateWidgetDragSize({
-        width: width - this.widthHeightPadding,
-        height: height - this.widthHeightPadding,
+        width: width,
+        height: height,
         uuid: this.activeUUid
       })
       this.setMemoryForBackForward()
@@ -129,8 +129,8 @@ export default {
 
     onResizing(x, y, width, height) {
       this.updateWidgetDragSize({
-        width: width - this.widthHeightPadding,
-        height: height - this.widthHeightPadding,
+        width: width,
+        height: height,
         uuid: this.activeUUid
       })
     },

@@ -67,39 +67,39 @@ export default {
     },
     width() {
       if (!_.isEmpty(this.activedWidget)) {
-        return this.activedWidget.dragSize.width
+        return parseInt(this.activedWidget.dragSize.width)
       }
       return 0
     },
     height() {
       if (!_.isEmpty(this.activedWidget)) {
-        return this.activedWidget.dragSize.height
+        return parseInt(this.activedWidget.dragSize.height)
       }
       return 0
     },
     x() {
       if (!_.isEmpty(this.activedWidget)) {
-        return this.activedWidget.dragPosition.x
+        return parseInt(this.activedWidget.dragPosition.x)
       }
       return 0
     },
     y() {
       if (!_.isEmpty(this.activedWidget)) {
-        return this.activedWidget.dragPosition.y
+        return parseInt(this.activedWidget.dragPosition.y)
       }
       return 0
     },
     maxWidth() {
-      return this.bigScreenRatio.width - this.x
+      return parseInt(this.bigScreenRatio.width - this.x)
     },
     maxHeight() {
-      return this.bigScreenRatio.height - this.y
+      return parseInt(this.bigScreenRatio.height - this.y)
     },
     maxX() {
-      return this.bigScreenRatio.width - this.width
+      return parseInt(this.bigScreenRatio.width - this.width)
     },
     maxY() {
-      return this.bigScreenRatio.height - this.height
+      return parseInt(this.bigScreenRatio.height - this.height)
     }
   },
   methods: {
