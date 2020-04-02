@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>
+  <div class="drag_field_container">
+    <div class="drag_field_block">
       <span>宽：</span>
       <el-input-number
         :value="width"
@@ -12,7 +12,7 @@
         :max="maxWidth"
       ></el-input-number>
     </div>
-    <div>
+    <div class="drag_field_block">
       <span>高：</span>
       <el-input-number
         :value="height"
@@ -24,8 +24,8 @@
         :max="maxHeight"
       ></el-input-number>
     </div>
-    <div>
-      <span>X：</span>
+    <div class="drag_field_block">
+      <span>X ：</span>
       <el-input-number
         :value="x"
         @input="handleXInput"
@@ -36,8 +36,8 @@
         :max="maxX"
       ></el-input-number>
     </div>
-    <div>
-      <span>Y：</span>
+    <div class="drag_field_block">
+      <span>Y ：</span>
       <el-input-number
         :value="y"
         @input="handleYInput"
@@ -150,5 +150,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.drag_field_container {
+  .drag_field_block {
+    margin-top: 10px;
+  }
+}
 </style>

@@ -8,7 +8,7 @@
         <el-tab-pane label="样式" name="first">
           <div>
             <!-- 宽高位置表单区域 -->
-            <div>
+            <div style="margin-bottom: 10px">
               <drag-fields></drag-fields>
             </div>
             <!-- 样式区域 -->
