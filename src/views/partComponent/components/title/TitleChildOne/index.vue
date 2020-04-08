@@ -2,41 +2,33 @@
   <div
     class="title_child_one_container"
     :style="{
-    color: currentWidgetStyleFields.color.formModel,
-    fontSize: currentWidgetStyleFields.fontSize.formModel + 'px',
-    fontWeight:currentWidgetStyleFields.fontWeight.formModel,
+    color: color,
+    fontSize: fontSize,
+    fontWeight: fontWeight,
     textAlign: 'center'
   }"
   >
-    <div>
-      {{titleText ? titleText : '标题'}}
-    </div>
+    <div>{{titleText ? titleText : '标题'}}</div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-export default {
-  props: {
-    uuid: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {}
-  },
-  computed: {
-    ...mapState('partComponent', ['widgetList']),
+import componentsMixins from '../../components_mixins'
 
-    currentWidget() {
-      return this.widgetList.find(v => v.uuid === this.uuid)
+export default {
+  mixins: [componentsMixins],
+  computed: {
+    color() {
+      return this.styleFields.color.formModel
     },
-    currentWidgetStyleFields() {
-      return this.currentWidget.styleFields
+    fontSize() {
+      return this.styleFields.fontSize.formModel + 'px'
+    },
+    fontWeight() {
+      return this.styleFields.fontWeight.formModel
     },
     titleText() {
-      return this.currentWidget.fields.titleText.formModel
+      return this.fields.titleText.formModel
     }
   }
 }

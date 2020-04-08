@@ -4,11 +4,11 @@
 
 <script>
 import echarts from 'echarts'
-import { mapState } from 'vuex'
-import _ from 'lodash'
+import componentsMixins from '../../components_mixins'
 
 export default {
   name: 'PieChartChildOne',
+  mixins: [componentsMixins],
   props: {
     uuid: {
       type: String,
@@ -86,17 +86,9 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapState('partComponent', ['widgetList']),
-    currentWidget() {
-      return this.widgetList.find(v => v.uuid === this.uuid)
-    },
-    needToRefreshProperty() {
-      return _.pick(this.currentWidget, ['styleFields', 'fields'])
-    }
-  },
+  computed: {},
   watch: {
-    'currentWidget.dragSize': {
+    dragSize: {
       // todo 防抖和节流
       handler() {
         this.$nextTick(() => {
@@ -105,19 +97,24 @@ export default {
       },
       deep: true
     },
-    needToRefreshProperty: {
+    styleFields: {
       handler(newValue, oldValue) {
-        let fakeData = JSON.parse(newValue.fields.isFakeData.formModel.fakeData)
-        this.option.series[0].data = fakeData.sort((a, b) => a.value - b.value)
-        this.option.series[0].radius = `${newValue.styleFields.seriesRadius.formModel}%`
+        this.option.series[0].radius = `${newValue.seriesRadius.formModel}%`
         this.option.series[0].itemStyle.color =
-          newValue.styleFields.seriesItemStyle.formModel
-        if (this.myChart) {
-          this.myChart.setOption(this.option)
-        }
+          newValue.seriesItemStyle.formModel
+        this.refreshChart()
       },
-      deep: true,
-      immediate: true
+      immediate: true,
+      deep: true
+    },
+    fields: {
+      handler(newValue, oldValue) {
+        let fakeData = JSON.parse(newValue.isFakeData.formModel.fakeData)
+        this.option.series[0].data = fakeData.sort((a, b) => a.value - b.value)
+        this.refreshChart()
+      },
+      immediate: true,
+      deep: true
     }
   },
   mounted() {
@@ -131,9 +128,13 @@ export default {
       this.myChart = echarts.init(this.$refs.mychart, 'dark') // 创建实例
       this.myChart.clear()
       this.myChart.setOption(this.option) // 生成图表
+    },
+    refreshChart() {
+      if (this.myChart) {
+        this.myChart.setOption(this.option)
+      }
     }
-  },
-  destroyed() {}
+  }
 }
 </script>
 

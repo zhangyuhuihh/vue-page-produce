@@ -5,64 +5,45 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapState } from 'vuex'
 import ScrollBoard from './main'
+import componentsMixins from '../../components_mixins'
+
 export default {
+  name: 'ScrollBoardChildOne',
+  mixins: [componentsMixins],
   components: {
     ScrollBoard
   },
-  props: {
-    uuid: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {}
-  },
   computed: {
-    ...mapState('partComponent', ['widgetList']),
-    currentWidget() {
-      return this.widgetList.find(v => v.uuid === this.uuid)
-    },
-    currentWidgetStyleFields() {
-      return this.currentWidget.styleFields
-    },
-    currentWidgetFields() {
-      return this.currentWidget.fields
-    },
     fakeData() {
-      return JSON.parse(this.currentWidgetFields.isFakeData.formModel.fakeData)
+      return JSON.parse(this.fields.isFakeData.formModel.fakeData)
     },
     headerBGC() {
-      return { headerBGC: this.currentWidgetStyleFields.headerBGC.formModel }
+      return this.styleFields.headerBGC.formModel
     },
     oddRowBGC() {
-      return { oddRowBGC: this.currentWidgetStyleFields.oddRowBGC.formModel }
+      return this.styleFields.oddRowBGC.formModel
     },
     evenRowBGC() {
-      return { evenRowBGC: this.currentWidgetStyleFields.evenRowBGC.formModel }
+      return this.styleFields.evenRowBGC.formModel
     },
     headerColor() {
-      return {
-        headerColor: this.currentWidgetStyleFields.headerColor.formModel
-      }
+      return this.styleFields.headerColor.formModel
     },
     bodyColor() {
-      return { bodyColor: this.currentWidgetStyleFields.bodyColor.formModel }
+      return this.styleFields.bodyColor.formModel
     },
     headerFontSize() {
-      return { headerFontSize: this.currentWidgetStyleFields.headerFontSize.formModel }
+      return this.styleFields.headerFontSize.formModel
     },
     bodyFontSize() {
-      return { bodyFontSize: this.currentWidgetStyleFields.bodyFontSize.formModel }
+      return this.styleFields.bodyFontSize.formModel
     },
     index() {
-      return { index: this.currentWidgetStyleFields.index.formModel }
+      return this.styleFields.index.formModel
     },
     rowNum() {
-      return { rowNum: this.currentWidgetStyleFields.rowNum.formModel }
+      return this.styleFields.rowNum.formModel
     },
     mergedConfig() {
       const {
@@ -77,9 +58,9 @@ export default {
         index,
         rowNum
       } = this
-      return _.merge(
-        {},
-        fakeData,
+
+      return {
+        ...fakeData,
         headerBGC,
         oddRowBGC,
         evenRowBGC,
@@ -89,7 +70,7 @@ export default {
         bodyFontSize,
         index,
         rowNum
-      )
+      }
     }
   }
 }

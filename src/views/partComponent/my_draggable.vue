@@ -36,7 +36,7 @@
           <component
             @contextmenu.prevent.native="openMenu($event, item)"
             :is="item.componentKey"
-            :uuid="item.uuid"
+            v-bind="item"
           ></component>
         </div>
       </vue-draggable-resizable>
