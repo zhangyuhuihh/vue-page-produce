@@ -1,5 +1,5 @@
-import * as widgetParent from './packages/widget.js'
-import * as widgetChild from './packages/components/all_class'
+import * as widgetParent from './widget.js'
+import * as widgetChild from './packages/all_class'
 import TitleChildOne from './packages/title/TitleChildOne/index.vue'
 import BarChartChildOne from './packages/barChart/barChartChildOne/index.vue'
 import LineChartChildOne from './packages/lineChart/lineChartChildOne/index.vue'
@@ -19,15 +19,15 @@ const install = function(Vue) {
   install.installed = true
   components.map((component) => {
     Vue.component(component.name, component)
+    Vue.WIDGRTLISTCLASS = {
+      widgetParent,
+      widgetChild
+    }
   })
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
-  window.WIDGRTLISTCLASS = {
-    widgetParent,
-    widgetChild
-  }
 }
 
 export default {

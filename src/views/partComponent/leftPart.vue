@@ -47,8 +47,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import * as widgetParent from './widget.js'
-import * as widgetChild from './components/all_class'
+// import * as widgetParent from './widget.js'
+// import * as widgetChild from './components/all_class'
 import { ulid } from 'ulid' // 生成uuid
 import _ from 'lodash'
 import FakeDragDom from './construction/Fake_drag_dom'
@@ -104,6 +104,8 @@ export default {
     }
   },
   mounted() {
+    // eslint-disable-next-line no-undef
+    const { widgetParent, widgetChild } = Vue.WIDGRTLISTCLASS
     this.allCollapseParent = _.pickBy(widgetParent, (value, key) => {
       return value.componentDescription.parent === 'widget'
     })
@@ -112,12 +114,17 @@ export default {
     })
   },
   methods: {
-    ...mapActions('partComponent', ['addWidget', 'setActivedWidget', 'setMemoryForBackForward']),
+    ...mapActions('partComponent', [
+      'addWidget',
+      'setActivedWidget',
+      'setMemoryForBackForward'
+    ]),
 
     elementDown(e, item) {
       pauseEvent(e)
       this.isVisible = true
       this.currentMoveEl = item
+      // todo 将组件库分离之后，这里的图片需要进行修改，进行链接调用
       this.fakeDomImgUrl = item.componentDescription.img
 
       startMousePosX = e.touches ? e.touches[0].pageX : e.pageX

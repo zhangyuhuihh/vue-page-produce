@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import autoResize from '../../../../../mixin/autoSize'
+import autoResize from '../../../mixins/autoSize'
 import _ from 'lodash'
 
 export default {
