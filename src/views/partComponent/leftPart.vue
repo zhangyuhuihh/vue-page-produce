@@ -179,7 +179,6 @@ export default {
 
       let oneWidget = new El({
         uuid: ulid(),
-        type: 'add',
         initDragPosition: {
           x: elPosX,
           y: elPosY
