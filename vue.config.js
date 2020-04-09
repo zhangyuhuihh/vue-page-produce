@@ -2,6 +2,11 @@ module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   lintOnSave: true,
   productionSourceMap: false,
+  configureWebpack: {
+    externals: {
+      vue: 'Vue'
+    }
+  },
   devServer: {
     port: 8088,
     open: true,

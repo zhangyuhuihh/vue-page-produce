@@ -7,7 +7,7 @@ import echarts from 'echarts'
 import componentsMixins from '../../components_mixins'
 
 export default {
-  name: 'BarChartChildOne',
+  name: 'LineChartChildOne',
   mixins: [componentsMixins],
   props: {
     dragSize: {

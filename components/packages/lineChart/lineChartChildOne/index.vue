@@ -7,7 +7,7 @@ import echarts from 'echarts'
 import componentsMixins from '../../components_mixins'
 
 export default {
-  name: 'BarChartChildOne',
+  name: 'LineChartChildOne',
   mixins: [componentsMixins],
   props: {
     dragSize: {
@@ -21,8 +21,8 @@ export default {
         backgroundColor: '#333333',
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          axisLabel: {}
+          data: [],
+          axisLabel: {} // 待配置
         },
         yAxis: {
           type: 'value',
@@ -30,8 +30,9 @@ export default {
         },
         series: [
           {
-            data: [120, 200, 150, 80, 70, 110, 130],
-            type: 'bar',
+            data: [],
+            type: 'line',
+            lineStyle: {},
             itemStyle: {}
           }
         ]
@@ -50,8 +51,9 @@ export default {
     },
     styleFields: {
       handler(newValue, oldValue) {
-        this.option.series[0].itemStyle.color =
-          newValue.seriesItemColor.formModel
+        this.option.series[0].lineStyle.color = newValue.lineColor.formModel
+        this.option.series[0].lineStyle.width = newValue.lineWidth.formModel
+        this.option.series[0].itemStyle.color = newValue.itemColor.formModel
         this.option.xAxis.axisLabel.fontSize =
           newValue.axisLabelFontSize.formModel
         this.option.yAxis.axisLabel.fontSize =
@@ -75,12 +77,12 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.setEchart()
+      this.initEchart()
     })
   },
   methods: {
     // 创建实例并生成表格
-    setEchart() {
+    initEchart() {
       this.myChart = echarts.init(this.$refs.mychart, 'dark') // 创建实例
       this.myChart.clear()
       this.myChart.setOption(this.option) // 生成图表
@@ -90,8 +92,7 @@ export default {
         this.myChart.setOption(this.option)
       }
     }
-  },
-  destroyed() {}
+  }
 }
 </script>
 
