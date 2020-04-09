@@ -10,16 +10,16 @@ import './styles/index.scss'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import componentsStore from '../components/index'
+// import componentsStore from '../components/index'
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 
-const env = process.env.NODE_ENV
-if (env === 'development') {
-  Vue.use(componentsStore)
-}
+// const env = process.env.NODE_ENV
+// if (env === 'development') {
+//   Vue.use(componentsStore)
+// }
 
 new Vue({
   router,

@@ -21,7 +21,7 @@
         height: item.dragSize.height + 'px'
       }"
       >
-        <component :is="item.componentKey" :uuid="item.uuid"></component>
+        <component :is="item.componentKey" v-bind="item"></component>
       </div>
     </template>
     <!-- <div @click="handleClidk">点击查看数据</div> -->
@@ -30,26 +30,26 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import TestComponentOne from '../partComponent/components/testComponents/testComponentOne'
-import TestComponentTwo from '../partComponent/components/testComponents/testComponentTwo'
-import TestComponentThree from '../partComponent/components/testComponents/testComponentThree'
-import TitleChildOne from '../partComponent/components/title/TitleChildOne/index'
-import TitleChildTwo from '../partComponent/components/title/TitleChildTwo/index'
-import ScrollBoardChildOne from '../partComponent/components/scrollBoard/ScrollBoardChildOne'
-import LineChartChildOne from '../partComponent/components/lineChart/lineChartChildOne/index'
-import PieChartChildOne from '../partComponent/components/pieChart/pieChartChildOne/index'
-import BarChartChildOne from '../partComponent/components/barChart/barChartChildOne/index'
+// import TestComponentOne from '../partComponent/components/testComponents/testComponentOne'
+// import TestComponentTwo from '../partComponent/components/testComponents/testComponentTwo'
+// import TestComponentThree from '../partComponent/components/testComponents/testComponentThree'
+// import TitleChildOne from '../partComponent/components/title/TitleChildOne/index'
+// import TitleChildTwo from '../partComponent/components/title/TitleChildTwo/index'
+// import ScrollBoardChildOne from '../partComponent/components/scrollBoard/ScrollBoardChildOne'
+// import LineChartChildOne from '../partComponent/components/lineChart/lineChartChildOne/index'
+// import PieChartChildOne from '../partComponent/components/pieChart/pieChartChildOne/index'
+// import BarChartChildOne from '../partComponent/components/barChart/barChartChildOne/index'
 export default {
   components: {
-    TestComponentOne,
-    TestComponentTwo,
-    TestComponentThree,
-    TitleChildOne,
-    TitleChildTwo,
-    ScrollBoardChildOne,
-    LineChartChildOne,
-    PieChartChildOne,
-    BarChartChildOne
+    // TestComponentOne,
+    // TestComponentTwo,
+    // TestComponentThree,
+    // TitleChildOne,
+    // TitleChildTwo,
+    // ScrollBoardChildOne,
+    // LineChartChildOne,
+    // PieChartChildOne,
+    // BarChartChildOne
   },
   data() {
     return {}
