@@ -22,6 +22,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  base: '/vue-page-produce',
   mode: 'history', // 解决hash模式下跳回登录页面数据不刷新的问题
   routes
 })

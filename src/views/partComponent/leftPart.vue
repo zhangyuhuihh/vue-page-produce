@@ -105,7 +105,7 @@ export default {
   },
   mounted() {
     // eslint-disable-next-line no-undef
-    const { widgetParent, widgetChild } = Vue.WIDGRTLISTCLASS
+    const { widgetParent, widgetChild } = this.WIDGRTLISTCLASS
     this.allCollapseParent = _.pickBy(widgetParent, (value, key) => {
       return value.componentDescription.parent === 'widget'
     })

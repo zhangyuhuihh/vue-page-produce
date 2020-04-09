@@ -19,11 +19,11 @@ const install = function(Vue) {
   install.installed = true
   components.map((component) => {
     Vue.component(component.name, component)
-    Vue.WIDGRTLISTCLASS = {
-      widgetParent,
-      widgetChild
-    }
   })
+  Vue.prototype.WIDGRTLISTCLASS = {
+    widgetParent,
+    widgetChild
+  }
 }
 
 if (typeof window !== 'undefined' && window.Vue) {

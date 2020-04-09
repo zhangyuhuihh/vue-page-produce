@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "lib": "vue-cli-service build --target lib --name components --dest lib components/index.js"
+    "lib": "vue-cli-service build --target lib --name components --dest lib components/index.js --buildType=lib"
   },
   "dependencies": {
     "core-js": "^3.3.2",
