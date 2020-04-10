@@ -14,14 +14,14 @@ const SET_ACTIVEDWIDGET_UUID = 'SET_ACTIVEDWIDGET_UUID'
 const FIELDS_CHANGE = 'FIELDS_CHANGE'
 const UPDATE_WIDGET_ERROR = 'UPDATE_WIDGET_ERROR'
 
-function getErrorMsg(validators = [], formModel) {
-  let res = validators.map(fn => fn(formModel))
-  if (res.every(v => v === 'pass')) {
-    return ''
-  } else {
-    return res.filter(v => v !== 'pass').join(', ')
-  }
-}
+// function getErrorMsg(validators = [], formModel) {
+//   let res = validators.map(fn => fn(formModel))
+//   if (res.every(v => v === 'pass')) {
+//     return ''
+//   } else {
+//     return res.filter(v => v !== 'pass').join(', ')
+//   }
+// }
 
 export default {
   namespaced: true,
@@ -129,10 +129,10 @@ export default {
     [FIELDS_CHANGE]: (state, { uuid, fieldType, fieldKey, fieldValue }) => {
       const widget = state.widgetList.find(v => v.uuid === uuid)
       widget[fieldType][fieldKey].formModel = fieldValue
-      widget[fieldType][fieldKey].errorMsg = getErrorMsg(
-        widget[fieldType][fieldKey].validator,
-        widget[fieldType][fieldKey].formModel
-      )
+      // widget[fieldType][fieldKey].errorMsg = getErrorMsg(
+      //   widget[fieldType][fieldKey].validator,
+      //   widget[fieldType][fieldKey].formModel
+      // )
     },
 
     [UPDATE_WIDGET_ERROR]: (state, { arr, uuid }) => {

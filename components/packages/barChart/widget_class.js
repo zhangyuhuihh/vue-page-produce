@@ -1,7 +1,6 @@
 import { BarChart } from '../../widget'
-import widgetFields from '../../widget_fields' // 单一的form
+import widgetFields from '../../widget_fields'
 // import validators from '../../validators'
-import { formateTextArea } from '../../utils/index'
 import jsonTemplate from '../../json_template'
 
 class BarChartChildOne extends BarChart {
@@ -57,7 +56,7 @@ class BarChartChildOne extends BarChart {
       }),
       fakeData: widgetFields.FieldTextArea({
         formModel: JSON.stringify(jsonTemplate.ForBarChartChildOne),
-        formateFn: formateTextArea,
+        formateFn: 'textareaFormate',
         onEvents: [
           {
             type: 'isShow',

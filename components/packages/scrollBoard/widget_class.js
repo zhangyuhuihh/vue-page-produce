@@ -1,7 +1,6 @@
 import { ScrollBoard } from '../../widget'
 import widgetFields from '../../widget_fields' // 单一的form
 // import validators from '../../validators'
-import { formateTextArea } from '../../utils/index'
 import jsonTemplate from '../../json_template'
 
 class ScrollBoardChildOne extends ScrollBoard {
@@ -85,7 +84,7 @@ class ScrollBoardChildOne extends ScrollBoard {
       }),
       fakeData: widgetFields.FieldTextArea({
         formModel: JSON.stringify(jsonTemplate.ForScrollBoard),
-        formateFn: formateTextArea,
+        formateFn: 'textareaFormate',
         onEvents: [
           {
             type: 'isShow',

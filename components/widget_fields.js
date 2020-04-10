@@ -26,7 +26,7 @@ const widgetFields = {
     memorable = true,
     emitEvents = [],
     onEvents = [],
-    formateFn = v => v
+    formateFn = ''
   }) {
     return {
       type: 'FieldTextArea',

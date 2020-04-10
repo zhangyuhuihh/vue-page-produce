@@ -1,7 +1,6 @@
 import { PieChart } from '../../widget'
-import widgetFields from '../../widget_fields' // 单一的form
+import widgetFields from '../../widget_fields'
 // import validators from '../../validators'
-import { formateTextArea } from '../../utils/index'
 import jsonTemplate from '../../json_template'
 
 class PieChartChildOne extends PieChart {
@@ -72,7 +71,7 @@ class PieChartChildOne extends PieChart {
       }),
       fakeData: widgetFields.FieldTextArea({
         formModel: JSON.stringify(jsonTemplate.ForPieChartChildOne),
-        formateFn: formateTextArea,
+        formateFn: 'textareaFormate',
         onEvents: [
           {
             type: 'isShow',

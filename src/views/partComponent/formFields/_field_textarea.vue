@@ -15,6 +15,7 @@
 <script>
 import fieldMixins from './field_mixins'
 import fieldEventsMixins from './field_events_mixin'
+import * as formateFns from '../utils'
 export default {
   mixins: [fieldMixins, fieldEventsMixins],
   data() {
@@ -24,7 +25,7 @@ export default {
   },
   computed: {
     formateFn() {
-      return this.currentBindWidget.formateFn || (v => v)
+      return formateFns[this.currentBindWidget.formateFn] || (v => v)
     }
   },
   mounted() {

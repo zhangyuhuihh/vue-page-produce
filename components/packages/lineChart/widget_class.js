@@ -1,9 +1,5 @@
 import { LineChart } from '../../widget'
-import widgetFields from '../../widget_fields' // 单一的form
-// import validators from '../../validators'
-// import validatorCombine from '../../validator_combine'
-// import widgetFieldsCombine from '../../widget_fields_combine'
-import { formateTextArea } from '../../utils/index'
+import widgetFields from '../../widget_fields'
 import jsonTemplate from '../../json_template'
 
 class LineChartChildOne extends LineChart {
@@ -70,7 +66,7 @@ class LineChartChildOne extends LineChart {
       }),
       fakeData: widgetFields.FieldTextArea({
         formModel: JSON.stringify(jsonTemplate.ForLineChartChildOne),
-        formateFn: formateTextArea,
+        formateFn: 'textareaFormate',
         onEvents: [
           {
             type: 'isShow',
