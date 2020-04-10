@@ -10,9 +10,8 @@ export default {
   name: 'PieChartChildOne',
   mixins: [componentsMixins],
   props: {
-    uuid: {
-      type: String,
-      required: true
+    dragSize: {
+      type: Object
     }
   },
   data() {
