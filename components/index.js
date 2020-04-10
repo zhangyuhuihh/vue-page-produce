@@ -24,6 +24,7 @@ const install = function(Vue) {
     widgetParent,
     widgetChild
   }
+  Vue.prototype.$EventBus = new Vue()
 }
 
 if (typeof window !== 'undefined' && window.Vue) {

@@ -1,8 +1,7 @@
 import { BarChart } from '../../widget'
 import widgetFields from '../../widget_fields' // 单一的form
 // import validators from '../../validators'
-import validatorCombine from '../../validator_combine'
-import widgetFieldsCombine from '../../widget_fields_combine'
+import { formateTextArea } from '../../utils/index'
 import jsonTemplate from '../../json_template'
 
 class BarChartChildOne extends BarChart {
@@ -34,17 +33,46 @@ class BarChartChildOne extends BarChart {
     })
 
     this.setFields({
-      isFakeData: widgetFieldsCombine.FieldsDataSource({
-        validator: [validatorCombine.validateFieldDataSource()],
-        fakeData: JSON.stringify(jsonTemplate.ForBarChartChildOne),
+      isFakeData: widgetFields.FieldRadio({
+        label: '数据源',
+        formModel: '0',
         radios: [
           {
-            label: '使用模拟数据',
-            value: 'fake'
+            label: '模拟数据',
+            value: '0'
           },
           {
-            label: '使用接口数据',
-            value: 'real'
+            label: '接口数据',
+            value: '1'
+          }
+        ],
+        // emitEvents: ['changeDataType']
+        emitEvents: [
+          {
+            type: 'change',
+            initValue: '0',
+            eventName: 'changeDataType'
+          }
+        ]
+      }),
+      fakeData: widgetFields.FieldTextArea({
+        formModel: JSON.stringify(jsonTemplate.ForBarChartChildOne),
+        formateFn: formateTextArea,
+        onEvents: [
+          {
+            type: 'isShow',
+            eventValue: '0',
+            eventName: 'changeDataType'
+          }
+        ]
+      }),
+      realData: widgetFields.FieldInput({
+        label: '链接',
+        onEvents: [
+          {
+            type: 'isShow',
+            eventValue: '1',
+            eventName: 'changeDataType'
           }
         ]
       })

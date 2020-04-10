@@ -1,21 +1,61 @@
 const widgetFields = {
-  FieldInput({ label, validator = [() => 'pass'], formModel = '', memorable = true }) {
+  FieldInput({
+    label,
+    validator = [() => 'pass'],
+    formModel = '',
+    memorable = true,
+    emitEvents = [],
+    onEvents = []
+  }) {
     return {
       type: 'FieldInput',
       formModel,
       validator,
       label,
       errorMsg: '',
-      memorable
+      memorable,
+      emitEvents,
+      onEvents
     }
   },
 
-  FieldSelect({ label, options, memorable = true }) {
+  FieldTextArea({
+    label,
+    validator = [() => 'pass'],
+    formModel = '',
+    memorable = true,
+    emitEvents = [],
+    onEvents = [],
+    formateFn = v => v
+  }) {
+    return {
+      type: 'FieldTextArea',
+      formModel,
+      validator,
+      label,
+      errorMsg: '',
+      memorable,
+      emitEvents,
+      onEvents,
+      formateFn
+    }
+  },
+
+  FieldSelect({
+    label,
+    options,
+    memorable = true,
+    emitEvents = [],
+    onEvents = []
+  }) {
     return {
       type: 'FieldSelect',
       formModel: options[0].value,
       label,
-      options
+      options,
+      memorable,
+      emitEvents,
+      onEvents
     }
   },
 
@@ -28,14 +68,23 @@ const widgetFields = {
     }
   },
 
-  FieldRadio({ type, radios, validator = [() => 'pass'], memorable = true }) {
+  FieldRadio({
+    radios,
+    validator = [() => 'pass'],
+    memorable = true,
+    emitEvents = [],
+    onEvents = [],
+    formModel = ''
+  }) {
     return {
       type: 'FieldRadio',
-      formModel: '',
+      formModel,
       radios,
       validator,
       errorMsg: '',
-      memorable
+      memorable,
+      emitEvents,
+      onEvents
     }
   },
 

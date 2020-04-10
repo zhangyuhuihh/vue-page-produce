@@ -1,7 +1,13 @@
 <template>
-  <div class="field_input_container" v-if="isShow">
+  <div class="field_textarea_container" v-if="isShow">
     <span>{{labelData}}</span>
-    <el-input :value="modelData" @input="handleFieldModelChange" class="input_width"></el-input>
+    <el-input
+      :value="formateFn(modelData)"
+      @input="handleFieldModelChange"
+      type="textarea"
+      autosize
+      class="input_width"
+    ></el-input>
     <div class="error_msg_cell">{{errorMsg}}</div>
   </div>
 </template>
@@ -16,9 +22,13 @@ export default {
       isShow: true
     }
   },
+  computed: {
+    formateFn() {
+      return this.currentBindWidget.formateFn || (v => v)
+    }
+  },
   mounted() {
     this.onEvents.forEach(v => {
-      // 关于是否显示的事件
       if (v.type === 'isShow') {
         this.$EventBus.$on(v.eventName, value => {
           if (v.eventValue === value) {
@@ -34,23 +44,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.field_input_container {
-  height: 60px;
-  margin-bottom: 20px;
-  position: relative;
-  .input_width {
-    width: 200px;
-    margin-left: 10px;
-  }
-  .error_msg_cell {
-    position: absolute;
-    font-size: 12px;
-    bottom: 0px;
-    left: 41px;
-    color: red;
-  }
-  /deep/ .el-input__inner {
+.field_textarea_container {
+  /deep/ .el-textarea__inner {
     color: #b6b8cc;
+    font-weight: bold;
     background-color: #181a1f;
     border: 1px solid hsla(0, 0%, 100%, 0.2);
   }

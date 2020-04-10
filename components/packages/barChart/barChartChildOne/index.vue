@@ -7,7 +7,7 @@ import echarts from 'echarts'
 import componentsMixins from '../../components_mixins'
 
 export default {
-  name: 'LineChartChildOne',
+  name: 'BarChartChildOne',
   mixins: [componentsMixins],
   props: {
     dragSize: {
@@ -64,7 +64,7 @@ export default {
     },
     fields: {
       handler(newValue, oldValue) {
-        let fakeData = JSON.parse(newValue.isFakeData.formModel.fakeData)
+        let fakeData = JSON.parse(newValue.fakeData.formModel)
         this.option.xAxis.data = fakeData.map(v => v.xAxis)
         this.option.series[0].data = fakeData.map(v => v.yAxis)
         this.refreshChart()

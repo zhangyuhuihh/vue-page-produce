@@ -109,7 +109,7 @@ export default {
     },
     fields: {
       handler(newValue, oldValue) {
-        let fakeData = JSON.parse(newValue.isFakeData.formModel.fakeData)
+        let fakeData = JSON.parse(newValue.fakeData.formModel)
         this.option.series[0].data = fakeData.sort((a, b) => a.value - b.value)
         this.refreshChart()
       },

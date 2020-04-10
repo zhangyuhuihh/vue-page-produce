@@ -50,12 +50,12 @@ import { mapGetters, mapActions } from 'vuex'
 import DragFields from './construction/drag_fields'
 import PageSet from './construction/page_set'
 import FieldInput from './formFields/_field_input'
+import FieldTextArea from './formFields/_field_textarea'
 import FieldColorPicker from './formFields/_field_color_picker'
 import FieldSelect from './formFields/_field_select'
 import FieldRadio from './formFields/_field_radio'
 import FieldSwitch from './formFields/_field_switch'
 import FieldSlider from './formFields/_field_slider'
-import FieldsDataSource from './formFieldsCombine/_fields_data_source'
 import _ from 'lodash'
 
 export default {
@@ -63,12 +63,12 @@ export default {
     PageSet,
     DragFields,
     FieldInput,
+    FieldTextArea,
     FieldColorPicker,
     FieldSelect,
     FieldRadio,
     FieldSwitch,
-    FieldSlider,
-    FieldsDataSource
+    FieldSlider
   },
   data() {
     return {

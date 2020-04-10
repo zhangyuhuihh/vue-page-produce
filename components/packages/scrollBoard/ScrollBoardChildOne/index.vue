@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     fakeData() {
-      return JSON.parse(this.fields.isFakeData.formModel.fakeData)
+      return JSON.parse(this.fields.fakeData.formModel)
     },
     headerBGC() {
       return this.styleFields.headerBGC.formModel

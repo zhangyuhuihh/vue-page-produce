@@ -16,7 +16,11 @@ const mixins = {
       return this.activedWidgetUUID
     },
     currentBindWidget() {
-      return this.widgetList.find(item => item.uuid === this.uuid)[this.fieldType][this.fieldKey]
+      const widget = this.widgetList.find(item => item.uuid === this.uuid)
+      if (!widget) {
+        return {}
+      }
+      return widget[this.fieldType][this.fieldKey] || {}
     },
     modelData() {
       return this.currentBindWidget.formModel || ''
@@ -25,10 +29,10 @@ const mixins = {
       return this.currentBindWidget.label || ''
     },
     errorMsg() {
-      return this.currentBindWidget.errorMsg
+      return this.currentBindWidget.errorMsg || ''
     },
     memorable() {
-      return this.currentBindWidget.memorable
+      return this.currentBindWidget.memorable || false
     }
   },
   methods: {

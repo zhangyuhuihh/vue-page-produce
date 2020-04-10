@@ -50,24 +50,24 @@ export default {
         width: state.bigScreenRatio.width,
         height: state.bigScreenRatio.height
       }
-    },
-
-    requestDataList: (state, getters) => {
-      const { width, height } = getters.editorAreaSize
-      return state.widgetList.map(item => {
-        return {
-          ...item,
-          requestDataPosition: {
-            x: item.dragPosition.x / width,
-            y: item.dragPosition.y / height
-          },
-          requestDataSize: {
-            width: item.dragSize.width / width,
-            height: item.dragSize.height / height
-          }
-        }
-      })
     }
+
+    // requestDataList: (state, getters) => {
+    //   const { width, height } = getters.editorAreaSize
+    //   return state.widgetList.map(item => {
+    //     return {
+    //       ...item,
+    //       requestDataPosition: {
+    //         x: item.dragPosition.x / width,
+    //         y: item.dragPosition.y / height
+    //       },
+    //       requestDataSize: {
+    //         width: item.dragSize.width / width,
+    //         height: item.dragSize.height / height
+    //       }
+    //     }
+    //   })
+    // }
   },
   mutations: {
     [ADD_WIDGET]: (state, oneWidget) => {
