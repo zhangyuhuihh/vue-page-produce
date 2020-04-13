@@ -4,6 +4,7 @@ const widgetFields = {
     validator = [() => 'pass'],
     formModel = '',
     memorable = true,
+    belongsTab,
     emitEvents = [],
     onEvents = []
   }) {
@@ -15,7 +16,8 @@ const widgetFields = {
       errorMsg: '',
       memorable,
       emitEvents,
-      onEvents
+      onEvents,
+      belongsTab
     }
   },
 
@@ -24,6 +26,7 @@ const widgetFields = {
     validator = [() => 'pass'],
     formModel = '',
     memorable = true,
+    belongsTab,
     emitEvents = [],
     onEvents = [],
     formateFn = ''
@@ -35,6 +38,7 @@ const widgetFields = {
       label,
       errorMsg: '',
       memorable,
+      belongsTab,
       emitEvents,
       onEvents,
       formateFn
@@ -45,6 +49,7 @@ const widgetFields = {
     label,
     options,
     memorable = true,
+    belongsTab,
     emitEvents = [],
     onEvents = []
   }) {
@@ -54,17 +59,19 @@ const widgetFields = {
       label,
       options,
       memorable,
+      belongsTab,
       emitEvents,
       onEvents
     }
   },
 
-  FieldColorPicker({ label, formModel, memorable = true }) {
+  FieldColorPicker({ label, formModel, memorable = true, belongsTab = '' }) {
     return {
       type: 'FieldColorPicker',
       label,
       formModel,
-      memorable
+      memorable,
+      belongsTab
     }
   },
 
@@ -72,6 +79,7 @@ const widgetFields = {
     radios,
     validator = [() => 'pass'],
     memorable = true,
+    belongsTab,
     emitEvents = [],
     onEvents = [],
     formModel = ''
@@ -79,6 +87,7 @@ const widgetFields = {
     return {
       type: 'FieldRadio',
       formModel,
+      belongsTab,
       radios,
       validator,
       errorMsg: '',
@@ -88,23 +97,25 @@ const widgetFields = {
     }
   },
 
-  FieldSwitch({ label, formModel, memorable = true }) {
+  FieldSwitch({ label, formModel, memorable = true, belongsTab = '' }) {
     return {
       type: 'FieldSwitch',
       label,
       formModel,
-      memorable
+      memorable,
+      belongsTab
     }
   },
 
-  FieldSlider({ label, formModel, min, max, memorable = true }) {
+  FieldSlider({ label, formModel, min, max, memorable = true, belongsTab = '' }) {
     return {
       type: 'FieldSlider',
       label,
       formModel,
       min,
       max,
-      memorable
+      memorable,
+      belongsTab
     }
   }
 }

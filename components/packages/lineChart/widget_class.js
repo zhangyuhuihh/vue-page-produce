@@ -1,6 +1,7 @@
 import { LineChart } from '../../widget'
 import widgetFields from '../../widget_fields'
 import jsonTemplate from '../../json_template'
+import { tabsTypes } from '../../configs/tabsTypes'
 
 class LineChartChildOne extends LineChart {
   static componentDescription = {
@@ -16,27 +17,32 @@ class LineChartChildOne extends LineChart {
       lineColor: widgetFields.FieldColorPicker({
         label: '折线颜色',
         formModel: '#dd6b66',
-        memorable: true
+        memorable: true,
+        belongsTab: tabsTypes.overall
       }),
       lineWidth: widgetFields.FieldSlider({
         label: '折线宽度',
         formModel: 2,
         min: 1,
-        max: 10
+        max: 10,
+        belongsTab: tabsTypes.overall
       }),
       itemColor: widgetFields.FieldColorPicker({
         label: '拐点颜色',
-        formModel: '#dd6b66'
+        formModel: '#dd6b66',
+        belongsTab: tabsTypes.overall
       }),
       axisLabelFontSize: widgetFields.FieldSlider({
         label: '文字大小',
         formModel: 12,
         min: 12,
-        max: 20
+        max: 20,
+        belongsTab: tabsTypes.overall
       }),
       backgroundColor: widgetFields.FieldColorPicker({
         label: '背景',
-        formModel: '#333333'
+        formModel: '#333333',
+        belongsTab: tabsTypes.overall
       })
     })
 

@@ -2,6 +2,7 @@ import { BarChart } from '../../widget'
 import widgetFields from '../../widget_fields'
 // import validators from '../../validators'
 import jsonTemplate from '../../json_template'
+import { tabsTypes } from '../../configs/tabsTypes'
 
 class BarChartChildOne extends BarChart {
   static componentDescription = {
@@ -16,18 +17,21 @@ class BarChartChildOne extends BarChart {
     this.setStyleFields({
       seriesItemColor: widgetFields.FieldColorPicker({
         label: '柱体颜色',
-        formModel: '#dd6b66'
+        formModel: '#dd6b66',
+        belongsTab: tabsTypes.overall
       }),
 
       backgroundColor: widgetFields.FieldColorPicker({
         label: '背景',
-        formModel: '#333333'
+        formModel: '#333333',
+        belongsTab: tabsTypes.overall
       }),
       axisLabelFontSize: widgetFields.FieldSlider({
         label: '文字大小',
         formModel: 12,
         min: 12,
-        max: 20
+        max: 20,
+        belongsTab: tabsTypes.overall
       })
     })
 

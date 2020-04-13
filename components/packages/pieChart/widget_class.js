@@ -2,6 +2,7 @@ import { PieChart } from '../../widget'
 import widgetFields from '../../widget_fields'
 // import validators from '../../validators'
 import jsonTemplate from '../../json_template'
+import { tabsTypes } from '../../configs/tabsTypes'
 
 class PieChartChildOne extends PieChart {
   static componentDescription = {
@@ -16,13 +17,15 @@ class PieChartChildOne extends PieChart {
     this.setStyleFields({
       seriesItemStyle: widgetFields.FieldColorPicker({
         label: '扇面主色',
-        formModel: '#c23531'
+        formModel: '#c23531',
+        belongsTab: tabsTypes.overall
       }),
       seriesRadius: widgetFields.FieldSlider({
         label: '扇形面大小',
         formModel: 55,
         min: 30,
-        max: 100
+        max: 100,
+        belongsTab: tabsTypes.overall
       })
       // lineWidth: widgetFields.FieldSlider({
       //   label: '折线宽度',

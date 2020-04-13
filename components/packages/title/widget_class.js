@@ -1,9 +1,7 @@
 import { Title } from '../../widget'
 import widgetFields from '../../widget_fields' // 单一的form
 import validators from '../../validators'
-// import validatorCombine from '../../validator_combine'
-// import widgetFieldsCombine from '../../widget_fields_combine'
-// import jsonTemplate from '../../json_template'
+import { tabsTypes } from '../../configs/tabsTypes'
 
 class TitleChildOne extends Title {
   static componentDescription = {
@@ -26,16 +24,19 @@ class TitleChildOne extends Title {
     this.setStyleFields({
       color: widgetFields.FieldColorPicker({
         label: '字体颜色',
-        formModel: '#000'
+        formModel: '#000',
+        belongsTab: tabsTypes.overall
       }),
       fontSize: widgetFields.FieldSlider({
         label: '字体大小',
         formModel: 20,
         min: 12,
-        max: 45
+        max: 45,
+        belongsTab: tabsTypes.overall
       }),
       fontWeight: widgetFields.FieldSelect({
         label: '字体粗细',
+        belongsTab: tabsTypes.overall,
         options: [
           {
             label: '细',
