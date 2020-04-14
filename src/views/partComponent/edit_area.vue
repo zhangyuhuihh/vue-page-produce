@@ -70,7 +70,6 @@ export default {
 
       addEvent(document.documentElement, eventsFor.move, this.move)
       addEvent(document.documentElement, eventsFor.stop, this.handleUp)
-
       // console.log('e: ', e)
     },
 
@@ -85,6 +84,7 @@ export default {
         startTopPos -
         ((e.touches ? e.touches[0].pageY : e.pageY) - startMousePosY) /
           this.mouseXYMagnification
+      this.$EventBus.$emit('doRefreshLine')
     },
 
     handleUp(e) {

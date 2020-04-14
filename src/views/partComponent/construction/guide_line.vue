@@ -93,6 +93,10 @@ export default {
     window.onresize = () => {
       this.refreshLine()
     }
+
+    this.$EventBus.$on('doRefreshLine', () => {
+      this.refreshLine()
+    })
   },
   methods: {
     refreshLine() {
@@ -104,6 +108,11 @@ export default {
         this.leftTwo = right - 300
       }
     }
+  },
+
+  beforeDestroy() {
+    this.$EventBus.$off('doRefreshLine')
   }
+  
 }
 </script>
