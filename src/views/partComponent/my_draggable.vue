@@ -31,8 +31,9 @@
         @activated="onActivated(item)"
         @deactivated="onDeActivated(item)"
       >
-        <div style="width: 100%; height: 100%">
+        <div :id="item.uuid" style="width: 100%; height: 100%">
           <!-- 这边的padding,决定了widthHeightPadding的大小 -->
+          <!-- 使用id标识当前块的位置，传递给上层 -->
           <component
             @contextmenu.prevent.native="openMenu($event, item)"
             :is="item.componentKey"

@@ -25,6 +25,7 @@
       :left="rightMenu.left"
       :top="rightMenu.top"
     ></right-mouse-menu>
+    <guide-line></guide-line>
   </div>
 </template>
 <script>
@@ -32,6 +33,7 @@ import { mapState, mapMutations } from 'vuex'
 import RightMouseMenu from './construction/Right_mouse_menu'
 import HorizontalRuler from './construction/horizontal_ruler'
 import VerticalRuler from './construction/vertical_ruler'
+import GuideLine from './construction/guide_line'
 import EditArea from './edit_area'
 
 export default {
@@ -39,7 +41,8 @@ export default {
     EditArea,
     RightMouseMenu,
     HorizontalRuler,
-    VerticalRuler
+    VerticalRuler,
+    GuideLine
   },
   data() {
     return {
