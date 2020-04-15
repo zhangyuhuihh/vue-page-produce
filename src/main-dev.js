@@ -16,6 +16,8 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(componentsStore)
 
+Vue.prototype.$PlantformEventBus = new Vue()
+
 new Vue({
   router,
   store,

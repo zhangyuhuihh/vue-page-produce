@@ -84,7 +84,7 @@ export default {
         startTopPos -
         ((e.touches ? e.touches[0].pageY : e.pageY) - startMousePosY) /
           this.mouseXYMagnification
-      this.$EventBus.$emit('doRefreshLine')
+      this.$PlantformEventBus.$emit('doRefreshLine')
     },
 
     handleUp(e) {

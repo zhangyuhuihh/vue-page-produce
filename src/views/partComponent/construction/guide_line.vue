@@ -94,7 +94,7 @@ export default {
       this.refreshLine()
     }
 
-    this.$EventBus.$on('doRefreshLine', () => {
+    this.$PlantformEventBus.$on('doRefreshLine', () => {
       this.refreshLine()
     })
   },
@@ -102,17 +102,16 @@ export default {
     refreshLine() {
       if (this.actDom) {
         const { top, left, bottom, right } = this.actDom.getBoundingClientRect()
-        this.topOne = top - 40
-        this.topTwo = bottom - 40
-        this.leftOne = left - 300
-        this.leftTwo = right - 300
+        this.topOne = parseInt(top - 40)
+        this.topTwo = parseInt(bottom - 40)
+        this.leftOne = parseInt(left - 300)
+        this.leftTwo = parseInt(right - 300)
       }
     }
   },
 
   beforeDestroy() {
-    this.$EventBus.$off('doRefreshLine')
+    this.$PlantformEventBus.$off('doRefreshLine')
   }
-  
 }
 </script>
