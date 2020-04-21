@@ -128,7 +128,10 @@ export default {
   box-shadow: 0px 5px 12px #000000;
   position: relative;
   z-index: 99;
-  overflow-y: auto;
+
+  /deep/ .el-tabs {
+    height: 100%;
+  }
   /deep/ .el-tabs__item {
     width: 150px;
     text-align: center;
@@ -145,15 +148,31 @@ export default {
     border: none;
   }
   /deep/ .el-tabs__content {
+    height: calc(100% - 55px);
     padding: 10px;
     opacity: 0.9;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 1px;
+      height: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.2);
+    }
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.1);
+    }
   }
   .field_collapse_container {
     /deep/ .el-collapse-item__header {
       // width: 139px;
       background-color: #181c22;
       color: rgb(182, 184, 204);
-      border-bottom: 1px solid #0E0F14;
+      border-bottom: 1px solid #0e0f14;
       // border-bottom: none;
     }
 
@@ -165,6 +184,9 @@ export default {
     /deep/ .el-collapse-item__wrap {
       border-bottom: none;
       background-color: #181c22;
+    }
+    /deep/ .el-collapse-item__content {
+      color: inherit;
     }
   }
 }
