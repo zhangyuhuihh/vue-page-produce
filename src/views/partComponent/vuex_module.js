@@ -217,28 +217,28 @@ export default {
 
     validateAllFields({ commit, state }, uuid) {
       return new Promise((resolve, reject) => {
-        const fields = state.widgetList.find(v => v.uuid === uuid).fields
+        // const fields = state.widgetList.find(v => v.uuid === uuid).fields
 
-        const arr = []
+        // const arr = []
 
-        for (let key in fields) {
-          const { validator } = fields[key]
-          let res = validator.map(fn => fn(fields[key].formModel))
-          arr.push({
-            key,
-            isValid: res.every(v => v === 'pass'),
-            errMsg: res.filter(v => v !== 'pass').join(',')
-          })
-        }
+        // for (let key in fields) {
+        //   const { validator } = fields[key]
+        //   let res = validator.map(fn => fn(fields[key].formModel))
+        //   arr.push({
+        //     key,
+        //     isValid: res.every(v => v === 'pass'),
+        //     errMsg: res.filter(v => v !== 'pass').join(',')
+        //   })
+        // }
 
-        const isValid = arr.every(v => v.isValid)
+        // const isValid = arr.every(v => v.isValid)
 
-        if (isValid) {
-          resolve()
-        } else {
-          commit('UPDATE_WIDGET_ERROR', { arr, uuid })
-          reject(Error)
-        }
+        // if (isValid) {
+        //   resolve()
+        // } else {
+        //   commit('UPDATE_WIDGET_ERROR', { arr, uuid })
+        //   reject(Error)
+        // }
       })
     }
   },
