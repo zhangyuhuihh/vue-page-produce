@@ -29,8 +29,8 @@ vue-page-proeuce
 ## component library
 | props              | type     | required        | descripition                                               |
 | ----------------- | -------- | --------------- | -------------------------------------------------- |
-| styleFields       | Object   | no              | The style class of the passed component, all properties are configurable within the component的值  |
-| Fields            | Object   | yes             | The data objects passed to the component can be configured when the component library is extended组件对应的属性 |
+| styleFields       | Object   | no              | The style class of the passed component, all properties are configurable within the component  |
+| Fields            | Object   | yes             | The data objects passed to the component and can be configured when the component library is extended |
 
 ## pack：
 ```
