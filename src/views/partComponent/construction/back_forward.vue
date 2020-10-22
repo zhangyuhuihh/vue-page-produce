@@ -76,10 +76,10 @@ export default {
   methods: {
     ...mapActions('partComponent', ['backForwardToState']),
     UpdateCacheStates() {
-      // if (this.cacheStates.length === 6) {
-        // 保留5步操作,注意这里6保存的是5步
-        // this.cacheStates.shift()
-      // }
+      if (this.cacheStates.length === 11) {
+        // 保留5步操作,注意这里11保存的是10步
+        this.cacheStates.shift()
+      }
       this.cacheStates.push({
         widgetList: _.cloneDeep(this.widgetList) || [],
         pageBgColor: this.pageBgColor,
