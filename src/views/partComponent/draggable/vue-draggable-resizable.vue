@@ -135,12 +135,12 @@ function handleDown(handle, e) {
   addEvent(document.documentElement, eventsFor.stop, this.handleUp)
 }
 
-const _elementDown = _.throttle(elementDown, 600, {
+const _elementDown = _.throttle(elementDown, 0, {
   leading: true,
   trailing: false
 })
 
-const _handleDown = _.throttle(handleDown, 600, {
+const _handleDown = _.throttle(handleDown, 0, {
   leading: true,
   trailing: false
 })

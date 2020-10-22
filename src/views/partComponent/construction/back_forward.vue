@@ -37,11 +37,11 @@ function handleForward() {
   }
 }
 
-const _handleBack = _.throttle(handleBack, 1000, {
+const _handleBack = _.throttle(handleBack, 0, {
   leading: true,
   trailing: false
 })
-const _handleForward = _.throttle(handleForward, 1000, {
+const _handleForward = _.throttle(handleForward, 0, {
   leading: true,
   trailing: false
 })
@@ -76,10 +76,10 @@ export default {
   methods: {
     ...mapActions('partComponent', ['backForwardToState']),
     UpdateCacheStates() {
-      if (this.cacheStates.length === 6) {
+      // if (this.cacheStates.length === 6) {
         // 保留5步操作,注意这里6保存的是5步
-        this.cacheStates.shift()
-      }
+        // this.cacheStates.shift()
+      // }
       this.cacheStates.push({
         widgetList: _.cloneDeep(this.widgetList) || [],
         pageBgColor: this.pageBgColor,
