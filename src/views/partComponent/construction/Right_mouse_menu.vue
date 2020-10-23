@@ -83,10 +83,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('partComponent', [
-      'removeWidget',
-      'updateWidgetZIndexSingle',
-    ]),
+    ...mapActions('partComponent', ['removeWidget']),
 
     closeMenu() {
       this.$emit('update:isShow', false)

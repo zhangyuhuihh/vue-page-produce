@@ -94,11 +94,6 @@ export default {
       state.widgetList = newZArr
     },
 
-    [UPDATE_WIGET_POX_Z_SINGLE]: (state, { z, uuid }) => {
-      const widget = state.widgetList.find((v) => v.uuid === uuid)
-      widget.dragPosition.z = z
-    },
-
     [UPDATE_WIDGET_SITUTATION]: (state, newDragSitutation) => {
       const widget = state.widgetList.find(
         (v) => v.uuid === newDragSitutation.uuid
@@ -203,12 +198,7 @@ export default {
           z: 1000 + index,
         },
       }))
-      console.log('newArr: ', newArr)
       commit('UPDATE_WIDGET_POX_Z', newArr)
-    },
-
-    updateWidgetZIndexSingle({ commit }, { uuid, z }) {
-      commit('UPDATE_WIGET_POX_Z_SINGLE', { uuid, z })
     },
 
     updateWidgetSitutation({ commit }, newDragSitutation) {
