@@ -1,29 +1,53 @@
 <template>
   <div class="draggable_container">
     <div class="draggable_lay_top">
-      <el-tooltip popper-class="top_pop_class" effect="dark" content="置顶" placement="top">
+      <el-tooltip
+        popper-class="top_pop_class"
+        effect="dark"
+        content="置顶"
+        placement="top"
+      >
         <div class="lay_icon_cell tool_tip_hover">
           <i @click="setTop" class="el-icon-upload2" style="opacity: 0.5" />
         </div>
       </el-tooltip>
-      <el-tooltip popper-class="top_pop_class" effect="dark" content="置底" placement="top">
+      <el-tooltip
+        popper-class="top_pop_class"
+        effect="dark"
+        content="置底"
+        placement="top"
+      >
         <div class="lay_icon_cell tool_tip_hover">
           <i @click="setBottom" class="el-icon-download" style="opacity: 0.5" />
         </div>
       </el-tooltip>
-      <el-tooltip popper-class="top_pop_class" effect="dark" content="上移一层" placement="top">
+      <el-tooltip
+        popper-class="top_pop_class"
+        effect="dark"
+        content="上移一层"
+        placement="top"
+      >
         <div class="lay_icon_cell tool_tip_hover">
           <i @click="setUpOneStep" class="el-icon-top" style="opacity: 0.5" />
         </div>
       </el-tooltip>
-      <el-tooltip popper-class="top_pop_class" effect="dark" content="下移一层" placement="top">
+      <el-tooltip
+        popper-class="top_pop_class"
+        effect="dark"
+        content="下移一层"
+        placement="top"
+      >
         <div class="lay_icon_cell tool_tip_hover">
-          <i @click="setDownOneStep" class="el-icon-bottom" style="opacity: 0.5" />
+          <i
+            @click="setDownOneStep"
+            class="el-icon-bottom"
+            style="opacity: 0.5"
+          />
         </div>
       </el-tooltip>
     </div>
     <div class="draggable_lay_middle">
-      <draggable :value="draggableList" @input="handleDraggableInput">
+      <draggable v-model="draggableList">
         <transition-group name="flip-list">
           <div
             @click="setActivedWidget(element.uuid)"
@@ -33,15 +57,27 @@
             <div
               class="lay_cell"
               :style="{
-                backgroundColor: element.uuid === activedWidget.uuid ? '#2483FF' : ''
+                backgroundColor:
+                  element.uuid === activedWidget.uuid ? '#2483FF' : '',
               }"
-            >{{element.componentKey + '_' + element.uuid.substr(element.uuid.length - 4, 4)}}</div>
+            >
+              {{
+                element.componentKey +
+                  '_' +
+                  element.uuid.substr(element.uuid.length - 4, 4)
+              }}
+            </div>
           </div>
         </transition-group>
       </draggable>
     </div>
     <div class="draggable_lay_bottom">
-      <el-tooltip popper-class="top_pop_class" effect="dark" content="删除" placement="bottom">
+      <el-tooltip
+        popper-class="top_pop_class"
+        effect="dark"
+        content="删除"
+        placement="bottom"
+      >
         <div class="lay_icon_cell tool_tip_hover">
           <i @click="handleRemove" class="el-icon-delete" />
         </div>
@@ -51,7 +87,12 @@
           <i class="el-icon-download" />
         </div>
       </el-tooltip>-->
-      <el-tooltip popper-class="top_pop_class" effect="dark" content="上锁" placement="bottom">
+      <el-tooltip
+        popper-class="top_pop_class"
+        effect="dark"
+        content="上锁"
+        placement="bottom"
+      >
         <div class="lay_icon_cell tool_tip_hover">
           <i v-if="isLocked" @click="doLock('unlock')" class="el-icon-lock" />
           <i v-else @click="doLock('lock')" class="el-icon-unlock" />
@@ -63,141 +104,33 @@
 
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+import setUpDownMixin from '../mixins/setUpDownMixin'
 import draggable from 'vuedraggable'
 import _ from 'lodash'
 export default {
   components: {
-    draggable
+    draggable,
   },
-  data() {
-    return {
-      // draggableList: []
-    }
-  },
+  mixins: [setUpDownMixin],
   computed: {
     ...mapState('partComponent', ['widgetList', 'activedWidgetUUID']),
-    ...mapState('partComponent/vuexDraggable', ['draggableList']),
     ...mapGetters('partComponent', ['activedWidget']),
+
     isLocked() {
       if (!_.isEmpty(this.activedWidget)) {
         const { draggable, resizable } = this.activedWidget.dragSitutation
         return !(draggable && resizable)
       }
       return false
-    }
-  },
-  watch: {
-    draggableList(newValue, olaValue) {
-      let arr = newValue.map((v, index) => {
-        return {
-          uuid: v.uuid,
-          z: 1990 - index
-        }
-      })
-      this.updateWidgetZIndex(arr)
     },
-    widgetList: {
-      /** todo 这里的图层逻辑日后可能会出现bug现象。到时候采用将
-           draggable的v-model拆分直接绑定widgetList的方式
-     */
-      handler: function(newValue, oldValue) {
-        if (newValue.length !== this.draggableList.length) {
-          const arr = newValue
-            .map(v => {
-              return {
-                uuid: v.uuid,
-                componentKey: v.componentKey,
-                z: v.dragPosition.z
-              }
-            })
-            .sort((a, b) => {
-              // 如果a.z === b.z，那么说明这两条数据是直接加进去的，所以要换位置
-              if (a.z === b.z) {
-                return -1
-              } else {
-                return b.z - a.z
-              }
-            })
-          this.setDraggableList(arr)
-        }
-      },
-      deep: true,
-      immediate: true
-    }
   },
   methods: {
     ...mapActions('partComponent', [
       'updateWidgetZIndex',
       'setActivedWidget',
       'removeWidget',
-      'updateWidgetSitutation'
+      'updateWidgetSitutation',
     ]),
-    ...mapMutations('partComponent/vuexDraggable', ['setDraggableList']),
-
-    handleDraggableInput(arr) {
-      this.setDraggableList(arr)
-    },
-
-    setTop() {
-      const id = this.activedWidgetUUID
-      let arr = []
-      for (let i = 0; i < this.draggableList.length; i++) {
-        let element = this.draggableList[i]
-        if (element.uuid === id) {
-          arr.unshift({ ...element })
-        } else {
-          arr.push({ ...element })
-        }
-      }
-      this.setDraggableList(arr)
-    },
-
-    setBottom() {
-      const id = this.activedWidgetUUID
-      let arr = []
-      let last
-      for (let i = 0; i < this.draggableList.length; i++) {
-        let element = this.draggableList[i]
-        if (element.uuid === id) {
-          last = { ...element }
-        } else {
-          arr.push({ ...element })
-        }
-      }
-      this.setDraggableList(arr.concat([last]))
-    },
-
-    setUpOneStep() {
-      const id = this.activedWidgetUUID
-      let arr = [...this.draggableList]
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i].uuid === id) {
-          if (i > 0) {
-            let temp = arr[i - 1]
-            arr[i - 1] = arr[i]
-            arr[i] = temp
-            break
-          }
-        }
-      }
-      this.setDraggableList(arr)
-    },
-
-    setDownOneStep() {
-      const id = this.activedWidgetUUID
-      let arr = [...this.draggableList]
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i].uuid === id) {
-          if (i < arr.length - 1) {
-            let temp = arr[i + 1]
-            arr[i + 1] = arr[i]
-            arr[i] = temp
-            break
-          }
-        }
-      }
-      this.setDraggableList(arr)
-    },
 
     handleRemove() {
       this.removeWidget(this.activedWidgetUUID)
@@ -209,8 +142,8 @@ export default {
           uuid: this.activedWidgetUUID,
           dragSitutation: {
             draggable: false,
-            resizable: false
-          }
+            resizable: false,
+          },
         })
       }
       if (v === 'unlock') {
@@ -218,12 +151,12 @@ export default {
           uuid: this.activedWidgetUUID,
           dragSitutation: {
             draggable: true,
-            resizable: true
-          }
+            resizable: true,
+          },
         })
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -269,5 +202,5 @@ export default {
 }
 .flip-list-move {
   transition: transform 0.5s;
-}
-</style>>
+}</style
+>>

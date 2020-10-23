@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import vuexDraggable from './vuexs/vuex_draggable'
+// import vuexDraggable from './vuexs/vuex_draggable'
 
 const ADD_WIDGET = 'ADD_WIDGET'
 const BACK_FORWARD_TO_STATE = 'BACK_FORWARD_TO_STATE'
@@ -30,27 +30,27 @@ export default {
     activedWidgetUUID: '',
     bigScreenRatio: {
       width: 1920,
-      height: 1080
+      height: 1080,
     },
     pageBgColor: '#07122A',
     pageBgImgUrl: '',
     magnification: 50,
-    cacheStateCount: 0
+    cacheStateCount: 0,
   },
   getters: {
-    activedWidget: state => {
+    activedWidget: (state) => {
       let obj =
-        state.widgetList.find(v => v.uuid === state.activedWidgetUUID) || {}
+        state.widgetList.find((v) => v.uuid === state.activedWidgetUUID) || {}
       return obj
     },
-    editorAreaSize: state => {
+    editorAreaSize: (state) => {
       return {
         // width: state.bigScreenRatio.width * state.magnification / 100,
         // height: state.bigScreenRatio.height * state.magnification / 100
         width: state.bigScreenRatio.width,
-        height: state.bigScreenRatio.height
+        height: state.bigScreenRatio.height,
       }
-    }
+    },
 
     // requestDataList: (state, getters) => {
     //   const { width, height } = getters.editorAreaSize
@@ -78,40 +78,38 @@ export default {
       state.widgetList = [...newState.widgetList]
     },
 
-    [MEMORY_FOR_BACK_FORWARD]: state => {
+    [MEMORY_FOR_BACK_FORWARD]: (state) => {
       state.cacheStateCount++
     },
 
     [UPDATE_WIDGET_POS_XY]: (state, newDragPosMsg) => {
-      const widget = state.widgetList.find(v => v.uuid === newDragPosMsg.uuid)
+      const widget = state.widgetList.find((v) => v.uuid === newDragPosMsg.uuid)
       if (widget) {
         widget.dragPosition.x = newDragPosMsg.x
         widget.dragPosition.y = newDragPosMsg.y
       }
     },
 
-    [UPDATE_WIDGET_POX_Z]: (state, arr) => {
-      state.widgetList = arr.map(v => {
-        let obj = _.cloneDeep(state.widgetList.find(el => el.uuid === v.uuid))
-        obj.dragPosition.z = v.z
-        return obj
-      })
+    [UPDATE_WIDGET_POX_Z]: (state, newZArr) => {
+      state.widgetList = newZArr
     },
 
     [UPDATE_WIGET_POX_Z_SINGLE]: (state, { z, uuid }) => {
-      const widget = state.widgetList.find(v => v.uuid === uuid)
+      const widget = state.widgetList.find((v) => v.uuid === uuid)
       widget.dragPosition.z = z
     },
 
     [UPDATE_WIDGET_SITUTATION]: (state, newDragSitutation) => {
       const widget = state.widgetList.find(
-        v => v.uuid === newDragSitutation.uuid
+        (v) => v.uuid === newDragSitutation.uuid
       )
       widget.dragSitutation = newDragSitutation.dragSitutation
     },
 
     [UPDATE_WIDGET_SIZE]: (state, newDragSizeMsg) => {
-      const widget = state.widgetList.find(v => v.uuid === newDragSizeMsg.uuid)
+      const widget = state.widgetList.find(
+        (v) => v.uuid === newDragSizeMsg.uuid
+      )
       if (widget) {
         widget.dragSize.width = newDragSizeMsg.width
         widget.dragSize.height = newDragSizeMsg.height
@@ -119,7 +117,9 @@ export default {
     },
 
     [REMOVE_WIDGET]: (state, oneWidgetUUId) => {
-      state.widgetList = state.widgetList.filter(v => v.uuid !== oneWidgetUUId)
+      state.widgetList = state.widgetList.filter(
+        (v) => v.uuid !== oneWidgetUUId
+      )
     },
 
     [SET_ACTIVEDWIDGET_UUID]: (state, activeWidgetUUid) => {
@@ -127,7 +127,7 @@ export default {
     },
 
     [FIELDS_CHANGE]: (state, { uuid, fieldType, fieldKey, fieldValue }) => {
-      const widget = state.widgetList.find(v => v.uuid === uuid)
+      const widget = state.widgetList.find((v) => v.uuid === uuid)
       widget[fieldType][fieldKey].formModel = fieldValue
       // widget[fieldType][fieldKey].errorMsg = getErrorMsg(
       //   widget[fieldType][fieldKey].validator,
@@ -136,9 +136,9 @@ export default {
     },
 
     [UPDATE_WIDGET_ERROR]: (state, { arr, uuid }) => {
-      const widget = state.widgetList.find(v => v.uuid === uuid)
+      const widget = state.widgetList.find((v) => v.uuid === uuid)
       for (let key in widget.fields) {
-        const o = arr.find(v => v.key === key)
+        const o = arr.find((v) => v.key === key)
         widget.fields[key].errorMsg = o.errMsg
       }
     },
@@ -161,7 +161,7 @@ export default {
 
     setMagnification: (state, newMagnification) => {
       state.magnification = newMagnification
-    }
+    },
   },
   actions: {
     addWidget: ({ commit }, oneWidget) => {
@@ -196,7 +196,15 @@ export default {
     },
 
     updateWidgetZIndex({ commit }, newZIndexArr) {
-      commit('UPDATE_WIDGET_POX_Z', newZIndexArr)
+      let newArr = newZIndexArr.map((item, index) => ({
+        ...item,
+        dragPosition: {
+          ...item.dragPosition,
+          z: 1000 + index,
+        },
+      }))
+      console.log('newArr: ', newArr)
+      commit('UPDATE_WIDGET_POX_Z', newArr)
     },
 
     updateWidgetZIndexSingle({ commit }, { uuid, z }) {
@@ -218,9 +226,7 @@ export default {
     validateAllFields({ commit, state }, uuid) {
       return new Promise((resolve, reject) => {
         // const fields = state.widgetList.find(v => v.uuid === uuid).fields
-
         // const arr = []
-
         // for (let key in fields) {
         //   const { validator } = fields[key]
         //   let res = validator.map(fn => fn(fields[key].formModel))
@@ -230,9 +236,7 @@ export default {
         //     errMsg: res.filter(v => v !== 'pass').join(',')
         //   })
         // }
-
         // const isValid = arr.every(v => v.isValid)
-
         // if (isValid) {
         //   resolve()
         // } else {
@@ -240,9 +244,9 @@ export default {
         //   reject(Error)
         // }
       })
-    }
+    },
   },
   modules: {
-    vuexDraggable
-  }
+    // vuexDraggable,
+  },
 }

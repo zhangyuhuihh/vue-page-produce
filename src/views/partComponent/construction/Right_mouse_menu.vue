@@ -2,11 +2,11 @@
   <div
     v-show="isShow"
     :style="{
-    left: left + 'px',
-    top: top + 'px',
-    width: width + 'px',
-    height: height + 'px'
-  }"
+      left: left + 'px',
+      top: top + 'px',
+      width: width + 'px',
+      height: height + 'px',
+    }"
     class="contextmenu"
   >
     <div @click="handleClick" style="width:100%; height: 100%">
@@ -38,32 +38,34 @@
 
 <script>
 import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
+import setUpDownMixin from '../mixins/setUpDownMixin'
 export default {
   name: 'RightMouseMenu',
+  mixins: [setUpDownMixin],
   props: {
     isShow: {
       type: Boolean,
-      default: false
+      default: false,
     },
     uuid: {
       type: String,
-      default: ''
+      default: '',
     },
     left: {
       type: Number,
-      default: 0
+      default: 0,
     },
     top: {
-      type: Number
+      type: Number,
     },
     width: {
       type: Number,
-      default: 170
+      default: 170,
     },
     height: {
       type: Number,
-      default: 170
-    }
+      default: 170,
+    },
   },
 
   watch: {
@@ -73,88 +75,27 @@ export default {
       } else {
         document.body.removeEventListener('mousedown', this.closeMenu2)
       }
-    }
+    },
   },
 
   computed: {
-    ...mapState('partComponent/vuexDraggable', ['draggableList']),
-    ...mapGetters('partComponent', ['activedWidget'])
+    ...mapGetters('partComponent', ['activedWidget']),
   },
 
   methods: {
     ...mapActions('partComponent', [
       'removeWidget',
-      'updateWidgetZIndexSingle'
+      'updateWidgetZIndexSingle',
     ]),
-    ...mapMutations('partComponent/vuexDraggable', ['setDraggableList']),
+
     closeMenu() {
       this.$emit('update:isShow', false)
     },
+
     closeMenu2(e) {
       if (!this.$el.contains(e.target)) {
         this.$emit('update:isShow', false)
       }
-    },
-
-    setTop() {
-      const id = this.uuid
-      let arr = []
-      for (let i = 0; i < this.draggableList.length; i++) {
-        let element = this.draggableList[i]
-        if (element.uuid === id) {
-          arr.unshift({ ...element })
-        } else {
-          arr.push({ ...element })
-        }
-      }
-      this.setDraggableList(arr)
-    },
-
-    setBottom() {
-      const id = this.uuid
-      let arr = []
-      let last
-      for (let i = 0; i < this.draggableList.length; i++) {
-        let element = this.draggableList[i]
-        if (element.uuid === id) {
-          last = { ...element }
-        } else {
-          arr.push({ ...element })
-        }
-      }
-      this.setDraggableList(arr.concat([last]))
-    },
-
-    setUpOneStep() {
-      const id = this.uuid
-      let arr = [...this.draggableList]
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i].uuid === id) {
-          if (i > 0) {
-            let temp = arr[i - 1]
-            arr[i - 1] = arr[i]
-            arr[i] = temp
-            break
-          }
-        }
-      }
-      this.setDraggableList(arr)
-    },
-
-    setDownOneStep() {
-      const id = this.uuid
-      let arr = [...this.draggableList]
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i].uuid === id) {
-          if (i < arr.length - 1) {
-            let temp = arr[i + 1]
-            arr[i + 1] = arr[i]
-            arr[i] = temp
-            break
-          }
-        }
-      }
-      this.setDraggableList(arr)
     },
 
     handleRemove() {
@@ -163,8 +104,8 @@ export default {
 
     handleClick() {
       this.$emit('update:isShow', false)
-    }
-  }
+    },
+  },
 }
 </script>
 
