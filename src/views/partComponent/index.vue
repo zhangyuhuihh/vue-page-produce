@@ -10,9 +10,27 @@
       <div class="middle_container">
         <middle-part></middle-part>
       </div>
-      <!-- id为了让点击编辑区域其他点不失焦 -->
-      <div class="right_container" id="right_container">
+      <div
+        class="right_container"
+        :style="{
+          transition: 'all .3s ease',
+          right: `${right}px`,
+        }"
+      >
         <right-part></right-part>
+      </div>
+      <div
+        @click="handleShowRightPart"
+        class="right_show_btn"
+        :style="{
+          transition: 'all .3s ease',
+          position: 'absolute',
+          right: `${right + 303}px`,
+          top: 'calc((100% - 70px) / 2)',
+          zIndex: 9999,
+        }"
+      >
+        <i :class="iconClass" style="color: #409EFF"></i>
       </div>
     </div>
   </div>
@@ -29,8 +47,23 @@ export default {
     topPart,
     leftPart,
     middlePart,
-    rightPart
-  }
+    rightPart,
+  },
+  data() {
+    return {
+      right: -290,
+    }
+  },
+  computed: {
+    iconClass() {
+      return this.right === 0 ? 'el-icon-d-arrow-right' : 'el-icon-d-arrow-left'
+    },
+  },
+  methods: {
+    handleShowRightPart() {
+      this.right = this.right === 0 ? -290 : 0
+    },
+  },
 }
 </script>
 
@@ -39,26 +72,41 @@ export default {
   .top_container {
     width: 100%;
     height: 40px;
-    background-color: #181C22;
-    border-bottom: 2px solid #000
+    background-color: #181c22;
+    border-bottom: 2px solid #000;
   }
   .main_container {
     display: flex;
     width: 100%;
     height: calc(100vh - 40px);
     overflow: hidden;
-
+    position: relative;
     .left_container {
       overflow: hidden;
       width: 300px;
-      background-color: #181C22;
+      background-color: #181c22;
     }
     .middle_container {
       flex: 1;
       position: relative;
     }
     .right_container {
+      position: absolute;
+      bottom: 40px;
+      top: 20px;
+      background-color: #181c22;
       width: 300px;
+    }
+    .right_show_btn {
+      cursor: pointer;
+      width: 20px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      background-color: #181c22;
     }
   }
 }

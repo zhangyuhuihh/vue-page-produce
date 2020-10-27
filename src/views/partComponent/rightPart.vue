@@ -1,5 +1,6 @@
 <template>
-  <div class="right_container">
+  <!-- id为了让点击编辑区域其他点不失焦 -->
+  <div class="right_inner_container" id="right_container">
     <div v-show="!isShowActiveWidgetPro">
       <page-set></page-set>
     </div>
@@ -17,7 +18,7 @@
               </el-collapse-item>
               <template v-for="(ele, name) in activedWidgetsGroups">
                 <el-collapse-item :key="name" :name="name">
-                  <span slot="title">{{name}}</span>
+                  <span slot="title">{{ name }}</span>
                   <template v-for="item in ele">
                     <!-- 这里的key绑定的是'color,fontSize',所以这里有可能组件是不会重新渲染的，所以key要改成activedWidget，保证每次的全部更新，避免bug -->
                     <component
@@ -78,11 +79,11 @@ export default {
     FieldRadio,
     FieldSwitch,
     FieldSlider,
-    FieldTextArea
+    FieldTextArea,
   },
   data() {
     return {
-      actTab: 'first'
+      actTab: 'first',
     }
   },
   computed: {
@@ -95,29 +96,29 @@ export default {
       for (let key in this.activedWidget.styleFields) {
         obj[key] = {
           ...this.activedWidget.styleFields[key],
-          onlyKey: key
+          onlyKey: key,
         }
       }
       // 附加唯一标识
-      return _.groupBy(obj, v => {
+      return _.groupBy(obj, (v) => {
         return v.belongsTab
       })
-    }
+    },
   },
   methods: {
     ...mapActions('partComponent', ['validateAllFields']),
     handleTabClick() {},
     handleClick() {
-      this.validateAllFields(this.activedWidget.uuid).then(res => {
+      this.validateAllFields(this.activedWidget.uuid).then((res) => {
         console.log('hahaha')
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.right_container {
+.right_inner_container {
   // padding: 10px;
   height: 100%;
   width: 100%;
