@@ -24,10 +24,8 @@
         class="right_show_btn"
         :style="{
           transition: 'all .3s ease',
-          position: 'absolute',
           right: `${right + 303}px`,
           top: 'calc((100% - 70px) / 2)',
-          zIndex: 9999,
         }"
       >
         <i :class="iconClass" style="color: #409EFF"></i>
@@ -99,6 +97,8 @@ export default {
     }
     .right_show_btn {
       cursor: pointer;
+      position: absolute;
+      z-index: 2000;
       width: 20px;
       height: 70px;
       display: flex;
