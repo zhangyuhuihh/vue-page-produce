@@ -29,21 +29,21 @@ export default {
       TICKS_LINEWIDTH: 0.5,
       TICKS_COLOR: '#85888b',
       AXIS_LINEWIDTH: 1.0,
-      AXIS_COLOR: '#0E0F14'
+      AXIS_COLOR: '#0E0F14',
     }
   },
   computed: {
     ...mapState('partComponent', ['magnification', 'bigScreenRatio']),
     rulermagnification() {
       return this.magnification / 100
-    }
+    },
   },
   watch: {
     // 标尺的形状其实一直不变，变的只是刻度而已
     rulermagnification(newValue) {
       this.context.clearRect(0, 0, 20, this.canvasHeight)
       this.drawAxes()
-    }
+    },
   },
   created() {
     this.canvasHeight = window.screen.availHeight
@@ -55,7 +55,7 @@ export default {
     this.AXIS_MARGIN = 0
     this.AXIS_ORIGIN = {
       x: this.AXIS_MARGIN,
-      y: canvas.height - this.AXIS_MARGIN
+      y: canvas.height - this.AXIS_MARGIN,
     }
 
     this.AXIS_TOP = this.AXIS_MARGIN
@@ -86,7 +86,7 @@ export default {
         AXIS_COLOR,
         AXIS_LINEWIDTH,
         TICKS_LINEWIDTH,
-        TICKS_COLOR
+        TICKS_COLOR,
       } = this
       context.save()
       context.strokeStyle = AXIS_COLOR
@@ -122,33 +122,29 @@ export default {
         NUM_VERTICAL_TICKS,
         // HORIZONTAL_TICK_SPACING,
         VERTICAL_TICK_SPACING,
-        TICKS_COLOR
+        TICKS_COLOR,
       } = this
       const degree = this.calcDegree(this.rulermagnification)
       for (var i = 0; i < NUM_VERTICAL_TICKS; ++i) {
         context.beginPath()
         context.fillStyle = TICKS_COLOR
         if (i % 5 === 0) {
-          context.moveTo(13, 0 + VERTICAL_TICK_SPACING * i)
+          context.moveTo(20, 0 + VERTICAL_TICK_SPACING * i)
           context.lineTo(7, 0 + VERTICAL_TICK_SPACING * i)
           context.stroke()
 
-          context.save()// 记录状态
+          context.save() // 记录状态
 
           context.textAlign = 'center'
           context.translate(10, 0 + VERTICAL_TICK_SPACING * i)
           context.rotate(-Math.PI / 2)
-          context.fillText(
-            parseInt(i * degree),
-            14,
-            0
-          )
+          context.fillText(parseInt(i * degree), 14, 0)
 
           context.restore() // 旋转之后释放状态
+        } else {
+          context.moveTo(20, i * VERTICAL_TICK_SPACING)
+          context.lineTo(13, i * VERTICAL_TICK_SPACING)
         }
-        context.moveTo(20, i * VERTICAL_TICK_SPACING)
-        context.lineTo(13, i * VERTICAL_TICK_SPACING)
-
         context.stroke()
       }
     },
@@ -188,8 +184,8 @@ export default {
 
     calcDegree(v) {
       return 10 / this.rulermagnification
-    }
-  }
+    },
+  },
 }
 </script>
 
