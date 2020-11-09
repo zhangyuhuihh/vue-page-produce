@@ -2,74 +2,74 @@ const jsonTemplate = {
   ForTestComponentThree: {
     name: '张宇辉',
     age: '18',
-    brothers: ['a', 'b', 'c']
+    brothers: ['a', 'b', 'c'],
   },
   ForLineChartChildOne: [
     {
       xAxis: 'Mon',
-      yAxis: 820
+      yAxis: 820,
     },
     {
       xAxis: 'Tue',
-      yAxis: 932
+      yAxis: 932,
     },
     {
       xAxis: 'Wed',
-      yAxis: 901
+      yAxis: 901,
     },
     {
       xAxis: 'Thu',
-      yAxis: 934
+      yAxis: 934,
     },
     {
       xAxis: 'Fri',
-      yAxis: 1290
+      yAxis: 1290,
     },
     {
       xAxis: 'Sat',
-      yAxis: 1330
+      yAxis: 1330,
     },
     {
       xAxis: 'Sun',
-      yAxis: 1320
-    }
+      yAxis: 1320,
+    },
   ],
   ForPieChartChildOne: [
-    { value: 335, name: '直接访问' },
-    { value: 310, name: '邮件营销' },
-    { value: 274, name: '联盟广告' },
-    { value: 235, name: '视频广告' },
-    { value: 400, name: '搜索引擎' }
+    { value: '335', name: '直接访问' },
+    { value: '310', name: '邮件营销' },
+    { value: '274', name: '联盟广告' },
+    { value: '235', name: '视频广告' },
+    { value: '400', name: '搜索引擎' },
   ],
   ForBarChartChildOne: [
     {
       xAxis: 'Mon',
-      yAxis: 120
+      yAxis: 120,
     },
     {
       xAxis: 'Tue',
-      yAxis: 200
+      yAxis: 200,
     },
     {
       xAxis: 'Wed',
-      yAxis: 150
+      yAxis: 150,
     },
     {
       xAxis: 'Thu',
-      yAxis: 80
+      yAxis: 80,
     },
     {
       xAxis: 'Fri',
-      yAxis: 70
+      yAxis: 70,
     },
     {
       xAxis: 'Sat',
-      yAxis: 110
+      yAxis: 110,
     },
     {
       xAxis: 'Sun',
-      yAxis: 130
-    }
+      yAxis: 130,
+    },
   ],
   ForScrollBoard: {
     header: ['列1', '列2', '列3'],
@@ -78,8 +78,11 @@ const jsonTemplate = {
       ['行2列1', '行2列2', '行2列3'],
       ['行3列1', '行3列2', '行3列3'],
       ['行4列1', '行4列2', '行4列3'],
-      ['行5列1', '行5列2', '行5列3']
-    ]
+      ['行5列1', '行5列2', '行5列3'],
+      ['行6列1', '行6列2', '行6列3'],
+      ['行7列1', '行7列2', '行7列3'],
+      ['行8列1', '行8列2', '行8列3'],
+    ],
   },
   ForScrollBoard2: {
     header: ['列1', '列2', '列3'],
@@ -93,9 +96,9 @@ const jsonTemplate = {
       ['行7列1', '行7列2', '<span style="color:#fb7293;">行7列3</span>'],
       ['行8列1', '<span style="color:#e062ae;">行8列2</span>', '行8列3'],
       ['<span style="color:#e690d1;">行9列1</span>', '行9列2', '行9列3'],
-      ['行10列1', '<span style="color:#e7bcf3;">行10列2</span>', '行10列3']
-    ]
-  }
+      ['行10列1', '<span style="color:#e7bcf3;">行10列2</span>', '行10列3'],
+    ],
+  },
 }
 
 export default jsonTemplate

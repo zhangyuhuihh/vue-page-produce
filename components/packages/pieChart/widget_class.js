@@ -1,14 +1,15 @@
 import { PieChart } from '../../widget'
-import widgetFields from '../../widget_fields'
+import widgetFields from '../../widget_fields' // 单一的form
 // import validators from '../../validators'
 import jsonTemplate from '../../json_template'
+import widgeCustomizedFields from '../../widget_customized_fields'
 import { tabsTypes } from '../../configs/tabsTypes'
 
 class PieChartChildOne extends PieChart {
   static componentDescription = {
     name: '饼图一',
     parent: 'PieChart',
-    img: 'PieChartChildOne_icon.png'
+    img: 'PieChartChildOne_icon.png',
   }
   constructor(constructorData) {
     super(constructorData)
@@ -18,15 +19,15 @@ class PieChartChildOne extends PieChart {
       seriesItemStyle: widgetFields.FieldColorPicker({
         label: '扇面主色',
         formModel: '#c23531',
-        belongsTab: tabsTypes.overall
+        belongsTab: tabsTypes.overall,
       }),
       seriesRadius: widgetFields.FieldSlider({
         label: '扇形面大小',
         formModel: 55,
         min: 30,
         max: 100,
-        belongsTab: tabsTypes.overall
-      })
+        belongsTab: tabsTypes.overall,
+      }),
       // lineWidth: widgetFields.FieldSlider({
       //   label: '折线宽度',
       //   formModel: 2,
@@ -50,49 +51,9 @@ class PieChartChildOne extends PieChart {
     })
 
     this.setFields({
-      isFakeData: widgetFields.FieldRadio({
-        label: '数据源',
-        formModel: '0',
-        radios: [
-          {
-            label: '模拟数据',
-            value: '0'
-          },
-          {
-            label: '接口数据',
-            value: '1'
-          }
-        ],
-        // emitEvents: ['changeDataType']
-        emitEvents: [
-          {
-            type: 'change',
-            initValue: '0',
-            eventName: 'changeDataType'
-          }
-        ]
+      dataSource: widgeCustomizedFields.dataSource({
+        fakeData: JSON.stringify(jsonTemplate.ForPieChartChildOne),
       }),
-      fakeData: widgetFields.FieldTextArea({
-        formModel: JSON.stringify(jsonTemplate.ForPieChartChildOne),
-        formateFn: 'textareaFormate',
-        onEvents: [
-          {
-            type: 'isShow',
-            eventValue: '0',
-            eventName: 'changeDataType'
-          }
-        ]
-      }),
-      realData: widgetFields.FieldInput({
-        label: '链接',
-        onEvents: [
-          {
-            type: 'isShow',
-            eventValue: '1',
-            eventName: 'changeDataType'
-          }
-        ]
-      })
     })
   }
 }

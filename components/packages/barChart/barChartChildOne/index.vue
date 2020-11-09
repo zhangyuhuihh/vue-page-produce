@@ -11,8 +11,8 @@ export default {
   mixins: [componentsMixins],
   props: {
     dragSize: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
@@ -22,20 +22,20 @@ export default {
         xAxis: {
           type: 'category',
           data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          axisLabel: {}
+          axisLabel: {},
         },
         yAxis: {
           type: 'value',
-          axisLabel: {}
+          axisLabel: {},
         },
         series: [
           {
             data: [120, 200, 150, 80, 70, 110, 130],
             type: 'bar',
-            itemStyle: {}
-          }
-        ]
-      }
+            itemStyle: {},
+          },
+        ],
+      },
     }
   },
   watch: {
@@ -46,7 +46,7 @@ export default {
           this.myChart.resize()
         })
       },
-      deep: true
+      deep: true,
     },
     styleFields: {
       handler(newValue, oldValue) {
@@ -60,18 +60,8 @@ export default {
         this.refreshChart()
       },
       immediate: true,
-      deep: true
+      deep: true,
     },
-    fields: {
-      handler(newValue, oldValue) {
-        let fakeData = JSON.parse(newValue.fakeData.formModel)
-        this.option.xAxis.data = fakeData.map(v => v.xAxis)
-        this.option.series[0].data = fakeData.map(v => v.yAxis)
-        this.refreshChart()
-      },
-      immediate: true,
-      deep: true
-    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -79,6 +69,15 @@ export default {
     })
   },
   methods: {
+    reactToFieldsChange(newData) {
+      if (newData) {
+        let valueToShow = JSON.parse(newData)
+        this.option.xAxis.data = valueToShow.map((v) => v.xAxis)
+        this.option.series[0].data = valueToShow.map((v) => v.yAxis)
+        this.refreshChart()
+      }
+    },
+
     // 创建实例并生成表格
     setEchart() {
       this.myChart = echarts.init(this.$refs.mychart, 'dark') // 创建实例
@@ -89,13 +88,13 @@ export default {
       if (this.myChart) {
         this.myChart.setOption(this.option)
       }
-    }
+    },
   },
-  destroyed() {}
+  destroyed() {},
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .line_chart_child_one_container {
   width: 100%;
   height: 100%;

@@ -11,8 +11,8 @@ export default {
   mixins: [componentsMixins],
   props: {
     dragSize: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
@@ -39,8 +39,8 @@ export default {
           min: 80,
           max: 600,
           inRange: {
-            colorLightness: [0, 1]
-          }
+            colorLightness: [0, 1],
+          },
         },
         series: [
           {
@@ -53,36 +53,36 @@ export default {
               { value: 310, name: '邮件营销' },
               { value: 274, name: '联盟广告' },
               { value: 235, name: '视频广告' },
-              { value: 400, name: '搜索引擎' }
+              { value: 400, name: '搜索引擎' },
             ].sort(function(a, b) {
               return a.value - b.value
             }),
             roseType: 'radius',
             label: {
-              color: 'rgba(255, 255, 255, 0.3)'
+              color: 'rgba(255, 255, 255, 0.3)',
             },
             labelLine: {
               lineStyle: {
-                color: 'rgba(255, 255, 255, 0.3)'
+                color: 'rgba(255, 255, 255, 0.3)',
               },
               smooth: 0.2,
               length: 10,
-              length2: 20
+              length2: 20,
             },
             itemStyle: {
               color: '#c23531',
               shadowBlur: 200,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
             },
 
             animationType: 'scale',
             animationEasing: 'elasticOut',
             animationDelay: function(idx) {
               return Math.random() * 200
-            }
-          }
-        ]
-      }
+            },
+          },
+        ],
+      },
     }
   },
   computed: {},
@@ -90,11 +90,12 @@ export default {
     dragSize: {
       // todo 防抖和节流
       handler() {
+        console.log('123123')
         this.$nextTick(() => {
           this.myChart.resize()
         })
       },
-      deep: true
+      deep: true,
     },
     styleFields: {
       handler(newValue, oldValue) {
@@ -104,17 +105,8 @@ export default {
         this.refreshChart()
       },
       immediate: true,
-      deep: true
+      deep: true,
     },
-    fields: {
-      handler(newValue, oldValue) {
-        let fakeData = JSON.parse(newValue.fakeData.formModel)
-        this.option.series[0].data = fakeData.sort((a, b) => a.value - b.value)
-        this.refreshChart()
-      },
-      immediate: true,
-      deep: true
-    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -122,6 +114,15 @@ export default {
     })
   },
   methods: {
+    reactToFieldsChange(newData) {
+      if (newData) {
+        let valueToShow = JSON.parse(newData)
+        this.option.series[0].data = valueToShow.sort(
+          (a, b) => a.value - b.value
+        )
+        this.refreshChart()
+      }
+    },
     // 创建实例并生成表格
     setEchart() {
       this.myChart = echarts.init(this.$refs.mychart, 'dark') // 创建实例
@@ -132,12 +133,12 @@ export default {
       if (this.myChart) {
         this.myChart.setOption(this.option)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .pie_chart_child_one_container {
   width: 100%;
   height: 100%;

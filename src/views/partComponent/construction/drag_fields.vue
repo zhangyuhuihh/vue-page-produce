@@ -1,52 +1,54 @@
 <template>
   <div class="drag_field_container">
-    <div class="drag_field_block">
-      <span>宽：</span>
-      <el-input-number
-        :value="width"
-        @input="handleWidthInput"
-        @change="handleChange"
-        controls-position="right"
-        size="small"
-        :min="20"
-        :max="maxWidth"
-      ></el-input-number>
+    <div class="drag_field_size">
+      <div class="field_size_txt">尺寸</div>
+      <div class="field_size_wrapper">
+        <span class="field_size_wrapper_label_w">宽</span>
+        <el-input-number
+          :value="width"
+          @input="handleWidthInput"
+          @change="handleChange"
+          controls-position="right"
+          size="small"
+          :min="20"
+          :max="maxWidth"
+        ></el-input-number>
+        <span class="field_size_wrapper_label_h">高</span>
+        <el-input-number
+          :value="height"
+          @input="handleHeightInput"
+          @change="handleChange"
+          controls-position="right"
+          size="small"
+          :min="20"
+          :max="maxHeight"
+        ></el-input-number>
+      </div>
     </div>
-    <div class="drag_field_block">
-      <span>高：</span>
-      <el-input-number
-        :value="height"
-        @input="handleHeightInput"
-        @change="handleChange"
-        controls-position="right"
-        size="small"
-        :min="20"
-        :max="maxHeight"
-      ></el-input-number>
-    </div>
-    <div class="drag_field_block">
-      <span>X ：</span>
-      <el-input-number
-        :value="x"
-        @input="handleXInput"
-        @change="handleChange"
-        controls-position="right"
-        size="small"
-        :min="0"
-        :max="maxX"
-      ></el-input-number>
-    </div>
-    <div class="drag_field_block">
-      <span>Y ：</span>
-      <el-input-number
-        :value="y"
-        @input="handleYInput"
-        @change="handleChange"
-        controls-position="right"
-        size="small"
-        :min="0"
-        :max="maxY"
-      ></el-input-number>
+    <div class="drag_field_size">
+      <div class="field_size_txt">位置</div>
+      <div class="field_size_wrapper ">
+        <span class="field_size_wrapper_label_w">X</span>
+        <el-input-number
+          :value="x"
+          @input="handleXInput"
+          @change="handleChange"
+          controls-position="right"
+          size="small"
+          :min="0"
+          :max="maxX"
+        ></el-input-number>
+        <span class="field_size_wrapper_label_h">Y</span>
+        <el-input-number
+          :value="y"
+          @input="handleYInput"
+          @change="handleChange"
+          controls-position="right"
+          size="small"
+          :min="0"
+          :max="maxY"
+        ></el-input-number>
+      </div>
     </div>
   </div>
 </template>
@@ -152,8 +154,61 @@ export default {
 
 <style lang="scss" scoped>
 .drag_field_container {
-  .drag_field_block {
+  .field_size_wrapper {
+    position: relative;
     margin-top: 10px;
+    /deep/ .el-input .el-input--small {
+      width: 115px;
+    }
+    /deep/ .el-input-number--small {
+      position: relative;
+      margin-right: 8px;
+    }
+    /deep/ .el-input--small .el-input__inner {
+      border-radius: 0;
+      color: #fff;
+      background: rgba(14, 15, 20, 1);
+      border: none;
+      height: 24px;
+      line-height: 24px;
+      text-align: left;
+    }
+    /deep/ .el-input-number__decrease {
+      color: #fff;
+      bottom: 3.5px;
+      opacity: 0.5;
+      width: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 11px;
+      background: rgba(14, 15, 20, 1);
+      border: 1px solid rgba(40, 48, 59, 1);
+    }
+    /deep/ .el-input-number__increase {
+      color: #fff;
+      opacity: 0.5;
+      top: 3.5px;
+      width: 16px;
+      height: 11px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(14, 15, 20, 1);
+      border: 1px solid rgba(40, 48, 59, 1);
+    }
+    .field_size_wrapper_label_w {
+      position: absolute;
+      left: 85px;
+      top: 4px;
+      z-index: 999;
+    }
+    .field_size_wrapper_label_h {
+      position: absolute;
+      left: 224px;
+      top: 4px;
+      z-index: 999;
+    }
   }
 }
 </style>

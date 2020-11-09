@@ -1,28 +1,78 @@
 <template>
   <div v-if="isShow">
+    <!-- 上1横线 -->
     <div
       :style="{
-          ...commonHorStyle,
-          transform: `translateY(${topOne}px)`
-        }"
+        ...commonHorStyle,
+        transform: `translateY(${topOne}px)`,
+      }"
     ></div>
-    <div
-      :style="[
-         commonHorStyle,
-          {transform: `translateY(${topTwo}px)`}
-        ]"
-    ></div>
+    <!-- 上2横线 -->
     <div
       :style="{
-          ...commonVerStyle,
-          transform: `translateX(${leftOne}px)`
-        }"
+        ...commonHorStyle,
+        transform: `translateY(${topTwo}px)`,
+      }"
     ></div>
+    <!-- 左1竖线 -->
     <div
       :style="{
-          ...commonVerStyle,
-          transform: `translateX(${leftTwo}px)`
+        ...commonVerStyle,
+        transform: `translateX(${leftOne}px)`,
+      }"
+    >
+      <!-- 坐标点标记区域 -->
+      <div
+        :style="{
+          position: 'absolute',
+          color: '#2483FF',
+          fontSize: '12px',
+          whiteSpace: 'nowrap',
+          right: '10px',
+          transform: `translateY(${topOne - 20}px)`,
         }"
+      >
+        {{
+          `(x:${activedWidget.dragPosition.x}, y:${
+            activedWidget.dragPosition.y
+          })`
+        }}
+      </div>
+      <!-- 宽标记区域 -->
+      <div
+        :style="{
+          position: 'absolute',
+          color: '#2483FF',
+          fontSize: '12px',
+          textAlign: 'center',
+          width: `${leftTwo - leftOne}px`,
+          transform: `translateY(${topOne - 20}px)`,
+        }"
+      >
+        {{ `w:${activedWidget.dragSize.width}` }}
+      </div>
+      <!-- 高标记区域 -->
+      <div
+        :style="{
+          position: 'absolute',
+          color: '#2483FF',
+          fontSize: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          right: '10px',
+          height: `${topTwo - topOne}px`,
+          transform: `translateY(${topOne}px)`,
+        }"
+      >
+        {{ `h:${activedWidget.dragSize.height}` }}
+      </div>
+    </div>
+    <!-- 左2竖线 -->
+    <div
+      :style="{
+        ...commonVerStyle,
+        transform: `translateX(${leftTwo}px)`,
+      }"
     ></div>
   </div>
 </template>
@@ -42,16 +92,16 @@ export default {
       commonHorStyle: {
         width: '100vw',
         height: '0px',
-        borderTop: '1px dashed #2483FF',
-        position: 'absolute'
+        borderTop: '1.5px dashed #2483FF',
+        position: 'absolute',
       },
 
       commonVerStyle: {
         width: '0px',
         height: '100vh',
-        borderLeft: '1px dashed #2483FF',
-        position: 'absolute'
-      }
+        borderLeft: '1.5px dashed #2483FF',
+        position: 'absolute',
+      },
     }
   },
   computed: {
@@ -59,7 +109,7 @@ export default {
     ...mapGetters('partComponent', ['activedWidget']),
     isShow() {
       return this.activedWidgetUUID
-    }
+    },
   },
   watch: {
     activedWidgetUUID(newValue) {
@@ -86,8 +136,8 @@ export default {
           this.refreshLine()
         })
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   mounted() {
     window.onresize = () => {
@@ -107,11 +157,11 @@ export default {
         this.leftOne = parseInt(left - 300)
         this.leftTwo = parseInt(right - 300)
       }
-    }
+    },
   },
 
   beforeDestroy() {
     this.$PlantformEventBus.$off('doRefreshLine')
-  }
+  },
 }
 </script>

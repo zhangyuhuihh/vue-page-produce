@@ -3,7 +3,11 @@
     <div
       class="header"
       v-if="header.length && mergedConfig"
-      :style="`background-color: ${mergedConfig.headerBGC};`"
+      :style="
+        `
+          background-color: ${mergedConfig.headerBGC};
+        `
+      "
     >
       <div
         class="header-item"
@@ -16,6 +20,8 @@
           width: ${widths[i]}px;
           color: ${mergedConfig.headerColor};
           font-size: ${mergedConfig.headerFontSize}px;
+          text-align: ${mergedConfig.headerTextAlign};
+          font-family: ${mergedConfig.headerFontFamily};
         `
         "
         :align="aligns[i]"
@@ -39,7 +45,7 @@
           height: ${heights[ri]}px;
           line-height: ${heights[ri]}px;
           background-color: ${
-            mergedConfig[row.rowIndex % 2 === 0 ? 'evenRowBGC' : 'oddRowBGC']
+            mergedConfig[row.rowIndex % 2 === 0 ? 'oddRowBGC' : 'evenRowBGC']
           };
         `
         "
@@ -49,7 +55,12 @@
           v-for="(ceil, ci) in row.ceils"
           :key="ceil + ri + ci"
           :style="
-            `width: ${widths[ci]}px; color: ${mergedConfig.bodyColor}; font-size: ${mergedConfig.bodyFontSize}px;`
+            `
+            width: ${widths[ci]}px;
+            color: ${mergedConfig.bodyColor};
+            font-size: ${mergedConfig.bodyFontSize}px;
+            font-family: ${mergedConfig.bodyFontFamily};
+          `
           "
           :align="aligns[ci]"
           v-html="ceil"
@@ -63,6 +74,7 @@
 <script>
 import autoResize from '../../../mixins/autoSize'
 import _ from 'lodash'
+import defaultConfig from './default'
 
 export default {
   name: 'DvScrollBoard',
@@ -76,135 +88,24 @@ export default {
   data() {
     return {
       ref: 'scroll-board',
-
-      defaultConfig: {
-        /**
-         * @description Board header
-         * @type {Array<String>}
-         * @default header = []
-         * @example header = ['column1', 'column2', 'column3']
-         */
-        header: [],
-        /**
-         * @description Board data
-         * @type {Array<Array>}
-         * @default data = []
-         */
-        data: [],
-        /**
-         * @description Row num
-         * @type {Number}
-         * @default rowNum = 5
-         */
-        rowNum: 5,
-        /**
-         * @description Header background color
-         * @type {String}
-         * @default headerBGC = '#00BAFF'
-         */
-        headerBGC: '#00BAFF',
-        /**
-         * @description Odd row background color
-         * @type {String}
-         * @default oddRowBGC = '#003B51'
-         */
-        oddRowBGC: '#003B51',
-        /**
-         * @description Even row background color
-         * @type {String}
-         * @default evenRowBGC = '#003B51'
-         */
-        evenRowBGC: '#0A2732',
-        /**
-         * @description Header color
-         * @type {String}
-         * @default headerColor = '#FFF'
-         */
-        headerColor: '#FFF',
-        /**
-         * @description Body color
-         * @type {String}
-         * @default bodyColor = '#FFF'
-         */
-        bodyColor: '#FFF',
-        /**
-         * @description Scroll wait time
-         * @type {Number}
-         * @default waitTime = 2000
-         */
-        waitTime: 2000,
-        /**
-         * @description Header height
-         * @type {Number}
-         * @default headerHeight = 35
-         */
-        headerHeight: 35,
-        /**
-         * @description Column width
-         * @type {Array<Number>}
-         * @default columnWidth = []
-         */
-        columnWidth: [],
-        /**
-         * @description Column align
-         * @type {Array<String>}
-         * @default align = []
-         * @example align = ['left', 'center', 'right']
-         */
-        align: [],
-        /**
-         * @description Header font-size
-         * @type {Number}
-         * @default headerFontSize = 16
-         */
-        headerFontSize: 16,
-        /**
-         * @description Body font-size
-         * @type {Number}
-         * @default bodyFontSize = 14
-         */
-        bodyFontSize: 14,
-        /**
-         * @description Show index
-         * @type {Boolean}
-         * @default index = false
-         */
-        index: false,
-        /**
-         * @description index Header
-         * @type {String}
-         * @default indexHeader = '#'
-         */
-        indexHeader: '#',
-        /**
-         * @description Carousel type
-         * @type {String}
-         * @default carousel = 'single'
-         * @example carousel = 'single' | 'page'
-         */
-        carousel: 'single'
-      },
-
+      // 合并后的 config
       mergedConfig: null,
-
+      // 表头数据
       header: [],
-
       rowsData: [],
-
+      // 表数据
       rows: [],
-
+      // 表列宽度-集合
       widths: [],
-
+      // 表行高度-集合
       heights: [],
-
+      // 行平均高度
       avgHeight: 0,
-
+      // 表对齐方式-集合
       aligns: [],
-
       animationIndex: 0,
-
-      animationHandler: '',
-
+      // 定时器
+      animationHandler: null,
       updater: 0
     }
   },
@@ -235,11 +136,11 @@ export default {
     calcData() {
       const { mergeConfig, calcHeaderData, calcRowsData } = this
 
-      mergeConfig()
+      mergeConfig() // 合并参数
 
-      calcHeaderData()
+      calcHeaderData() // 计算表头
 
-      calcRowsData()
+      calcRowsData() // 计算主体
 
       const { calcWidths, calcHeights, calcAligns } = this
 
@@ -254,7 +155,7 @@ export default {
       animation(true)
     },
     mergeConfig() {
-      let { config, defaultConfig } = this
+      let { config } = this
 
       this.mergedConfig = _.merge(
         _.cloneDeep(defaultConfig, true),
@@ -277,19 +178,47 @@ export default {
       this.header = header
     },
     calcRowsData() {
-      let { data, index, headerBGC, rowNum } = this.mergedConfig
+      let {
+        rowNum, // 表行数
+        columnWidth, // 列宽度
+        data, // 列数据
+        index, // 是否显示行号
+        indexBGC, // 行号背景色
+        indexColWidth, // 行号列宽度
+        indexWidth, // 行号宽度
+        indexHeight, // 行号高度
+        indexPadding, // 行号内边距
+        indexFontSize, // 行号字号
+        indexColor, // 行号字体颜色
+        indexBDRadius // 行号边框圆角半径
+      } = this.mergedConfig
 
       if (index) {
         data = data.map((row, i) => {
           row = [...row]
-
-          const indexTag = `<span class="index" style="background-color: ${headerBGC};">${i +
-            1}</span>`
-
+          const indexTag = `
+            <span class="index"
+              style="
+                display: inline-block;
+                height: ${indexHeight}px;
+                line-height: ${indexHeight}px;
+                width: ${indexWidth}px;
+                text-align: center;
+                background-color: ${indexBGC};
+                padding: ${indexPadding}px;
+                font-size: ${indexFontSize}px;
+                color: ${indexColor};
+                border-radius: ${indexBDRadius}px;
+              "
+            >
+              ${i + 1}
+            </span>
+          `
           row.unshift(indexTag)
-
           return row
         })
+
+        columnWidth.unshift(indexColWidth)
       }
 
       data = data.map((ceils, i) => ({ ceils, rowIndex: i }))
@@ -345,7 +274,9 @@ export default {
 
       const columnNum = header.length
 
-      let aligns = new Array(columnNum).fill('left')
+      let aligns = new Array(columnNum).fill(
+        mergedConfig.columnTextAlign || 'left'
+      )
 
       const { align } = mergedConfig
 
@@ -361,11 +292,19 @@ export default {
         updater
       } = this
 
-      const { waitTime, carousel, rowNum } = mergedConfig
+      const {
+        waitTime,
+        carousel,
+        rowNum,
+        isCarousel,
+        singleCarousel
+      } = mergedConfig
 
       const rowLength = rowsData.length
 
-      if (rowNum >= rowLength) return
+      if (!isCarousel) return
+
+      if (rowNum >= rowLength && singleCarousel) return
 
       if (start) {
         await new Promise(resolve => setTimeout(resolve, waitTime))
@@ -395,16 +334,12 @@ export default {
     },
     stopAnimation() {
       const { animationHandler, updater } = this
-
       this.updater = (updater + 1) % 999999
-
       if (!animationHandler) return
-
       clearTimeout(animationHandler)
     },
     emitEvent(ri, ci, row, ceil) {
       const { ceils, rowIndex } = row
-
       this.$emit('click', {
         row: ceils,
         ceil,
@@ -415,7 +350,6 @@ export default {
   },
   destroyed() {
     const { stopAnimation } = this
-
     stopAnimation()
   }
 }

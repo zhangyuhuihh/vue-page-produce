@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import setUpDownMixin from '../mixins/setUpDownMixin'
 export default {
   name: 'RightMouseMenu',

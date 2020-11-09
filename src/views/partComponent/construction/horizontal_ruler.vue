@@ -29,21 +29,21 @@ export default {
       TICKS_LINEWIDTH: 0.5,
       TICKS_COLOR: '#85888b',
       AXIS_LINEWIDTH: 1.0,
-      AXIS_COLOR: '#0E0F14'
+      AXIS_COLOR: '#0E0F14',
     }
   },
   computed: {
     ...mapState('partComponent', ['magnification', 'bigScreenRatio']),
     rulermagnification() {
       return this.magnification / 100
-    }
+    },
   },
   watch: {
     // 标尺的形状其实一直不变，变的只是刻度而已
     rulermagnification(newValue) {
       this.context.clearRect(0, 0, this.canvasWidth, 20)
       this.drawAxes()
-    }
+    },
   },
   created() {
     this.canvasWidth = window.screen.availWidth
@@ -55,7 +55,7 @@ export default {
     this.AXIS_MARGIN = 0
     this.AXIS_ORIGIN = {
       x: this.AXIS_MARGIN,
-      y: canvas.height - this.AXIS_MARGIN
+      y: canvas.height - this.AXIS_MARGIN,
     }
 
     this.AXIS_TOP = this.AXIS_MARGIN
@@ -86,7 +86,7 @@ export default {
         AXIS_COLOR,
         AXIS_LINEWIDTH,
         TICKS_LINEWIDTH,
-        TICKS_COLOR
+        TICKS_COLOR,
       } = this
       context.save()
       context.strokeStyle = AXIS_COLOR
@@ -152,14 +152,15 @@ export default {
         NUM_HORIZONTAL_TICKS,
         HORIZONTAL_TICK_SPACING,
         // VERTICAL_TICK_SPACING,
-        AXIS_ORIGIN
+        AXIS_ORIGIN,
+        TICKS_COLOR,
       } = this
 
       const degree = this.calcDegree(this.rulermagnification)
       for (let i = 0; i < NUM_HORIZONTAL_TICKS; ++i) {
         context.beginPath()
         if (i % 5 === 0) {
-          context.fillStyle = '#85888b'
+          context.fillStyle = TICKS_COLOR
           context.moveTo(0 + HORIZONTAL_TICK_SPACING * i, 13) // 移动到横坐标(x, 13), 即canvas底部（canvas左上角(0, 0)为坐标原点，canvans的高度为20）
           context.lineTo(0 + HORIZONTAL_TICK_SPACING * i, 4) // 划线到 (x, 2)这个坐标 => 生成18px长的线
           context.textAlign = 'left'
@@ -193,8 +194,8 @@ export default {
       // } else if (v > 0.8 && v <= 1) {
       //   return 2
       // }
-    }
-  }
+    },
+  },
 }
 </script>
 

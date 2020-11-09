@@ -1,15 +1,15 @@
 <template>
-  <!-- id为了让点击编辑区域其他点不失焦 -->
-  <div class="right_inner_container" id="right_container">
+  <div class="right_inner_container">
     <div v-show="!isShowActiveWidgetPro">
       <page-set></page-set>
     </div>
-    <div v-show="isShowActiveWidgetPro">
+    <div v-show="isShowActiveWidgetPro" style="height:100%">
       <el-tabs v-model="actTab" type="card" @tab-click="handleTabClick">
         <el-tab-pane label="样式" name="first">
           <div class="field_collapse_container">
-            <el-collapse>
-              <el-collapse-item>
+            <!-- activeNames 默认展开右侧所有面板 -->
+            <el-collapse :value="activeNames">
+              <el-collapse-item :name="'基础样式'" style="color:inherit">
                 <span slot="title">基础样式</span>
                 <div style="margin-bottom: 10px">
                   <!-- 宽高位置表单区域 -->
@@ -60,13 +60,16 @@
 import { mapGetters, mapActions } from 'vuex'
 import DragFields from './construction/drag_fields'
 import PageSet from './construction/page_set'
-import FieldInput from './formFields/_field_input'
-import FieldColorPicker from './formFields/_field_color_picker'
-import FieldSelect from './formFields/_field_select'
-import FieldRadio from './formFields/_field_radio'
-import FieldSwitch from './formFields/_field_switch'
-import FieldSlider from './formFields/_field_slider'
-import FieldTextArea from './formFields/_field_textarea'
+import FieldInput from './formFields/singles/_field_input'
+import FieldColorPicker from './formFields/singles/_field_color_picker'
+import FieldSelect from './formFields/singles/_field_select'
+import FieldRadio from './formFields/singles/_field_radio'
+import FieldSwitch from './formFields/singles/_field_switch'
+import FieldSlider from './formFields/singles/_field_slider'
+import FieldTextArea from './formFields/singles/_field_textarea'
+import FieldInputNumber from './formFields/singles/_field_input_number'
+import RadioInput from './formFields/combines/_field_combine_radioinput'
+import DataSource from './formFields/customized/data_source_field'
 import _ from 'lodash'
 
 export default {
@@ -79,7 +82,10 @@ export default {
     FieldRadio,
     FieldSwitch,
     FieldSlider,
+    FieldInputNumber,
     FieldTextArea,
+    RadioInput,
+    DataSource,
   },
   data() {
     return {
@@ -103,6 +109,11 @@ export default {
       return _.groupBy(obj, (v) => {
         return v.belongsTab
       })
+    },
+    activeNames() {
+      const keyArr = Object.keys(this.activedWidgetsGroups)
+      keyArr.push('基础样式')
+      return keyArr
     },
   },
   methods: {

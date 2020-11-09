@@ -1,13 +1,14 @@
 import { Title } from '../../widget'
 import widgetFields from '../../widget_fields' // 单一的form
 import validators from '../../validators'
-import { tabsTypes } from '../../configs/tabsTypes'
+// import jsonTemplate from '../../json_template'
+import tabsTypes from './tabsTypes'
 
 class TitleChildOne extends Title {
   static componentDescription = {
     name: '子标题1',
     parent: 'Title',
-    img: 'TitleChildOne_icon.png'
+    img: 'TitleChildOne_icon.png',
   }
   constructor(constructorData) {
     super(constructorData)
@@ -17,37 +18,116 @@ class TitleChildOne extends Title {
       titleText: widgetFields.FieldInput({
         label: '标题',
         formModel: '子标题一',
-        validator: [validators.requireInput('请输入标题文字')]
-      })
+        validator: [validators.requireInput('请输入标题文字')],
+      }),
     })
 
     this.setStyleFields({
+      font: widgetFields.FieldSelect({
+        label: '字体',
+        formModel: 'SimSun',
+        belongsTab: tabsTypes.text,
+        options: [
+          {
+            label: '宋体',
+            value: 'SimSun',
+          },
+          {
+            label: '黑体',
+            value: 'SimHei',
+          },
+          {
+            label: '微软雅黑',
+            value: 'Microsoft YaHei',
+          },
+          {
+            label: '微软正黑体',
+            value: 'Microsoft JhengHei',
+          },
+          {
+            label: '新宋体',
+            value: 'NSimSun',
+          },
+          {
+            label: '仿宋',
+            value: 'FangSong',
+          },
+          {
+            label: '楷体',
+            value: 'KaiTi',
+          },
+        ],
+      }),
       color: widgetFields.FieldColorPicker({
         label: '字体颜色',
-        formModel: '#000',
-        belongsTab: tabsTypes.overall
+        formModel: '#fff',
+        belongsTab: tabsTypes.text,
       }),
-      fontSize: widgetFields.FieldSlider({
+      fontSize: widgetFields.FieldInputNumber({
         label: '字体大小',
         formModel: 20,
-        min: 12,
+        extraLabel: 'px',
+        min: 10,
         max: 45,
-        belongsTab: tabsTypes.overall
+        belongsTab: tabsTypes.text,
       }),
       fontWeight: widgetFields.FieldSelect({
         label: '字体粗细',
-        belongsTab: tabsTypes.overall,
+        belongsTab: tabsTypes.text,
+        formModel: '400',
         options: [
           {
             label: '细',
-            value: '400'
+            value: '400',
           },
           {
             label: '粗',
-            value: '700'
-          }
-        ]
-      })
+            value: '700',
+          },
+        ],
+      }),
+      align: widgetFields.FieldSelect({
+        label: '对齐方式',
+        belongsTab: tabsTypes.othertxt,
+        formModel: 'center',
+        options: [
+          {
+            label: '左对齐',
+            value: 'flex-start',
+          },
+          {
+            label: '居中对齐',
+            value: 'center',
+          },
+          {
+            label: '右对齐',
+            value: 'flex-end',
+          },
+        ],
+      }),
+      textsort: widgetFields.FieldSelect({
+        label: '文字排序方式',
+        belongsTab: tabsTypes.othertxt,
+        formModel: 'horizontal-tb',
+        options: [
+          {
+            label: '水平',
+            value: 'horizontal-tb',
+          },
+          {
+            label: '垂直',
+            value: 'vertical-rl',
+          },
+        ],
+      }),
+      letterspacing: widgetFields.FieldInputNumber({
+        label: '文字间隔',
+        formModel: 2,
+        extraLabel: 'px',
+        min: 2,
+        max: 10,
+        belongsTab: tabsTypes.othertxt,
+      }),
     })
   }
 }

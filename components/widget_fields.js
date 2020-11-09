@@ -5,8 +5,6 @@ const widgetFields = {
     formModel = '',
     memorable = true,
     belongsTab,
-    emitEvents = [],
-    onEvents = []
   }) {
     return {
       type: 'FieldInput',
@@ -15,9 +13,7 @@ const widgetFields = {
       label,
       errorMsg: '',
       memorable,
-      emitEvents,
-      onEvents,
-      belongsTab
+      belongsTab,
     }
   },
 
@@ -27,9 +23,7 @@ const widgetFields = {
     formModel = '',
     memorable = true,
     belongsTab,
-    emitEvents = [],
-    onEvents = [],
-    formateFn = ''
+    formateFn = '',
   }) {
     return {
       type: 'FieldTextArea',
@@ -39,29 +33,18 @@ const widgetFields = {
       errorMsg: '',
       memorable,
       belongsTab,
-      emitEvents,
-      onEvents,
-      formateFn
+      formateFn,
     }
   },
 
-  FieldSelect({
-    label,
-    options,
-    memorable = true,
-    belongsTab,
-    emitEvents = [],
-    onEvents = []
-  }) {
+  FieldSelect({ label, options, formModel, memorable = true, belongsTab }) {
     return {
       type: 'FieldSelect',
-      formModel: options[0].value,
+      formModel,
       label,
       options,
       memorable,
       belongsTab,
-      emitEvents,
-      onEvents
     }
   },
 
@@ -71,7 +54,7 @@ const widgetFields = {
       label,
       formModel,
       memorable,
-      belongsTab
+      belongsTab,
     }
   },
 
@@ -80,9 +63,7 @@ const widgetFields = {
     validator = [() => 'pass'],
     memorable = true,
     belongsTab,
-    emitEvents = [],
-    onEvents = [],
-    formModel = ''
+    formModel = '',
   }) {
     return {
       type: 'FieldRadio',
@@ -92,8 +73,6 @@ const widgetFields = {
       validator,
       errorMsg: '',
       memorable,
-      emitEvents,
-      onEvents
     }
   },
 
@@ -103,11 +82,18 @@ const widgetFields = {
       label,
       formModel,
       memorable,
-      belongsTab
+      belongsTab,
     }
   },
 
-  FieldSlider({ label, formModel, min, max, memorable = true, belongsTab = '' }) {
+  FieldSlider({
+    label,
+    formModel,
+    min,
+    max,
+    memorable = true,
+    belongsTab = '',
+  }) {
     return {
       type: 'FieldSlider',
       label,
@@ -115,9 +101,33 @@ const widgetFields = {
       min,
       max,
       memorable,
-      belongsTab
+      belongsTab,
     }
-  }
+  },
+
+  FieldInputNumber({
+    label,
+    validator = [() => 'pass'],
+    formModel = '',
+    memorable = true,
+    belongsTab,
+    extraLabel,
+    min,
+    max,
+  }) {
+    return {
+      type: 'FieldInputNumber',
+      formModel,
+      validator,
+      label,
+      errorMsg: '',
+      memorable,
+      belongsTab,
+      extraLabel,
+      min,
+      max,
+    }
+  },
 }
 
 export default widgetFields

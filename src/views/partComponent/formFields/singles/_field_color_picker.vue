@@ -1,6 +1,6 @@
 <template>
   <div class="color_picker_container">
-    <span>{{ labelData }}</span>
+    <span class="label">{{ labelData }}</span>
     <div class="color_cell">
       <el-color-picker
         :value="modelData"
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import fieldMixins from './field_mixins'
+import fieldMixins from '../field_mixins'
 export default {
   mixins: [fieldMixins]
 }
@@ -23,6 +23,9 @@ export default {
   width: 100%;
   height: 60px;
   align-items: center;
+  .label {
+    color: $color-white-9;
+  }
   .color_cell {
     margin-left: 10px;
   }

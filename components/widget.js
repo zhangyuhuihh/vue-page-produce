@@ -61,8 +61,8 @@ class Title extends Widget {
   constructor(constructorData) {
     super(constructorData)
     this.setDragSizeFields({
-      width: 200,
-      height: 50
+      width: 210,
+      height: 120
     })
   }
 }
@@ -76,8 +76,8 @@ class ScrollBoard extends Widget {
   constructor(constructorData) {
     super(constructorData)
     this.setDragSizeFields({
-      width: 250,
-      height: 113
+      width: 500,
+      height: 220
     })
   }
 }

@@ -2,13 +2,16 @@
   <div
     class="title_child_one_container"
     :style="{
-    color: color,
-    fontSize: fontSize,
-    fontWeight: fontWeight,
-    textAlign: 'center'
-  }"
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      fontFamily: font,
+      justifyContent: align,
+      writingMode: textsort,
+      letterSpacing: letterspacing
+    }"
   >
-    <div>{{titleText ? titleText : '标题'}}</div>
+    <div>{{ titleText ? titleText : '标题' }}</div>
   </div>
 </template>
 
@@ -30,6 +33,20 @@ export default {
     },
     titleText() {
       return this.fields.titleText.formModel
+    },
+    font() {
+      return this.styleFields.font.formModel
+    },
+    align() {
+      console.log(this.styleFields.align.formModel)
+      return this.styleFields.align.formModel
+    },
+    textsort() {
+      return this.styleFields.textsort.formModel
+    },
+    letterspacing() {
+      console.log(this.styleFields.letterspacing.formModel)
+      return this.styleFields.letterspacing.formModel + 'px'
     }
   }
 }

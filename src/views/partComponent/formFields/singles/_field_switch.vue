@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import fieldMixins from './field_mixins'
+import fieldMixins from '../field_mixins'
 export default {
   mixins: [fieldMixins],
   computed: {
@@ -26,6 +26,7 @@ export default {
   align-items: center;
   .lable {
     margin-right: 10px;
+    color: $color-white-9;
   }
 }
 </style>

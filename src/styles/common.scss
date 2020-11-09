@@ -1,0 +1,103 @@
+// font-size
+$defaultSize-s: 12px;
+$defaultSize: 14px;
+$defaultSize-l: 16px;
+$defaultSize-xl: 18px;
+$defaultSize-xxl: 20px;
+
+// color
+$color-blue: #2483ff;
+$color-blue-5: rgba(
+  $color: #2483ff,
+  $alpha: 0.5
+);
+$color-blue-6: rgba(
+  $color: #2483ff,
+  $alpha: 0.6
+);
+$color-main-bg: #181c22;
+$color-white: #fff;
+$color-white-9: rgba(
+  $color: #fff,
+  $alpha: 0.9
+);
+$color-white-6: rgba(
+  $color: #fff,
+  $alpha: 0.6
+);
+$color-white-5: rgba(
+  $color: #fff,
+  $alpha: 0.5
+);
+$color-white-2: rgba(
+  $color: #fff,
+  $alpha: 0.2
+);
+$color-black: #000;
+$color-black-6: rgba(
+  $color: #000,
+  $alpha: 0.6
+);
+$color-black-5: rgba(
+  $color: #000,
+  $alpha: 0.5
+);
+$color-line: #3a4659;
+$color-aside: #303640;
+$color-hover: rgb(38, 43, 51);
+$color-err: #f56c6c;
+
+// mixin
+@mixin bg-img($url) {
+  background-image: url($url+'.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  @media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
+    background-image: url($url+'@2x.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+  }
+  // @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  //   background-image: url($url+'@3x.png');
+  //   background-repeat: no-repeat;
+  //   background-size: 100% 100%;
+  //   -moz-background-size: 100% 100%;
+  // }
+}
+
+@mixin ellipsis($rowCount: 1) {
+  @if $rowCount <=1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $rowCount;
+    -webkit-box-orient: vertical;
+  }
+}
+
+@mixin el-input-gray {
+  background-color: $color-line;
+  border-color: $color-line;
+  border-radius: 0;
+  color: $color-white-6;
+}
+
+@mixin el-button-blue {
+  background-color: $color-blue;
+  border-color: $color-blue;
+  border-radius: 0;
+}
+
+@mixin el-button-default {
+  background-color: $color-aside;
+  color: #999;
+  border-color: #999;
+  border-radius: 0;
+}

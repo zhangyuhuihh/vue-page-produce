@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import setUpDownMixin from '../mixins/setUpDownMixin'
 import draggable from 'vuedraggable'
 import _ from 'lodash'

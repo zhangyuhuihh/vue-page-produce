@@ -10,9 +10,11 @@
           >
             <template slot="title">
               <span>
-                <i class="el-icon-basketball"></i>
-                <span style="margin-left: 5px">{{item.componentDescription.name}}</span>
-                <span>({{allCollapseChild[key].length}})</span>
+                <i :class="calcIconCheck(item.componentDescription.name)"></i>
+                <span style="margin-left: 5px">{{
+                  item.componentDescription.name
+                }}</span>
+                <span>({{ allCollapseChild[key].length }})</span>
               </span>
             </template>
             <div class="block_container">
@@ -21,12 +23,18 @@
                   class="cell_container"
                   :id="item2.componentDescription.name"
                   :key="item2.componentDescription.name"
-                  @mousedown.stop.prevent="(e) => elementDown(e, item2)"
+                  @mousedown.stop.prevent="e => elementDown(e, item2)"
                 >
                   <div class="img_container">
-                    <img :src="require(`./images/${item2.componentDescription.img}`)" />
+                    <img
+                      :src="
+                        require(`./images/${item2.componentDescription.img}`)
+                      "
+                    />
                   </div>
-                  <div class="cell_bottom_text">{{item2.componentDescription.name}}</div>
+                  <div class="cell_bottom_text">
+                    {{ item2.componentDescription.name }}
+                  </div>
                 </div>
               </template>
             </div>
@@ -101,10 +109,14 @@ export default {
 
     disTanceMagnificition() {
       return this.magnification / 100
+    },
+    calcIconCheck() {
+      return function(v) {
+        return 'el-icon-basketball'
+      }
     }
   },
   mounted() {
-    // eslint-disable-next-line no-undef
     const { widgetParent, widgetChild } = this.WIDGRTLISTCLASS
     this.allCollapseParent = _.pickBy(widgetParent, (value, key) => {
       return value.componentDescription.parent === 'widget'
@@ -124,7 +136,6 @@ export default {
       pauseEvent(e)
       this.isVisible = true
       this.currentMoveEl = item
-      // todo 将组件库分离之后，这里的图片需要进行修改，进行链接调用
       this.fakeDomImgUrl = item.componentDescription.img
 
       startMousePosX = e.touches ? e.touches[0].pageX : e.pageX
@@ -176,9 +187,9 @@ export default {
       let elPosY = (e.clientY - EditAreaY) / this.disTanceMagnificition
 
       let El = this.currentMoveEl
-
       let oneWidget = new El({
         uuid: ulid(),
+        type: 'add',
         initDragPosition: {
           x: elPosX,
           y: elPosY

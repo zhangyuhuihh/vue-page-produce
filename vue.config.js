@@ -17,7 +17,7 @@ module.exports = {
   lintOnSave: true,
   productionSourceMap: false,
   configureWebpack: {
-    externals: env === 'production' ? { vue: 'Vue' } : {}
+    externals: env === 'production' ? { vue: 'Vue' } : {},
   },
   chainWebpack: (config) => {
     // 修改webpack打包的入口文件。需要在根目录建两个对应入口js文件
@@ -44,11 +44,20 @@ module.exports = {
       config.plugin('copy').tap((options) => {
         Array.prototype.push.apply(options[0][0].ignore, [
           'index-dev.html',
-          'index-prod.html'
+          'index-prod.html',
         ])
         return options
       })
     }
+  },
+  css: {
+    loaderOptions: {
+      // 给 sass-loader 传递选项
+      // vue-cli文档: https://cli.vuejs.org/zh/guide/css.html#css-modules
+      sass: {
+        prependData: `@import "@/styles/common.scss";`,
+      },
+    },
   },
   devServer: {
     port: 8088,
@@ -58,9 +67,9 @@ module.exports = {
         target: 'http://192.168.200.248:50000/api',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
-        }
-      }
-    }
-  }
+          '^/api': '',
+        },
+      },
+    },
+  },
 }

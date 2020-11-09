@@ -1,4 +1,3 @@
-
 export function textareaFormate(json1) {
   var json = json1 + ''
   if (json.indexOf('{') === -1 && json.indexOf('[') === -1) {
@@ -15,7 +14,7 @@ function repeat(s, count) {
 function formatJson(json) {
   let i = 0
   let il = 0
-  let tab = '    '
+  let tab = '  '
   let newJson = ''
   let indentLevel = 0
   let inString = false
