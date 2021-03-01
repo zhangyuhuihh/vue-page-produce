@@ -13,7 +13,7 @@
     "core-js": "^3.3.2",
     "echarts": "^4.6.0",
     "element-ui": "^2.12.0",
-    "prismjs": "^1.22.0",
+    "prismjs": "^1.23.0",
     "ulid": "^2.3.0",
     "vue": "^2.6.10",
     "vue-prism-editor": "^1.2.2",
