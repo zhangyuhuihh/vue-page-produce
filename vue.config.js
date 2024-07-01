@@ -55,7 +55,8 @@ module.exports = {
       // 给 sass-loader 传递选项
       // vue-cli文档: https://cli.vuejs.org/zh/guide/css.html#css-modules
       sass: {
-        prependData: `@import "@/styles/common.scss";`,
+        // prependData: `@import "@/styles/common.scss";`,
+        additionalData: `@import "@/styles/common.scss";`
       },
     },
   },
