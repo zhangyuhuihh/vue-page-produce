@@ -5,7 +5,7 @@
 
 ### The main editor part used the open source component vue-draggable-resize, i have picked up the sound code and modified part of it for own use. The editor platform and the component library have been separated to make this editor to be more extensible
 
-### demo: http://118.25.102.206/vue-page-produce/
+### demo: http://124.222.118.147:8000/vue-page-produce/partComponent
 
 
 ### File structure 
@@ -45,7 +45,7 @@ After packing the component library code, The generated js file should be placed
 ## 仿 dataV 的可视化编辑器的骨架模板
 ### 该项目使用核心编辑区域使用开源框架vue-draggable-resize,抽出其源码，并且进行部分修改。项目将编辑平台和组件库进行分离，得到更强大的扩展性和可维护性.欢迎提出修改意见
 
-### demo 地址：http://118.25.102.206/vue-page-produce/
+### demo 地址：http://124.222.118.147:8000/vue-page-produce/partComponent
 
 
 ### 文件结构：

@@ -16,6 +16,7 @@ module.exports = {
   publicPath: env === 'production' ? '/vue-page-produce' : '/',
   lintOnSave: true,
   productionSourceMap: false,
+  parallel: false,
   configureWebpack: {
     externals: env === 'production' ? { vue: 'Vue' } : {},
   },
